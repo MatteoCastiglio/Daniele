@@ -1,3 +1,3 @@
-# Daniele - Best IA for Tablut
+# Daniele - Best AI for Tablut
 
 
