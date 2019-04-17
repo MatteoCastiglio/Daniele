@@ -3,6 +3,8 @@ package Daniele;
 import java.io.IOException;
 import java.net.UnknownHostException;
 
+import Daniele.minmaxprinter.MinMaxPrinter;
+import Daniele.minmaxprinter.PrintMode;
 import it.unibo.ai.didattica.competition.tablut.client.TablutClient;
 import it.unibo.ai.didattica.competition.tablut.domain.Action;
 import it.unibo.ai.didattica.competition.tablut.domain.State.Pawn;
@@ -59,7 +61,7 @@ public class ClientDaniele extends TablutClient{
 			else if( currentState.getPawn(i, j).equals(Pawn.BLACK))
 				nblacks++;
 			}
-			action = ab.AlphaBetaSearch(depth, new TablutState(this.getCurrentState(),nwhites,nblacks));
+			action = ab.AlphaBetaSearch(depth, new TablutState(this.getCurrentState(),nwhites,nblacks),MinMaxPrinter.getPrinter(PrintMode.Simple));
 			//comunica l'azione al server
 			this.write(action);
 			//legge stato corrente modificato dal server
@@ -81,7 +83,7 @@ public class ClientDaniele extends TablutClient{
 			else if( currentState.getPawn(i, j).equals(Pawn.BLACK))
 				nblacks++;
 			}
-			action = ab.AlphaBetaSearch(depth, new TablutState(this.getCurrentState(),nwhites,nblacks));
+			action = ab.AlphaBetaSearch(depth, new TablutState(this.getCurrentState(),nwhites,nblacks),MinMaxPrinter.getPrinter(PrintMode.Simple));
 			//comunica l'azione al server
 			this.write(action);
 			//legge stato corrente modificato dal server
