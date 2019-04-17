@@ -1,0 +1,56 @@
+apr 17, 2019 8:31:55 PM Daniele.Server run
+BUONO: Accensione server
+apr 17, 2019 8:31:55 PM Daniele.Server run
+BUONO: Partita di Tablut
+apr 17, 2019 8:32:16 PM Daniele.Server run
+BUONO: Accettata connessione con client giocatore Bianco
+apr 17, 2019 8:32:16 PM Daniele.Server run
+BUONO: Lettura nome player bianco in corso..
+apr 17, 2019 8:32:17 PM Daniele.Server run
+BUONO: White player name:	Daniele
+apr 17, 2019 8:32:17 PM Daniele.Server run
+BUONO: Accettata connessione con client giocatore Nero
+apr 17, 2019 8:32:18 PM Daniele.Server run
+BUONO: Lettura nome player nero in corso..
+apr 17, 2019 8:32:19 PM Daniele.Server run
+BUONO: Black player name:	Daniele
+apr 17, 2019 8:32:19 PM Daniele.Server run
+BUONO: Invio messaggio ai giocatori
+apr 17, 2019 8:32:19 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 8:33:05 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from e7 to i7
+apr 17, 2019 8:33:05 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 8:33:05 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 8:33:48 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from f9 to i9
+apr 17, 2019 8:33:49 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 8:33:49 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 8:35:03 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from e6 to h6
+apr 17, 2019 8:35:03 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 8:35:03 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 8:36:09 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from i9 to g9
+apr 17, 2019 8:36:09 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 8:36:09 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 8:37:40 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from i7 to a7
+apr 17, 2019 8:37:40 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 8:37:40 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 8:38:17 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from g9 to i9
+apr 17, 2019 8:38:17 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 8:38:17 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..

@@ -17,7 +17,7 @@ public class ClientDaniele extends TablutClient{
 	
 	public ClientDaniele(String player) throws UnknownHostException, IOException {
 		super(player, "Daniele");
-		this.depth = 3;
+		this.depth = 5;
 		ab = new AlphaBetaPruning();
 	}
 
@@ -54,14 +54,25 @@ public class ClientDaniele extends TablutClient{
 			// @Matteo conteggio iniziale questo penso sia inevitabile, ma si fa una volta sola!!!!!
 			int nwhites =0;
 			int nblacks = 0;
+			int coord[] = new int[2];
+			int whitesMoved = 0;
 			for(int i =0; i< 9; i++)
 				for(int j =0; j< 9; j++)
 			{if(currentState.getPawn(i, j).equals(Pawn.WHITE))
 				nwhites++;
 			else if( currentState.getPawn(i, j).equals(Pawn.BLACK))
 				nblacks++;
+			else if(currentState.getPawn(i, j).equals(Pawn.KING)) {coord[0]=i; coord[1]=j;}
+			
+			if(i == 4 && 1<j && j<7 || j==4 && 1<j && i<7)
+			if(!currentState.getPawn(i, j).equals(Pawn.WHITE))
+					whitesMoved++;
+				
 			}
-			action = ab.AlphaBetaSearch(depth, new TablutState(this.getCurrentState(),nwhites,nblacks),MinMaxPrinter.getPrinter(PrintMode.Simple));
+			
+				
+
+			action = ab.AlphaBetaSearch(depth, new TablutState(this.getCurrentState(),nwhites,nblacks,coord,whitesMoved),MinMaxPrinter.getPrinter(PrintMode.Simple));
 			//comunica l'azione al server
 			this.write(action);
 			//legge stato corrente modificato dal server
@@ -76,14 +87,25 @@ public class ClientDaniele extends TablutClient{
 			// @Matteo conteggio iniziale questo penso sia inevitabile, ma si fa una volta sola!!!!!
 			int nwhites =0;
 			int nblacks = 0;
+			int coord[] = new int[2];
+			int whitesMoved = 0;
 			for(int i =0; i< 9; i++)
 				for(int j =0; j< 9; j++)
 			{if(currentState.getPawn(i, j).equals(Pawn.WHITE))
 				nwhites++;
 			else if( currentState.getPawn(i, j).equals(Pawn.BLACK))
 				nblacks++;
+			else if(currentState.getPawn(i, j).equals(Pawn.KING)) {coord[0]=i; coord[1]=j;}
+			
+			if(i == 4 && 1<j && j<7 || j==4 && 1<j && i<7)
+			if(!currentState.getPawn(i, j).equals(Pawn.WHITE))
+					whitesMoved++;
+						
 			}
-			action = ab.AlphaBetaSearch(depth, new TablutState(this.getCurrentState(),nwhites,nblacks),MinMaxPrinter.getPrinter(PrintMode.Simple));
+			
+				
+
+			action = ab.AlphaBetaSearch(depth, new TablutState(this.getCurrentState(),nwhites,nblacks,coord,whitesMoved),MinMaxPrinter.getPrinter(PrintMode.Simple));
 			//comunica l'azione al server
 			this.write(action);
 			//legge stato corrente modificato dal server

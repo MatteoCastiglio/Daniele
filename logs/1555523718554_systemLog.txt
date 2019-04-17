@@ -1,0 +1,552 @@
+apr 17, 2019 7:55:18 PM Daniele.Server run
+BUONO: Accensione server
+apr 17, 2019 7:55:18 PM Daniele.Server run
+BUONO: Partita di Tablut
+apr 17, 2019 7:55:26 PM Daniele.Server run
+BUONO: Accettata connessione con client giocatore Bianco
+apr 17, 2019 7:55:26 PM Daniele.Server run
+BUONO: Lettura nome player bianco in corso..
+apr 17, 2019 7:55:27 PM Daniele.Server run
+BUONO: White player name:	random
+apr 17, 2019 7:55:32 PM Daniele.Server run
+BUONO: Accettata connessione con client giocatore Nero
+apr 17, 2019 7:55:32 PM Daniele.Server run
+BUONO: Lettura nome player nero in corso..
+apr 17, 2019 7:55:33 PM Daniele.Server run
+BUONO: Black player name:	Daniele
+apr 17, 2019 7:55:34 PM Daniele.Server run
+BUONO: Invio messaggio ai giocatori
+apr 17, 2019 7:55:34 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:55:36 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from f5 to f6
+apr 17, 2019 7:55:36 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:55:36 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:55:37 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from f9 to i9
+apr 17, 2019 7:55:37 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:55:37 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:55:39 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from d5 to d7
+apr 17, 2019 7:55:39 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:55:39 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:55:40 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from i9 to g9
+apr 17, 2019 7:55:40 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:55:40 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:55:42 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from g5 to g4
+apr 17, 2019 7:55:42 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:55:42 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:55:43 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from g9 to i9
+apr 17, 2019 7:55:43 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:55:43 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:55:45 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from g4 to g7
+apr 17, 2019 7:55:45 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:55:45 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:55:46 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from i9 to g9
+apr 17, 2019 7:55:46 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:55:46 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:55:49 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from f6 to h6
+apr 17, 2019 7:55:49 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:55:49 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:55:50 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from g9 to i9
+apr 17, 2019 7:55:50 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:55:50 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:55:52 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from e3 to i3
+apr 17, 2019 7:55:52 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:55:52 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:55:53 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from i9 to g9
+apr 17, 2019 7:55:53 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:55:53 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:55:55 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from e4 to f4
+apr 17, 2019 7:55:55 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:55:55 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:55:56 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from g9 to i9
+apr 17, 2019 7:55:56 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:55:56 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:55:58 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from d7 to d4
+apr 17, 2019 7:55:58 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:55:58 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:55:59 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from i9 to g9
+apr 17, 2019 7:55:59 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:55:59 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:56:01 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from c5 to c4
+apr 17, 2019 7:56:01 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:56:01 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:56:02 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from g9 to i9
+apr 17, 2019 7:56:02 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:56:02 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:56:04 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from c4 to c1
+apr 17, 2019 7:56:04 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:56:04 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:56:05 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from i9 to g9
+apr 17, 2019 7:56:05 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:56:05 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:56:07 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from h6 to g6
+apr 17, 2019 7:56:07 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:56:07 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:56:08 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from g9 to i9
+apr 17, 2019 7:56:08 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:56:08 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:56:10 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from d4 to d5
+apr 17, 2019 7:56:10 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:56:10 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:56:11 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from i9 to g9
+apr 17, 2019 7:56:11 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:56:11 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:56:13 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from g6 to g2
+apr 17, 2019 7:56:13 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:56:13 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:56:14 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from g9 to i9
+apr 17, 2019 7:56:14 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:56:14 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:56:16 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from c1 to a1
+apr 17, 2019 7:56:16 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:56:16 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:56:17 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from i9 to g9
+apr 17, 2019 7:56:17 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:56:17 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:56:19 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from i3 to d3
+apr 17, 2019 7:56:19 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:56:19 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:56:20 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from g9 to i9
+apr 17, 2019 7:56:20 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:56:20 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:56:22 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from e5 to f5
+apr 17, 2019 7:56:22 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:56:22 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:56:23 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from i9 to g9
+apr 17, 2019 7:56:23 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:56:23 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:56:25 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from g2 to i2
+apr 17, 2019 7:56:25 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:56:25 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:56:26 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from g9 to i9
+apr 17, 2019 7:56:26 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:56:26 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:56:28 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from f4 to f3
+apr 17, 2019 7:56:28 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:56:28 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:56:29 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from i9 to g9
+apr 17, 2019 7:56:29 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:56:29 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:56:31 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from e6 to f6
+apr 17, 2019 7:56:31 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:56:31 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:56:32 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from g9 to i9
+apr 17, 2019 7:56:32 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:56:32 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:56:34 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from i2 to f2
+apr 17, 2019 7:56:34 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:56:34 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:56:35 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from i9 to g9
+apr 17, 2019 7:56:35 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:56:35 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:56:37 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from e7 to a7
+apr 17, 2019 7:56:37 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:56:37 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:56:38 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from g9 to i9
+apr 17, 2019 7:56:38 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:56:38 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:56:40 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from d5 to d4
+apr 17, 2019 7:56:40 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:56:40 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:56:41 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from i9 to g9
+apr 17, 2019 7:56:41 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:56:41 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:56:43 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from a7 to a9
+apr 17, 2019 7:56:43 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:56:43 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:56:44 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from g9 to i9
+apr 17, 2019 7:56:44 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:56:44 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:56:46 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from d3 to a3
+apr 17, 2019 7:56:46 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:56:46 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:56:47 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from i9 to g9
+apr 17, 2019 7:56:47 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:56:47 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:56:49 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from g7 to c7
+apr 17, 2019 7:56:49 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:56:49 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:56:50 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from g9 to g1
+apr 17, 2019 7:56:50 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:56:50 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:56:52 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from f2 to h2
+apr 17, 2019 7:56:52 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:56:52 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:56:53 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from d9 to d5
+apr 17, 2019 7:56:53 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:56:53 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:56:55 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from f3 to f2
+apr 17, 2019 7:56:55 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:56:55 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:56:56 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from e9 to i9
+apr 17, 2019 7:56:56 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:56:56 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:56:58 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from f6 to f7
+apr 17, 2019 7:56:58 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:56:58 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:56:59 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from i9 to g9
+apr 17, 2019 7:56:59 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:56:59 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:57:01 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from a3 to e3
+apr 17, 2019 7:57:01 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:57:01 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:57:02 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from g9 to i9
+apr 17, 2019 7:57:02 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:57:02 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:57:04 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from h2 to i2
+apr 17, 2019 7:57:04 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:57:04 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:57:05 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from i9 to g9
+apr 17, 2019 7:57:05 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:57:05 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:57:07 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from i2 to g2
+apr 17, 2019 7:57:07 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:57:07 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:57:08 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from g9 to i9
+apr 17, 2019 7:57:08 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:57:08 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:57:10 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from d4 to c4
+apr 17, 2019 7:57:10 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:57:10 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:57:11 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from i9 to g9
+apr 17, 2019 7:57:11 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:57:11 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:57:13 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from f2 to f3
+apr 17, 2019 7:57:13 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:57:13 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:57:14 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from g9 to i9
+apr 17, 2019 7:57:14 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:57:14 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:57:16 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from c4 to g4
+apr 17, 2019 7:57:16 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:57:16 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:57:17 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from i9 to g9
+apr 17, 2019 7:57:17 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:57:17 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:57:19 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from c7 to c3
+apr 17, 2019 7:57:19 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:57:19 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:57:20 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from g9 to i9
+apr 17, 2019 7:57:20 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:57:20 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:57:22 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from a1 to b1
+apr 17, 2019 7:57:22 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:57:22 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:57:23 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from i9 to g9
+apr 17, 2019 7:57:23 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:57:23 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:57:25 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from c3 to c5
+apr 17, 2019 7:57:25 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:57:25 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:57:26 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from e8 to f8
+apr 17, 2019 7:57:26 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:57:26 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:57:28 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from f7 to a7
+apr 17, 2019 7:57:28 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:57:28 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:57:29 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from i6 to c6
+apr 17, 2019 7:57:29 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:57:29 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:57:31 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from c5 to d5
+apr 17, 2019 7:57:31 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:57:31 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:57:32 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from c6 to h6
+apr 17, 2019 7:57:32 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:57:32 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:57:34 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from d5 to d7
+apr 17, 2019 7:57:34 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:57:34 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:57:35 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from g9 to i9
+apr 17, 2019 7:57:35 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:57:35 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:57:37 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from e3 to b3
+apr 17, 2019 7:57:37 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:57:37 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:57:38 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from i9 to g9
+apr 17, 2019 7:57:38 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:57:38 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:57:40 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from f3 to d3
+apr 17, 2019 7:57:40 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:57:40 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:57:41 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from g9 to i9
+apr 17, 2019 7:57:41 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:57:41 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:57:43 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from b1 to b2
+apr 17, 2019 7:57:43 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:57:43 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:57:44 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from i9 to g9
+apr 17, 2019 7:57:44 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:57:44 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:57:46 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from d3 to f3
+apr 17, 2019 7:57:46 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:57:46 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+apr 17, 2019 7:57:47 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from g9 to i9
+apr 17, 2019 7:57:47 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+apr 17, 2019 7:57:47 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+apr 17, 2019 7:57:49 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from b2 to b1
+apr 17, 2019 7:57:49 PM Daniele.Server run
+BUONO: Invio messaggio ai client

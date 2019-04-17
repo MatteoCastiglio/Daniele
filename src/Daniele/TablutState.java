@@ -35,22 +35,32 @@ public class TablutState implements ITablutState{
 	//private Game game;																//contiene un gioco per ogni istanza??
 	private Pawn[][] board;
 	
+	private int[] coordKing;
+	private int[] nextCoordKing;
+	
+	
 	// @Matteo aggiunto per controlli sui pezzi mangiati
 	private static List<String> citadels =new  ArrayList<String>(Arrays.asList("a4","a5","a6","b5","d1","e1","f1","e2","i4","i5","i6","h5","d9","e9","f9","e8"));
 	
 	private int nwhites; // @Matteo numero di pezzi bianchi sulla scacchiera, mettendolo come proprietà si evita si calcolarlo dinamicamente
 	private int nblacks; // @Matteo numero di pezzi neri sulla scacchiera, mettendolo come proprietà si evita si calcolarlo dinamicamente
-	private int nextstatenwhites; // @Matteo comodi per aggiornare il valore sul nuovo stato
-	private int nextstatenblacks; // @Matteo comodi per aggiornare il valore sul nuovo stato
+	private int nextStateWhites; // @Matteo comodi per aggiornare il valore sul nuovo stato
+	private int nextStateBlacks; // @Matteo comodi per aggiornare il valore sul nuovo stato
+	private int whitePawnsMoved;
+	private int nextWhitePawnsMoved;
+	
+	
 	
 	// this.strangeCitadels = new ArrayList<String>();
 
-	public TablutState(State state, int WhiteCounts,int  BlackCounts) {
+	public TablutState(State state, int WhiteCounts,int  BlackCounts,int[] king,int whitesMoved) {
 		this.state = state;
 	//	this.game = new GameAshtonTablut(state,0, -1, "logs", "WHITE", "BLACK");
 		this.board = state.getBoard();
 		nwhites= WhiteCounts;
 		nblacks= BlackCounts;
+		whitePawnsMoved = whitesMoved;
+		coordKing = king;
 	}
 
 	@Override
@@ -211,13 +221,16 @@ public class TablutState implements ITablutState{
 	//@Matteo la gestione andrebbe fatta come per il numero delle pedine
 	@Override
 	public int[] getCoordKing() {
+		
+		/*
 		int coord[] = new int[2];
 		for (int i = 0; i < this.board.length; i++) {
 			for (int j = 0; j < this.board.length; j++) {
 				if(this.board[i][j].equals(Pawn.KING)) {coord[0]=i; coord[1]=j; return coord;}
 			}
 		}
-		return coord; //dovrebbe semrpe esserci il re, altrimenti la partita Ã¨ conclusa
+		*/
+		return coordKing; //dovrebbe semrpe esserci il re, altrimenti la partita Ã¨ conclusa
 	}
 	
 	
@@ -226,16 +239,16 @@ public class TablutState implements ITablutState{
 	
 private TablutState getNextState(State mystate, Action a) {
 		State state = mystate.clone();
-		State.Pawn pawn = state.getPawn(a.getRowFrom(), a.getColumnFrom());
-		State.Pawn[][] newBoard = state.getBoard();
+		Pawn pawn = state.getPawn(a.getRowFrom(), a.getColumnFrom());
+		Pawn[][] newBoard = state.getBoard();
 		// State newState = new State();
 		// libero il trono o una casella qualunque
 		if (a.getColumnFrom() == 4 && a.getRowFrom() == 4) {
-			newBoard[a.getRowFrom()][a.getColumnFrom()] = State.Pawn.THRONE;
+			newBoard[a.getRowFrom()][a.getColumnFrom()] = Pawn.THRONE;
 		} else {
-			newBoard[a.getRowFrom()][a.getColumnFrom()] = State.Pawn.EMPTY;
+			newBoard[a.getRowFrom()][a.getColumnFrom()] = Pawn.EMPTY;
 		}
-
+		
 		// metto nel nuovo tabellone la pedina mossa
 		newBoard[a.getRowTo()][a.getColumnTo()] = pawn;
 		// aggiorno il tabellone
@@ -245,8 +258,23 @@ private TablutState getNextState(State mystate, Action a) {
 		
 		//@Matteo da qui in poic odice modificato
 		
-		nextstatenblacks = nblacks;
-		nextstatenwhites = nwhites;
+		nextStateBlacks = nblacks;
+		nextStateWhites = nwhites;
+		nextWhitePawnsMoved = whitePawnsMoved;
+		
+		//@Matteo da riguardare
+		if (pawn.equals(Pawn.WHITE)&&(a.getColumnFrom() == 4 || a.getRowFrom() == 4)) {
+			nextWhitePawnsMoved++;
+		}
+		if (pawn.equals(Pawn.WHITE)&&(a.getColumnTo() == 4 || a.getRowTo() == 4)) {
+			nextWhitePawnsMoved--;
+		}
+
+		if(pawn.equals(Pawn.KING))
+		nextCoordKing = new int[] {a.getRowTo(),a.getColumnTo()};
+		else
+		nextCoordKing= coordKing;
+		
 		
 		if (state.getTurn().equalsTurn(State.Turn.WHITE.toString())) {
 			state.setTurn(State.Turn.BLACK);
@@ -259,7 +287,7 @@ private TablutState getNextState(State mystate, Action a) {
 		}
 		
 		// @Matteo qui manca controllo su pareggio per stato ripetuto
-		return new TablutState(state,nextstatenwhites,nextstatenblacks);
+		return new TablutState(state,nextStateWhites,nextStateBlacks,nextCoordKing,nextWhitePawnsMoved);
 		
 		//@ Matteo decommentare per stampe -- parametro per debug mode ???
 		/*
@@ -295,7 +323,7 @@ private State checkCaptureWhite(State state, Action a) {
 					|| (citadels.contains(state.getBox(a.getRowTo(), a.getColumnTo() + 2))&&!(state.getPawn(a.getRowTo(), a.getColumnTo()+2).equalsPawn("B")) &&!(a.getColumnTo()+2==8&&a.getRowTo()==4)&&!(a.getColumnTo()+2==4&&a.getRowTo()==0)&&!(a.getColumnTo()+2==4&&a.getRowTo()==0)&&!(a.getColumnTo()+2==0&&a.getRowTo()==4)))) {
 		state.removePawn(a.getRowTo(), a.getColumnTo() + 1);
 		// @Matteo AGGIUNTA
-		nextstatenblacks=nextstatenblacks-1;
+		nextStateBlacks=nextStateBlacks-1;
 
 	}
 	// controllo se mangio a sinistra
@@ -306,7 +334,7 @@ private State checkCaptureWhite(State state, Action a) {
 					|| (citadels.contains(state.getBox(a.getRowTo(), a.getColumnTo() - 2))&&!(state.getPawn(a.getRowTo(), a.getColumnTo()-2).equalsPawn("B")) &&!(a.getColumnTo()-2==8&&a.getRowTo()==4)&&!(a.getColumnTo()-2==4&&a.getRowTo()==0)&&!(a.getColumnTo()-2==4&&a.getRowTo()==0)&&!(a.getColumnTo()-2==0&&a.getRowTo()==4)))) {
 		state.removePawn(a.getRowTo(), a.getColumnTo() - 1);
 		// @Matteo AGGIUNTA
-		nextstatenblacks=nextstatenblacks-1;
+		nextStateBlacks=nextStateBlacks-1;
 
 	}
 	// controllo se mangio sopra
@@ -317,7 +345,7 @@ private State checkCaptureWhite(State state, Action a) {
 					|| (citadels.contains(state.getBox(a.getRowTo() - 2, a.getColumnTo()))&&!(state.getPawn(a.getRowTo()-2, a.getColumnTo()).equalsPawn("B"))&&!(a.getColumnTo()==8&&a.getRowTo()-2==4)&&!(a.getColumnTo()==4&&a.getRowTo()-2==0)&&!(a.getColumnTo()==4&&a.getRowTo()-2==0)&&!(a.getColumnTo()==0&&a.getRowTo()-2==4)) )) {
 		state.removePawn(a.getRowTo() - 1, a.getColumnTo());
 		// @Matteo AGGIUNTA
-		nextstatenblacks=nextstatenblacks-1;
+		nextStateBlacks=nextStateBlacks-1;
 
 	}
 	// controllo se mangio sotto
@@ -329,7 +357,7 @@ private State checkCaptureWhite(State state, Action a) {
 					|| (citadels.contains(state.getBox(a.getRowTo() + 2, a.getColumnTo()))&&!(state.getPawn(a.getRowTo()+2, a.getColumnTo()).equalsPawn("B"))&&!(a.getColumnTo()==8&&a.getRowTo()+2==4)&&!(a.getColumnTo()==4&&a.getRowTo()+2==0)&&!(a.getColumnTo()==4&&a.getRowTo()+2==0)&&!(a.getColumnTo()==0&&a.getRowTo()+2==4)))) {
 		state.removePawn(a.getRowTo() + 1, a.getColumnTo());
 		// @Matteo AGGIUNTA
-		nextstatenblacks=nextstatenblacks-1;
+		nextStateBlacks=nextStateBlacks-1;
 
 	}
 	// controllo se ho vinto
@@ -627,7 +655,7 @@ private State checkCaptureBlackPawnLeft(State state, Action a){
 	{
 		state.removePawn(a.getRowTo(), a.getColumnTo() - 1);
 		// @Matteo AGGIUNTA
-		nextstatenwhites=nextstatenwhites-1;
+		nextStateWhites=nextStateWhites-1;
 	}
 	return state;
 }
@@ -643,7 +671,7 @@ private State checkCaptureBlackPawnUp(State state, Action a){
 	{
 		state.removePawn(a.getRowTo()-1, a.getColumnTo());
 		// @Matteo AGGIUNTA
-		nextstatenwhites=nextstatenwhites-1;
+		nextStateWhites=nextStateWhites-1;
 
 	}
 	return state;
@@ -660,7 +688,7 @@ private State checkCaptureBlackPawnDown(State state, Action a){
 	{
 		state.removePawn(a.getRowTo()+1, a.getColumnTo());
 		// @Matteo AGGIUNTA
-		nextstatenwhites=nextstatenwhites-1;
+		nextStateWhites=nextStateWhites-1;
 	
 	}
 	return state;
@@ -669,14 +697,15 @@ private State checkCaptureBlackPawnDown(State state, Action a){
 //@Matteo test in caso da cambiare
 public int getWhitePawnsMoved()
 {
-	int res =0;
+	/*int res =0;
 		for (int j = 2; j < 7; j++) 
 			if(!this.board[4][j].equals(Pawn.WHITE)) res++;
 		for (int j = 2; j < 7; j++) 
 			if(!this.board[j][4].equals(Pawn.WHITE)) res++;
 			
 		return res;
-
+	 */
+	return whitePawnsMoved;
 }
 
 @Override

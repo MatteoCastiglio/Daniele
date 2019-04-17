@@ -46,7 +46,7 @@ public class HeuristicTablut {
 		result-=800;
 		
 		//@Matteo valutazioni sul numero di pezzi
-		result+=state.WhitesCount()*5;
+		result+=state.WhitesCount()*10;
 		result-=state.BlacksCount()*5;
 		result+=state.getWhitePawnsMoved()*5;
 		
@@ -66,7 +66,39 @@ public class HeuristicTablut {
 	
 	private static boolean isKingInDanger(ITablutState state) {				//da risistemare per renderla generica? ma mi sa che vale solo per tablut
 		
-	//1) il re è nel castello (4 nere lo circondano) - nota: la cattura è attiva
+		
+		int[] king = state.getCoordKing();
+		//@Matteo versione semplificata -- quella completa non funziona
+
+	
+			int possibileCattura = 0;
+
+			if(state.getState().getPawn(king[0] -1,king[1]).equals(Pawn.BLACK)) possibileCattura++;
+			if(state.getState().getPawn(king[0] +1 ,king[1]).equals(Pawn.BLACK)) possibileCattura++;
+			if(state.getState().getPawn(king[0],king[1] -1).equals(Pawn.BLACK)) possibileCattura++;
+			if(state.getState().getPawn(king[0],king[1]+ 1).equals(Pawn.BLACK)) possibileCattura++;
+			
+		if( king[0] == 4) {
+				if( king[1] ==4 && possibileCattura == 3) return true;
+				if( king[1] ==3 && possibileCattura == 2) return true;
+				if( king[1] ==5 && possibileCattura == 2) return true;}
+		else if( king[1] == 4) {
+				if( king[0] ==3 && possibileCattura == 2) return true;
+				if( king[0] ==5 && possibileCattura == 2) return true;
+		}
+		else		if (king[0]==2 && king[1] == 4) return true;
+		else if (king[0]==4 && king[1] == 2) return true;
+		else if (king[0]==6 && king[1] == 4)  return true;
+		else if (king[0]==4 && king[1] == 6)  return true;
+		
+		else if(possibileCattura==1) return true;
+		return false;
+		//@Matteo mancano alcuni accampamenti
+
+			
+	
+		/*
+		//1) il re è nel castello (4 nere lo circondano) - nota: la cattura è attiva
 		if(state.getState().getPawn(4, 4).equals(Pawn.KING)) {
 			int configurazione = 0;
 			int possibileCattura = 0;
@@ -181,6 +213,7 @@ public class HeuristicTablut {
 		if (state.getState().getPawn(4, 6).equals(Pawn.KING)) return isWhiteInDangerNearCamp(4, 6);
 		
 		return false;
+		*/
 	}
 
 	private static boolean isWhiteInDangerNearCamp(int i, int j) {
