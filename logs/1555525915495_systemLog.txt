@@ -54,3 +54,7 @@ apr 17, 2019 8:38:17 PM Daniele.Server run
 BUONO: Invio messaggio ai client
 apr 17, 2019 8:38:17 PM Daniele.Server run
 BUONO: Lettura mossa player W in corso..
+apr 17, 2019 8:41:28 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from a7 to i7
+apr 17, 2019 8:41:28 PM Daniele.Server run
+BUONO: Invio messaggio ai client

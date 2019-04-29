@@ -79,19 +79,19 @@ public class HeuristicTablut {
 			if(state.getState().getPawn(king[0],king[1]+ 1).equals(Pawn.BLACK)) possibileCattura++;
 			
 		if( king[0] == 4) {
-				if( king[1] ==4 && possibileCattura == 3) return true;
-				if( king[1] ==3 && possibileCattura == 2) return true;
-				if( king[1] ==5 && possibileCattura == 2) return true;}
+				if( king[1] ==4 && possibileCattura == 3) return true; // trono
+				else if( king[1] ==3 && possibileCattura == 2) return true; //adiacente al trono
+				else if( king[1] ==5 && possibileCattura == 2) return true;}//adiacente al trono
 		else if( king[1] == 4) {
-				if( king[0] ==3 && possibileCattura == 2) return true;
-				if( king[0] ==5 && possibileCattura == 2) return true;
+				if( king[0] ==3 && possibileCattura == 2) return true;//adiacente al trono
+				else if( king[0] ==5 && possibileCattura == 2) return true;//adiacente al trono
 		}
-		else		if (king[0]==2 && king[1] == 4) return true;
-		else if (king[0]==4 && king[1] == 2) return true;
-		else if (king[0]==6 && king[1] == 4)  return true;
-		else if (king[0]==4 && king[1] == 6)  return true;
+		else if (king[0]==2 && king[1] == 4) return true; //accampamento
+		else if (king[0]==4 && king[1] == 2) return true;//accampamento
+		else if (king[0]==6 && king[1] == 4)  return true;//accampamento
+		else if (king[0]==4 && king[1] == 6)  return true;//accampamento
 		
-		else if(possibileCattura==1) return true;
+		else if(possibileCattura==1) return true;//altro
 		return false;
 		//@Matteo mancano alcuni accampamenti
 

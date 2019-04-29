@@ -236,6 +236,9 @@ public class TablutState implements ITablutState{
 	
 	
 // @Matteo questi metodi sono più o meno copiati dalla classe GameAshtonTablut poi vedremo meglioc ome metterli 
+
+//@Matteo turn nelle action non serve a nulla, potremmo farci una nostra Action
+	
 	
 private TablutState getNextState(State mystate, Action a) {
 		State state = mystate.clone();

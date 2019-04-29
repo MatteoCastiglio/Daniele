@@ -1,0 +1,8 @@
+apr 25, 2019 7:13:12 PM Daniele.Server run
+BUONO: Accensione server
+apr 25, 2019 7:13:12 PM Daniele.Server run
+BUONO: Partita di Tablut
+apr 25, 2019 7:13:12 PM Daniele.Server run
+AVVERTENZA: Errore connessioni
+apr 25, 2019 7:13:12 PM Daniele.Server run
+AVVERTENZA: Chiusura sistema

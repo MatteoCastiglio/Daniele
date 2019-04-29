@@ -17,7 +17,7 @@ public class ClientDaniele extends TablutClient{
 	
 	public ClientDaniele(String player) throws UnknownHostException, IOException {
 		super(player, "Daniele");
-		this.depth = 5;
+		this.depth = 3;
 		ab = new AlphaBetaPruning();
 	}
 
@@ -44,8 +44,10 @@ public class ClientDaniele extends TablutClient{
 		
 	}
 
+	//@turnCounter serve per gestire le mosse di apertura
 	private void runBlack() throws ClassNotFoundException, IOException {
 		Action action = null;
+		int turnCounter = 0;
 		while(true) {	
 			//legge stato corrente dal server (mossa avversario)
 			this.read();
@@ -69,10 +71,11 @@ public class ClientDaniele extends TablutClient{
 					whitesMoved++;
 				
 			}
-			
-				
-
-			action = ab.AlphaBetaSearch(depth, new TablutState(this.getCurrentState(),nwhites,nblacks,coord,whitesMoved),MinMaxPrinter.getPrinter(PrintMode.Simple));
+			if(turnCounter<3)
+			action = BlackOpening.nextMove(new TablutState(currentState,nwhites,nblacks,coord,whitesMoved), turnCounter);
+			else
+			action = ab.AlphaBetaSearch(depth, new TablutState(currentState,nwhites,nblacks,coord,whitesMoved),MinMaxPrinter.getPrinter(PrintMode.Simple));
+			turnCounter++;
 			//comunica l'azione al server
 			this.write(action);
 			//legge stato corrente modificato dal server
@@ -82,6 +85,7 @@ public class ClientDaniele extends TablutClient{
 
 	private void runWhite() throws ClassNotFoundException, IOException {
 		Action action = null;
+		int turnCounter=0;
 		while(true) {
 			//scelta mossa
 			// @Matteo conteggio iniziale questo penso sia inevitabile, ma si fa una volta sola!!!!!
@@ -104,8 +108,11 @@ public class ClientDaniele extends TablutClient{
 			}
 			
 				
-
+			if(turnCounter<3)
+			action = WhiteOpening.nextMove(new TablutState(currentState,nwhites,nblacks,coord,whitesMoved), turnCounter);
+			else
 			action = ab.AlphaBetaSearch(depth, new TablutState(this.getCurrentState(),nwhites,nblacks,coord,whitesMoved),MinMaxPrinter.getPrinter(PrintMode.Simple));
+			turnCounter++;
 			//comunica l'azione al server
 			this.write(action);
 			//legge stato corrente modificato dal server
