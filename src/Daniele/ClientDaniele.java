@@ -14,10 +14,11 @@ public class ClientDaniele extends TablutClient{
 
 	private int depth;
 	private AlphaBetaPruning ab = null;
+	private final int OPENING_COUNTER = 2;
 	
 	public ClientDaniele(String player) throws UnknownHostException, IOException {
 		super(player, "Daniele");
-		this.depth = 3;
+		this.depth = 4;
 		ab = new AlphaBetaPruning();
 	}
 
@@ -71,7 +72,7 @@ public class ClientDaniele extends TablutClient{
 					whitesMoved++;
 				
 			}
-			if(turnCounter<3)
+			if(turnCounter<OPENING_COUNTER)
 			action = BlackOpening.nextMove(new TablutState(currentState,nwhites,nblacks,coord,whitesMoved), turnCounter);
 			else
 			action = ab.AlphaBetaSearch(depth, new TablutState(currentState,nwhites,nblacks,coord,whitesMoved),MinMaxPrinter.getPrinter(PrintMode.Simple));
@@ -108,7 +109,7 @@ public class ClientDaniele extends TablutClient{
 			}
 			
 				
-			if(turnCounter<3)
+			if(turnCounter<OPENING_COUNTER)
 			action = WhiteOpening.nextMove(new TablutState(currentState,nwhites,nblacks,coord,whitesMoved), turnCounter);
 			else
 			action = ab.AlphaBetaSearch(depth, new TablutState(this.getCurrentState(),nwhites,nblacks,coord,whitesMoved),MinMaxPrinter.getPrinter(PrintMode.Simple));

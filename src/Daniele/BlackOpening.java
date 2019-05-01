@@ -12,9 +12,9 @@ public class BlackOpening {
 	
 		switch(turn) { 
 	
-		case 0: return new Action("d1", "d4", Turn.BLACK);
+		case 0: return new Action("f9", "f5", Turn.BLACK);
 			
-		case 1: return new Action("f1", "f4", Turn.BLACK);
+		case 1: return new Action("h5", "f5", Turn.BLACK);
 		
 		case 2: return new Action("e8", "e7", Turn.BLACK);
 		

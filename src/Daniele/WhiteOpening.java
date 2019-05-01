@@ -14,9 +14,9 @@ public class WhiteOpening {
 		
 			switch(turn) { 
 		
-			case 0: return new Action("e7", "h7", Turn.BLACK);
+			case 0: return new Action("f5", "f4", Turn.BLACK);
 				
-			case 1: return new Action("e6", "h6", Turn.BLACK);
+			case 1: return new Action("e6", "f6", Turn.BLACK);
 			
 			case 2: return new Action("c5", "c6", Turn.BLACK);
 			
