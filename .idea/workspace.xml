@@ -2,53 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aae686d2-c284-445d-b7de-dcd35fa387fd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/bin/.gitignore" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Daniele/DanieleAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Daniele/AlphaBetaPruning.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Daniele/AlphaBetaPruning.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Daniele/BlackOpening.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Daniele/BlackOpening.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Daniele/ClientDaniele.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Daniele/ClientDaniele.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Daniele/ClientDanieleBlack.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Daniele/ClientDanieleBlack.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Daniele/ITablutState.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Daniele/ITablutState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Daniele/TablutState.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Daniele/TablutState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Daniele/WhiteOpening.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Daniele/WhiteOpening.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/client/TablutClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/client/TablutClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/client/TablutHumanBlackClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/client/TablutHumanBlackClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/client/TablutHumanClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/client/TablutHumanClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/client/TablutHumanWhiteClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/client/TablutHumanWhiteClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/client/TablutRandomBlackClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/client/TablutRandomBlackClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/client/TablutRandomClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/client/TablutRandomClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/client/TablutRandomWhiteClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/client/TablutRandomWhiteClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/domain/Action.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/domain/Action.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/domain/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/domain/Game.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/domain/GameAshtonTablut.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/domain/GameAshtonTablut.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/domain/GameModernTablut.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/domain/GameModernTablut.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/domain/GameTablut.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/domain/GameTablut.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/domain/State$Pawn.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/domain/State$Pawn.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/domain/State$Turn.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/domain/State$Turn.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/domain/State.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/domain/State.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/domain/StateBrandub.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/domain/StateBrandub.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/domain/StateTablut.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/domain/StateTablut.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/exceptions/ActionException.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/exceptions/ActionException.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/exceptions/BoardException.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/exceptions/BoardException.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/exceptions/CitadelException.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/exceptions/CitadelException.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/exceptions/ClimbingCitadelException.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/exceptions/ClimbingCitadelException.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/exceptions/ClimbingException.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/exceptions/ClimbingException.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/exceptions/DiagonalException.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/exceptions/DiagonalException.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/exceptions/OccupitedException.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/exceptions/OccupitedException.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/exceptions/PawnException.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/exceptions/PawnException.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/exceptions/StopException.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/exceptions/StopException.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/exceptions/ThroneException.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/exceptions/ThroneException.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/gui/Background.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/gui/Background.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/gui/BackgroundBrandub.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/gui/BackgroundBrandub.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/gui/BackgroundTablut.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/gui/BackgroundTablut.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/gui/Gui.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/gui/Gui.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/server/Server$TCPInput.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/server/Server$TCPInput.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/server/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/server/Server.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/tester/AggiungiBianco.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/tester/AggiungiBianco.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/tester/AggiungiNero.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/tester/AggiungiNero.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/tester/AggiungiRe.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/tester/AggiungiRe.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/tester/CheckerMove.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/tester/CheckerMove.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/tester/TestGui.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/tester/TestGui.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/tester/TestGuiFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/tester/TestGuiFrame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/tester/Tester.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/tester/Tester.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/util/StreamUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/it/unibo/ai/didattica/competition/tablut/util/StreamUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Daniele/AlphaBetaPruning.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Daniele/AlphaBetaPruning.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Daniele/BlackOpening.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Daniele/BlackOpening.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Daniele/ClientDaniele.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Daniele/ClientDaniele.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Daniele/ClientDanieleBlack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Daniele/ClientDanieleBlack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Daniele/ClientDanieleWhite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Daniele/ClientDanieleWhite.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Daniele/HeuristicTablut.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Daniele/HeuristicTablut.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Daniele/ITablutState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Daniele/ITablutState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Daniele/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Daniele/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Daniele/TablutState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Daniele/TablutState.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Daniele/WhiteOpening.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Daniele/WhiteOpening.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/it/unibo/ai/didattica/competition/tablut/client/TablutClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibo/ai/didattica/competition/tablut/client/TablutClient.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -59,11 +31,26 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Daniele/AlphaBetaPruning.java">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Daniele/ClientDaniele.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1260">
-              <caret line="90" column="12" selection-start-line="90" selection-start-column="12" selection-end-line="90" selection-end-column="12" />
+            <state relative-caret-position="300">
+              <caret line="20" column="22" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Daniele/ITablutState.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="20" column="4" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="34" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -71,31 +58,28 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Daniele/TablutState.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2040">
-              <caret line="157" column="4" selection-start-line="157" selection-start-column="4" selection-end-line="157" selection-end-column="4" />
+            <state relative-caret-position="191">
+              <caret line="706" column="11" selection-start-line="706" selection-start-column="11" selection-end-line="706" selection-end-column="11" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2598#2613#0" expanded="true" />
+                <element signature="e#5710#5725#0" expanded="true" />
+                <element signature="e#9630#9631#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Daniele/ClientDaniele.java">
+        <entry file="file://$PROJECT_DIR$/src/Daniele/HeuristicTablut.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="20" column="22" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
+            <state relative-caret-position="750">
+              <caret line="51" column="48" selection-start-line="51" selection-start-column="48" selection-end-line="51" selection-end-column="48" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Daniele/BlackOpening.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="16" column="43" selection-start-line="16" selection-start-column="43" selection-end-line="16" selection-end-column="43" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Daniele/ClientDanieleBlack.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="135">
@@ -105,19 +89,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Daniele/ITablutState.java">
+        <entry file="file://$PROJECT_DIR$/src/it/unibo/ai/didattica/competition/tablut/client/TablutClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+            <state relative-caret-position="-255">
+              <caret line="22" column="49" lean-forward="true" selection-start-line="22" selection-start-column="49" selection-end-line="22" selection-end-column="49" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Daniele/HeuristicTablut.java">
+        <entry file="file://$PROJECT_DIR$/src/it/unibo/ai/didattica/competition/tablut/domain/State.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="17" column="46" lean-forward="true" selection-start-line="17" selection-start-column="46" selection-end-line="18" selection-end-column="7" />
+            <state relative-caret-position="1365">
+              <caret line="108" column="26" lean-forward="true" selection-start-line="108" selection-start-column="26" selection-end-line="108" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -132,24 +116,34 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Daniele/WhiteOpening.java">
+        <entry file="file://$PROJECT_DIR$/src/Daniele/Server.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="18" column="42" selection-start-line="18" selection-start-column="42" selection-end-line="18" selection-end-column="42" />
+            <state relative-caret-position="703">
+              <caret line="540" column="51" selection-start-line="540" selection-start-column="51" selection-end-line="540" selection-end-column="51" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/it/unibo/ai/didattica/competition/tablut/client/TablutRandomBlackClient.java">
+        <entry file="file://$PROJECT_DIR$/src/Daniele/WhiteOpening.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="11" column="8" selection-start-line="7" selection-start-column="4" selection-end-line="13" selection-end-column="5" />
+            <state relative-caret-position="240">
+              <caret line="16" column="52" selection-start-line="16" selection-start-column="52" selection-end-line="16" selection-end-column="52" />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -158,12 +152,26 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/Daniele/ClientDanieleWhite.java" />
+        <option value="$PROJECT_DIR$/src/Daniele/ClientDanieleBlack.java" />
+        <option value="$PROJECT_DIR$/src/Daniele/Server.java" />
+        <option value="$PROJECT_DIR$/src/Daniele/Action.java" />
+        <option value="$PROJECT_DIR$/src/Daniele/AlphaBetaPruning.java" />
+        <option value="$PROJECT_DIR$/src/it/unibo/ai/didattica/competition/tablut/client/TablutClient.java" />
+        <option value="$PROJECT_DIR$/src/Daniele/DanieleAction.java" />
         <option value="$PROJECT_DIR$/src/Daniele/WhiteOpening.java" />
         <option value="$PROJECT_DIR$/src/Daniele/BlackOpening.java" />
+        <option value="$PROJECT_DIR$/src/Daniele/ITablutState.java" />
+        <option value="$PROJECT_DIR$/src/Daniele/TablutState.java" />
+        <option value="$PROJECT_DIR$/src/Daniele/HeuristicTablut.java" />
         <option value="$PROJECT_DIR$/src/Daniele/ClientDaniele.java" />
-        <option value="$PROJECT_DIR$/src/Daniele/ClientDanieleBlack.java" />
       </list>
     </option>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand />
+      <select />
+    </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="115" />
@@ -246,7 +254,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.ClientDanieleWhite">
+  <component name="RunManager" selected="Application.ClientDanieleBlack">
     <configuration name="ClientDaniele" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Daniele.ClientDaniele" />
       <module name="Tablut2019" />
@@ -308,8 +316,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.ClientDanieleWhite" />
         <item itemvalue="Application.ClientDanieleBlack" />
+        <item itemvalue="Application.ClientDanieleWhite" />
         <item itemvalue="Application.Server" />
         <item itemvalue="Application.ClientDaniele" />
       </list>
@@ -330,16 +338,15 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="27" width="1299" height="741" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25379092" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25379092" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="3" />
       <window_info id="Favorites" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3289256" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3289256" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3289256" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -347,12 +354,12 @@
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="10" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.3289256" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="right" id="Maven" order="4" />
+      <window_info anchor="right" id="Maven" order="1" weight="0.32960895" />
+      <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="4" />
       <window_info anchor="right" id="Palette&#9;" order="5" />
     </layout>
   </component>
@@ -366,6 +373,13 @@
     <entry file="file://$PROJECT_DIR$/.project">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/it/unibo/ai/didattica/competition/tablut/client/TablutRandomBlackClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="11" column="8" selection-start-line="7" selection-start-column="4" selection-end-line="13" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/it/unibo/ai/didattica/competition/tablut/domain/Game.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -375,43 +389,95 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/it/unibo/ai/didattica/competition/tablut/domain/Action.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-240">
-          <caret line="19" column="28" selection-start-line="19" selection-start-column="28" selection-end-line="19" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Daniele/Server.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="27" column="13" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+        <state relative-caret-position="268">
+          <caret line="26" column="8" selection-start-line="21" selection-start-column="4" selection-end-line="29" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Daniele/AlphaBetaPruning.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1260">
-          <caret line="90" column="12" selection-start-line="90" selection-start-column="12" selection-end-line="90" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Daniele/TablutState.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2040">
-          <caret line="157" column="4" selection-start-line="157" selection-start-column="4" selection-end-line="157" selection-end-column="4" />
+        <state relative-caret-position="118">
+          <caret line="125" column="20" selection-start-line="125" selection-start-column="20" selection-end-line="125" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Daniele/BlackOpening.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="16" column="43" selection-start-line="16" selection-start-column="43" selection-end-line="16" selection-end-column="43" />
+        <state relative-caret-position="240">
+          <caret line="16" column="44" selection-start-line="16" selection-start-column="44" selection-end-line="16" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Daniele/DanieleAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-6">
+          <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="36" />
+          <folding>
+            <element signature="e#166#167#0" expanded="true" />
+            <element signature="e#196#197#0" expanded="true" />
+            <element signature="e#306#307#0" expanded="true" />
+            <element signature="e#334#335#0" expanded="true" />
+            <element signature="e#441#442#0" expanded="true" />
+            <element signature="e#474#475#0" expanded="true" />
+            <element signature="e#523#524#0" expanded="true" />
+            <element signature="e#567#568#0" expanded="true" />
+            <element signature="e#599#600#0" expanded="true" />
+            <element signature="e#630#631#0" expanded="true" />
+            <element signature="e#675#676#0" expanded="true" />
+            <element signature="e#715#716#0" expanded="true" />
+            <element signature="e#272#273#0" expanded="true" />
+            <element signature="e#372#373#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Daniele/WhiteOpening.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="52" selection-start-line="16" selection-start-column="52" selection-end-line="16" selection-end-column="52" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Daniele/ITablutState.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+        <state relative-caret-position="300">
+          <caret line="20" column="4" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Daniele/TablutState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="706" column="11" selection-start-line="706" selection-start-column="11" selection-end-line="706" selection-end-column="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2598#2613#0" expanded="true" />
+            <element signature="e#5710#5725#0" expanded="true" />
+            <element signature="e#9630#9631#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Daniele/HeuristicTablut.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="750">
+          <caret line="51" column="48" selection-start-line="51" selection-start-column="48" selection-end-line="51" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Daniele/Server.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="703">
+          <caret line="540" column="51" selection-start-line="540" selection-start-column="51" selection-end-line="540" selection-end-column="51" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -422,38 +488,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Daniele/WhiteOpening.java">
+    <entry file="file://$PROJECT_DIR$/src/Daniele/ClientDanieleBlack.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="18" column="42" selection-start-line="18" selection-start-column="42" selection-end-line="18" selection-end-column="42" />
+        <state relative-caret-position="135">
+          <caret line="9" column="14" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/it/unibo/ai/didattica/competition/tablut/client/TablutRandomBlackClient.java">
+    <entry file="file://$PROJECT_DIR$/src/it/unibo/ai/didattica/competition/tablut/domain/State.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="11" column="8" selection-start-line="7" selection-start-column="4" selection-end-line="13" selection-end-column="5" />
+        <state relative-caret-position="1365">
+          <caret line="108" column="26" lean-forward="true" selection-start-line="108" selection-start-column="26" selection-end-line="108" selection-end-column="26" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Daniele/HeuristicTablut.java">
+    <entry file="file://$PROJECT_DIR$/src/it/unibo/ai/didattica/competition/tablut/client/TablutClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="17" column="46" lean-forward="true" selection-start-line="17" selection-start-column="46" selection-end-line="18" selection-end-column="7" />
+        <state relative-caret-position="-255">
+          <caret line="22" column="49" lean-forward="true" selection-start-line="22" selection-start-column="49" selection-end-line="22" selection-end-column="49" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Daniele/ClientDaniele.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
+        <state relative-caret-position="300">
           <caret line="20" column="22" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Daniele/ClientDanieleBlack.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="14" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

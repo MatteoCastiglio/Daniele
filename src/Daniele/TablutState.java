@@ -5,23 +5,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import it.unibo.ai.didattica.competition.tablut.domain.Action;
-import it.unibo.ai.didattica.competition.tablut.domain.Game;
-import it.unibo.ai.didattica.competition.tablut.domain.GameAshtonTablut;
-import it.unibo.ai.didattica.competition.tablut.domain.GameTablut;
+
+
 import it.unibo.ai.didattica.competition.tablut.domain.State;
 import it.unibo.ai.didattica.competition.tablut.domain.State.Pawn;
 import it.unibo.ai.didattica.competition.tablut.domain.State.Turn;
-import it.unibo.ai.didattica.competition.tablut.exceptions.ActionException;
-import it.unibo.ai.didattica.competition.tablut.exceptions.BoardException;
-import it.unibo.ai.didattica.competition.tablut.exceptions.CitadelException;
-import it.unibo.ai.didattica.competition.tablut.exceptions.ClimbingCitadelException;
-import it.unibo.ai.didattica.competition.tablut.exceptions.ClimbingException;
-import it.unibo.ai.didattica.competition.tablut.exceptions.DiagonalException;
-import it.unibo.ai.didattica.competition.tablut.exceptions.OccupitedException;
-import it.unibo.ai.didattica.competition.tablut.exceptions.PawnException;
-import it.unibo.ai.didattica.competition.tablut.exceptions.StopException;
-import it.unibo.ai.didattica.competition.tablut.exceptions.ThroneException;
+
 
 public class TablutState implements ITablutState{
 
@@ -42,8 +31,8 @@ public class TablutState implements ITablutState{
 	// @Matteo aggiunto per controlli sui pezzi mangiati
 	private static List<String> citadels =new  ArrayList<String>(Arrays.asList("a4","a5","a6","b5","d1","e1","f1","e2","i4","i5","i6","h5","d9","e9","f9","e8"));
 	
-	private int nwhites; // @Matteo numero di pezzi bianchi sulla scacchiera, mettendolo come proprietà si evita si calcolarlo dinamicamente
-	private int nblacks; // @Matteo numero di pezzi neri sulla scacchiera, mettendolo come proprietà si evita si calcolarlo dinamicamente
+	private int nwhites; // @Matteo numero di pezzi bianchi sulla scacchiera, mettendolo come proprietï¿½ si evita si calcolarlo dinamicamente
+	private int nblacks; // @Matteo numero di pezzi neri sulla scacchiera, mettendolo come proprietï¿½ si evita si calcolarlo dinamicamente
 	private int nextStateWhites; // @Matteo comodi per aggiornare il valore sul nuovo stato
 	private int nextStateBlacks; // @Matteo comodi per aggiornare il valore sul nuovo stato
 	private int whitePawnsMoved;
@@ -64,11 +53,11 @@ public class TablutState implements ITablutState{
 	}
 
 	@Override
-	public ITablutState getChildState(Action action) {
+	public ITablutState getChildState(DanieleAction action) {
 		//try {
 		return getNextState(state ,action);
 			//return new TablutState(game.checkMove(state, action));
-			// @Matteo rifare il check è superfluo se si presuppone che le mosse siano tutte valide
+			// @Matteo rifare il check ï¿½ superfluo se si presuppone che le mosse siano tutte valide
 		/*} catch (BoardException | ActionException | StopException | PawnException | DiagonalException
 				| ClimbingException | ThroneException | OccupitedException | ClimbingCitadelException
 				| CitadelException e) {
@@ -80,9 +69,9 @@ public class TablutState implements ITablutState{
 
 	
 	@Override
-	public List<Action> getTopLeftMoves() {
-		List<Action> moves = new ArrayList<Action>();
-		try {
+	public List<DanieleAction> getTopLeftMoves() {
+		List<DanieleAction> moves = new ArrayList<DanieleAction>();
+
 			if(state.getTurn().equals(Turn.WHITE)) {	//MAX player
 				for (int i = 0; i < this.board.length/2; i++) {
 					for (int j = 0; j < this.board.length/2; j++) {
@@ -91,17 +80,17 @@ public class TablutState implements ITablutState{
 							//..in verticale
 							for(int x = i-1; x >= 0; x--)
 								if(!this.board[x][j].equals(Pawn.EMPTY) || isPawnAccampamento(x, j)) break; 	//non posso scavalcare o terminare su altre pedine o accampamento o castello
-		/*serve?*/				else /*if(this.board[x][j].equals(Pawn.EMPTY))*/ moves.add(new Action(coord(i, j), coord(x, j), Turn.WHITE));
+		/*serve?*/				else /*if(this.board[x][j].equals(Pawn.EMPTY))*/ moves.add(new DanieleAction(i, j, x, j));
 							for(int x = i+1; x < this.board.length/2; x++)
 								if(!this.board[x][j].equals(Pawn.EMPTY) || isPawnAccampamento(x, j)) break; 	//non posso scavalcare o terminare su altre pedine o accampamento o castello
-								else moves.add(new Action(coord(i, j), coord(x, j), Turn.WHITE));
+								else moves.add(new DanieleAction(i, j,x, j)) ;
 							//..in orizzontale
 							for(int x = j-1; x >= 0; x--)
 								if(!this.board[i][x].equals(Pawn.EMPTY) || isPawnAccampamento(i, x)) break; 	//non posso scavalcare o terminare su altre pedine o accampamento o castello
-								else moves.add(new Action(coord(i, j), coord(i, x), Turn.WHITE));
+								else moves.add(new DanieleAction(i, j,i, x));
 							for(int x = j+1; x < this.board.length/2; x++)
 								if(!this.board[i][x].equals(Pawn.EMPTY) || isPawnAccampamento(i, x)) break; 	//non posso scavalcare o terminare su altre pedine o accampamento o castello
-								else moves.add(new Action(coord(i, j), coord(i, x), Turn.WHITE));
+								else moves.add(new DanieleAction(i, j, i, x));
 						}
 					}
 				}
@@ -114,32 +103,29 @@ public class TablutState implements ITablutState{
 							//..in verticale
 							for(int x = i-1; x >= 0; x--)
 								if(!this.board[x][j].equals(Pawn.EMPTY) || (!isPawnAccampamento(i, j) && isPawnAccampamento(x, j))) break; 	//non posso scavalcare o terminare su altre pedine o (accampamento) o castello
-								else moves.add(new Action(coord(i, j), coord(x, j), Turn.BLACK));
+								else moves.add(new DanieleAction(i, j,x, j));
 							for(int x = i+1; x < this.board.length/2; x++)
 								if(!this.board[x][j].equals(Pawn.EMPTY) || (!isPawnAccampamento(i, j) && isPawnAccampamento(x, j))) break; 	//non posso scavalcare o terminare su altre pedine o (accampamento) o castello
-								else moves.add(new Action(coord(i, j), coord(x, j), Turn.BLACK));
+								else moves.add(new DanieleAction(i, j,x, j));
 							//..in orizzontale
 							for(int x = j-1; x >= 0; x--)
 								if(!this.board[i][x].equals(Pawn.EMPTY) || (!isPawnAccampamento(i, j) && isPawnAccampamento(i, x))) break; 	//non posso scavalcare o terminare su altre pedine o (accampamento) o castello
-								else moves.add(new Action(coord(i, j), coord(i, x), Turn.BLACK));
+								else moves.add(new DanieleAction(i, j , i, x));
 							for(int x = j+1; x < this.board.length/2; x++)
 								if(!this.board[i][x].equals(Pawn.EMPTY) || (!isPawnAccampamento(i, j) && isPawnAccampamento(i, x))) break; 	//non posso scavalcare o terminare su altre pedine o (accampamento) o castello
-								else moves.add(new Action(coord(i, j), coord(i, x), Turn.BLACK));
+								else moves.add(new DanieleAction(i, j, i, x));
 						}
 					}	
 				}
 			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
 		return moves;
 	}
 	
 	@Override
-	public List<Action> getAllLegalMoves() {
-		List<Action> moves = new ArrayList<Action>();
-		try {
+	public List<DanieleAction> getAllLegalMoves() {
+		List<DanieleAction> moves = new ArrayList<DanieleAction>();
+
 			if(state.getTurn().equals(Turn.WHITE)) {	//MAX player
 				for (int i = 0; i < this.board.length; i++) {
 					for (int j = 0; j < this.board.length; j++) {
@@ -148,17 +134,17 @@ public class TablutState implements ITablutState{
 							//..in verticale
 							for(int x = i-1; x >= 0; x--)
 								if(!this.board[x][j].equals(Pawn.EMPTY) || isPawnAccampamento(x, j)) break; 	//non posso scavalcare o terminare su altre pedine o accampamento o castello
-		/*serve?*/				else /*if(this.board[x][j].equals(Pawn.EMPTY))*/ moves.add(new Action(coord(i, j), coord(x, j), Turn.WHITE));
+		/*serve?*/				else /*if(this.board[x][j].equals(Pawn.EMPTY))*/ moves.add(new DanieleAction(i, j,x, j));
 							for(int x = i+1; x < this.board.length; x++)
 								if(!this.board[x][j].equals(Pawn.EMPTY) || isPawnAccampamento(x, j)) break; 	//non posso scavalcare o terminare su altre pedine o accampamento o castello
-								else moves.add(new Action(coord(i, j), coord(x, j), Turn.WHITE));
+								else moves.add(new DanieleAction(i, j,x, j));
 							//..in orizzontale
 							for(int x = j-1; x >= 0; x--)
 								if(!this.board[i][x].equals(Pawn.EMPTY) || isPawnAccampamento(i, x)) break; 	//non posso scavalcare o terminare su altre pedine o accampamento o castello
-								else moves.add(new Action(coord(i, j), coord(i, x), Turn.WHITE));
+								else moves.add(new DanieleAction(i, j,i, x));
 							for(int x = j+1; x < this.board.length; x++)
 								if(!this.board[i][x].equals(Pawn.EMPTY) || isPawnAccampamento(i, x)) break; 	//non posso scavalcare o terminare su altre pedine o accampamento o castello
-								else moves.add(new Action(coord(i, j), coord(i, x), Turn.WHITE));
+								else moves.add(new DanieleAction(i, j,i, x));
 						}
 					}
 				}
@@ -171,25 +157,22 @@ public class TablutState implements ITablutState{
 							//..in verticale
 							for(int x = i-1; x >= 0; x--)
 								if(!this.board[x][j].equals(Pawn.EMPTY) || (!isPawnAccampamento(i, j) && isPawnAccampamento(x, j))) break; 	//non posso scavalcare o terminare su altre pedine o (accampamento) o castello
-								else moves.add(new Action(coord(i, j), coord(x, j), Turn.BLACK));
+								else moves.add(new DanieleAction(i, j,x, j));
 							for(int x = i+1; x < this.board.length; x++)
 								if(!this.board[x][j].equals(Pawn.EMPTY) || (!isPawnAccampamento(i, j) && isPawnAccampamento(x, j))) break; 	//non posso scavalcare o terminare su altre pedine o (accampamento) o castello
-								else moves.add(new Action(coord(i, j), coord(x, j), Turn.BLACK));
+								else moves.add(new DanieleAction(i, j,x, j));
 							//..in orizzontale
 							for(int x = j-1; x >= 0; x--)
 								if(!this.board[i][x].equals(Pawn.EMPTY) || (!isPawnAccampamento(i, j) && isPawnAccampamento(i, x))) break; 	//non posso scavalcare o terminare su altre pedine o (accampamento) o castello
-								else moves.add(new Action(coord(i, j), coord(i, x), Turn.BLACK));
+								else moves.add(new DanieleAction(i, j,i, x));
 							for(int x = j+1; x < this.board.length; x++)
 								if(!this.board[i][x].equals(Pawn.EMPTY) || (!isPawnAccampamento(i, j) && isPawnAccampamento(i, x))) break; 	//non posso scavalcare o terminare su altre pedine o (accampamento) o castello
-								else moves.add(new Action(coord(i, j), coord(i, x), Turn.BLACK));
+								else moves.add(new DanieleAction(i, j,i, x));
 						}
 					}	
 				}
 			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
 		return moves;
 	}
 	
@@ -209,9 +192,7 @@ public class TablutState implements ITablutState{
 		return false;
 	}
 
-	private String coord(int i, int j) {
-		return "" + (char)(j+97) + (i+1);
-	}
+
 
 	@Override
 	public State getState() {
@@ -235,12 +216,12 @@ public class TablutState implements ITablutState{
 	
 	
 	
-// @Matteo questi metodi sono più o meno copiati dalla classe GameAshtonTablut poi vedremo meglioc ome metterli 
+// @Matteo questi metodi sono piï¿½ o meno copiati dalla classe GameAshtonTablut poi vedremo meglioc ome metterli 
 
 //@Matteo turn nelle action non serve a nulla, potremmo farci una nostra Action
 	
 	
-private TablutState getNextState(State mystate, Action a) {
+private TablutState getNextState(State mystate, DanieleAction a) {
 		State state = mystate.clone();
 		Pawn pawn = state.getPawn(a.getRowFrom(), a.getColumnFrom());
 		Pawn[][] newBoard = state.getBoard();
@@ -301,10 +282,10 @@ private TablutState getNextState(State mystate, Action a) {
 		*/
 }
 	
-private State checkCaptureBlack(State state, Action a) {
+private State checkCaptureBlack(State state, DanieleAction a) {
 		
 		
-		// @Matteo tutti i controlli a prescindere si può fare meglio???
+		// @Matteo tutti i controlli a prescindere si puï¿½ fare meglio???
 		this.checkCaptureBlackPawnRight(state, a);
 		this.checkCaptureBlackPawnLeft(state, a);
 		this.checkCaptureBlackPawnUp(state, a);
@@ -316,7 +297,7 @@ private State checkCaptureBlack(State state, Action a) {
 		return state;
 }
 
-private State checkCaptureWhite(State state, Action a) {
+private State checkCaptureWhite(State state, DanieleAction a) {
 	// controllo se mangio a destra
 	if (a.getColumnTo() < state.getBoard().length - 2
 			&& state.getPawn(a.getRowTo(), a.getColumnTo() + 1).equalsPawn("B")
@@ -376,7 +357,7 @@ private State checkCaptureWhite(State state, Action a) {
 	return state;
 }
 
-private State checkCaptureBlackKingLeft(State state, Action a){
+private State checkCaptureBlackKingLeft(State state, DanieleAction a){
 	//ho il re sulla sinistra
 	if (a.getColumnTo()>1&&state.getPawn(a.getRowTo(), a.getColumnTo()-1).equalsPawn("K"))
 	{
@@ -436,7 +417,7 @@ private State checkCaptureBlackKingLeft(State state, Action a){
 	return state;
 }
 
-private State checkCaptureBlackKingRight(State state, Action a){
+private State checkCaptureBlackKingRight(State state, DanieleAction a){
 	//ho il re sulla destra
 	if (a.getColumnTo()<state.getBoard().length-2&&(state.getPawn(a.getRowTo(),a.getColumnTo()+1).equalsPawn("K")))				
 	{
@@ -496,7 +477,7 @@ private State checkCaptureBlackKingRight(State state, Action a){
 	return state;
 }
 
-private State checkCaptureBlackKingDown(State state, Action a){
+private State checkCaptureBlackKingDown(State state, DanieleAction a){
 	//ho il re sotto
 	if (a.getRowTo()<state.getBoard().length-2&&state.getPawn(a.getRowTo()+1,a.getColumnTo()).equalsPawn("K"))
 	{
@@ -557,7 +538,7 @@ private State checkCaptureBlackKingDown(State state, Action a){
 	return state;
 }
 
-private State checkCaptureBlackKingUp(State state, Action a){
+private State checkCaptureBlackKingUp(State state, DanieleAction a){
 	//ho il re sopra
 	if (a.getRowTo()>1&&state.getPawn(a.getRowTo()-1, a.getColumnTo()).equalsPawn("K"))
 	{
@@ -617,7 +598,7 @@ private State checkCaptureBlackKingUp(State state, Action a){
 	return state;
 }
 
-private State checkCaptureBlackPawnRight(State state, Action a)	{
+private State checkCaptureBlackPawnRight(State state, DanieleAction a)	{
 	//mangio a destra
 	if (a.getColumnTo() < state.getBoard().length - 2 && state.getPawn(a.getRowTo(), a.getColumnTo() + 1).equalsPawn("W"))
 	{
@@ -647,7 +628,7 @@ private State checkCaptureBlackPawnRight(State state, Action a)	{
 	return state;
 }
 
-private State checkCaptureBlackPawnLeft(State state, Action a){
+private State checkCaptureBlackPawnLeft(State state, DanieleAction a){
 	//mangio a sinistra
 	if (a.getColumnTo() > 1
 			&& state.getPawn(a.getRowTo(), a.getColumnTo() - 1).equalsPawn("W")
@@ -663,7 +644,7 @@ private State checkCaptureBlackPawnLeft(State state, Action a){
 	return state;
 }
 
-private State checkCaptureBlackPawnUp(State state, Action a){
+private State checkCaptureBlackPawnUp(State state, DanieleAction a){
 	// controllo se mangio sopra
 	if (a.getRowTo() > 1
 			&& state.getPawn(a.getRowTo() - 1, a.getColumnTo()).equalsPawn("W")
@@ -680,7 +661,7 @@ private State checkCaptureBlackPawnUp(State state, Action a){
 	return state;
 }
 
-private State checkCaptureBlackPawnDown(State state, Action a){
+private State checkCaptureBlackPawnDown(State state, DanieleAction a){
 	// controllo se mangio sotto
 	if (a.getRowTo() < state.getBoard().length - 2
 			&& state.getPawn(a.getRowTo() + 1, a.getColumnTo()).equalsPawn("W")
@@ -722,5 +703,14 @@ public int WhitesCount() {
 	// TODO Auto-generated method stub
 	return nwhites;
 }
-
+@Override
+public int getWhitesOnKingDiagonal()
+{
+	int res=0;
+	if(coordKing[0]-1>=0&&state.getPawn(coordKing[0]-1,coordKing[1]).equals(Pawn.WHITE)) res++;
+	if(coordKing[0]+1<=8&&state.getPawn(coordKing[0]+1,coordKing[1]).equals(Pawn.WHITE)) res++;
+	if(coordKing[1]-1>=0&&state.getPawn(coordKing[0],coordKing[1]-1).equals(Pawn.WHITE)) res++;
+	if(coordKing[1]+1<=8&&state.getPawn(coordKing[0],coordKing[1]+1).equals(Pawn.WHITE)) res++;
+	return res;
+}
 }

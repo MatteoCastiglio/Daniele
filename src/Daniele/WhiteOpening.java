@@ -2,23 +2,23 @@ package Daniele;
 
 import java.io.IOException;
 
-import it.unibo.ai.didattica.competition.tablut.domain.Action;
-import it.unibo.ai.didattica.competition.tablut.domain.State.Turn;
+
+
 
 public class WhiteOpening {
 
 	
 	
-		public static Action nextMove(ITablutState state, int turn ) throws IOException
+		public static DanieleAction nextMove(ITablutState state, int turn ) throws IOException
 		{
 		
 			switch(turn) { 
 		
-			case 0: return new Action("f5", "f4", Turn.BLACK);
+			case 0: return new DanieleAction(4,5,3,5);
 				
-			case 1: return new Action("e6", "f6", Turn.BLACK);
-			
-			case 2: return new Action("c5", "c6", Turn.BLACK);
+			case 1: return new DanieleAction(5,4,5,5);
+
+			case 2: return null;
 			
 			default: return null;
 			

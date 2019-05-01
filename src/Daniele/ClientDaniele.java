@@ -47,7 +47,7 @@ public class ClientDaniele extends TablutClient{
 
 	//@turnCounter serve per gestire le mosse di apertura
 	private void runBlack() throws ClassNotFoundException, IOException {
-		Action action = null;
+		DanieleAction action = null;
 		int turnCounter = 0;
 		while(true) {	
 			//legge stato corrente dal server (mossa avversario)
@@ -78,14 +78,14 @@ public class ClientDaniele extends TablutClient{
 			action = ab.AlphaBetaSearch(depth, new TablutState(currentState,nwhites,nblacks,coord,whitesMoved),MinMaxPrinter.getPrinter(PrintMode.Simple));
 			turnCounter++;
 			//comunica l'azione al server
-			this.write(action);
+			this.write(new Action(DanieleAction.coord(action.getRowFrom(),action.getColumnFrom()),DanieleAction.coord(action.getRowTo(),action.getColumnTo()),Turn.BLACK));
 			//legge stato corrente modificato dal server
 			this.read();
 		}
 	}
 
 	private void runWhite() throws ClassNotFoundException, IOException {
-		Action action = null;
+		DanieleAction action = null;
 		int turnCounter=0;
 		while(true) {
 			//scelta mossa
@@ -115,7 +115,7 @@ public class ClientDaniele extends TablutClient{
 			action = ab.AlphaBetaSearch(depth, new TablutState(this.getCurrentState(),nwhites,nblacks,coord,whitesMoved),MinMaxPrinter.getPrinter(PrintMode.Simple));
 			turnCounter++;
 			//comunica l'azione al server
-			this.write(action);
+			this.write(new Action(DanieleAction.coord(action.getRowFrom(),action.getColumnFrom()),DanieleAction.coord(action.getRowTo(),action.getColumnTo()),Turn.WHITE));
 			//legge stato corrente modificato dal server
 			this.read();
 			//legge stato corrente dal server (mossa avversario)

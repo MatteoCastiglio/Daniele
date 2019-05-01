@@ -5,14 +5,13 @@ import java.util.List;
 import java.util.Map;
 
 import Daniele.minmaxprinter.MinMaxPrinter;
-import it.unibo.ai.didattica.competition.tablut.domain.Action;
 import it.unibo.ai.didattica.competition.tablut.domain.State.Turn;
 
 public class AlphaBetaPruning {
 
 	
-	//@Matteo non è meglio usare int??
-	private Map<Double, Action> mapMoves;
+	//@Matteo non ï¿½ meglio usare int??
+	private Map<Double, DanieleAction> mapMoves;
 	private int maxDepth;
 	
 	/**
@@ -25,10 +24,10 @@ public class AlphaBetaPruning {
 	 * @return
 	 * 			ritorna la migliore azione 
 	 */
-	public Action AlphaBetaSearch(int maxDepth, ITablutState ts,MinMaxPrinter printer) {
+	public DanieleAction AlphaBetaSearch(int maxDepth, ITablutState ts,MinMaxPrinter printer) {
 
 		
-		mapMoves= new HashMap<Double, Action>();
+		mapMoves= new HashMap<Double, DanieleAction>();
 		this.maxDepth = maxDepth;
 		
 		if(ts.getState().getTurn().equals(Turn.WHITE)) {	//MAX player
@@ -73,9 +72,9 @@ public class AlphaBetaPruning {
 		double tmp;
 		double v = Double.NEGATIVE_INFINITY;
 
-		List<Action> moves = state.getAllLegalMoves();
+		List<DanieleAction> moves = state.getAllLegalMoves();
 	//	List<Action> moves = state.getTopLeftMoves();
-		for (Action m : moves) {											//= per ogni coppia <azione, stato>
+		for (DanieleAction m : moves) {											//= per ogni coppia <azione, stato>
 			ITablutState childState = state.getChildState(m);
 			//@Matteo
 			
@@ -114,7 +113,7 @@ public class AlphaBetaPruning {
 	 */
 	private double MinValue(int depth, double alpha, double beta, ITablutState state,MinMaxPrinter printer) {
 		//all'interuzione si ritorna un valore 
-		//provo aggiungere -depth per favorire percorsi più corti
+		//provo aggiungere -depth per favorire percorsi piï¿½ corti
 		if (cutoff(depth, state)) {
 			return HeuristicTablut.HeuristicFunction(state) + depth;
 		}
@@ -122,9 +121,9 @@ public class AlphaBetaPruning {
 		double v = Double.POSITIVE_INFINITY;
 
 		
-		List<Action> moves = state.getAllLegalMoves();
+		List<DanieleAction> moves = state.getAllLegalMoves();
 		//List<Action> moves = state.getTopLeftMoves();
-		for (Action m : moves) {											//= per ogni coppia <azione, stato>
+		for (DanieleAction m : moves) {											//= per ogni coppia <azione, stato>
 			ITablutState childState = state.getChildState(m);				//  della funzione successore	
 			if(childState!=null) {
 			//v = Math.min(v, MaxValue(depth - 1, alpha, beta, childState));

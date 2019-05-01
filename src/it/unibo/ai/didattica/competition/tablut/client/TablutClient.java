@@ -86,6 +86,8 @@ public abstract class TablutClient implements Runnable {
 	public void write(Action action) throws IOException, ClassNotFoundException {
 		StreamUtils.writeString(out, this.gson.toJson(action));
 	}
+
+
 	
 	/**
 	 * Write the name to the server

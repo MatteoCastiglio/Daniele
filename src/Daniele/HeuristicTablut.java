@@ -28,7 +28,7 @@ public class HeuristicTablut {
 		if(state.getState().getTurn().equals(Turn.DRAW)) return 0;
 		if(state.getState().getTurn().equals(Turn.BLACKWIN)) return -1000;
 		
-		//@Matteo ho cambiato i return e inserito questa variabile per iniziare a strutturare un euristica più completa
+		//@Matteo ho cambiato i return e inserito questa variabile per iniziare a strutturare un euristica piï¿½ completa
 		double result  = 0;
 			
 		
@@ -37,7 +37,7 @@ public class HeuristicTablut {
 			//@Matteo non capisco i controlli sui turni
 		//	if(state.getState().getTurn().equals(Turn.WHITE)) result-= 800;
 		//	else result +=900;
-			result +=800;
+			result +=700;
 		
 		//caso in cui il re sia in pericolo / caso in cui un nero possa mangiare il re
 		if(isKingInDanger(state))
@@ -48,11 +48,11 @@ public class HeuristicTablut {
 		//@Matteo valutazioni sul numero di pezzi
 		result+=state.WhitesCount()*10;
 		result-=state.BlacksCount()*5;
-		result+=state.getWhitePawnsMoved()*5;
-		
+		//result+=state.getWhitePawnsMoved()*5;
+		result+=state.getWhitesOnKingDiagonal()*30;
 		//caso in cui un bianco sia in pericolo (se rimangono poche pedine, altrimenti privilegiare quella sotto) / caso in cui il nero possa mangiare un bianco
 		
-		//caso in cui un bianco può mangiare un nero / caso in cui il nero sia in pericolo (se rimangono poche pedine da privilegiare, rispetto quella sopra)
+		//caso in cui un bianco puï¿½ mangiare un nero / caso in cui il nero sia in pericolo (se rimangono poche pedine da privilegiare, rispetto quella sopra)
 		
 		
 		
