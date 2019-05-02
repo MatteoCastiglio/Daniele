@@ -2,23 +2,27 @@ package Daniele;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
 
 import Daniele.minmaxprinter.MinMaxPrinter;
 import Daniele.minmaxprinter.PrintMode;
 import it.unibo.ai.didattica.competition.tablut.client.TablutClient;
 import it.unibo.ai.didattica.competition.tablut.domain.Action;
+import it.unibo.ai.didattica.competition.tablut.domain.State;
 import it.unibo.ai.didattica.competition.tablut.domain.State.Pawn;
 import it.unibo.ai.didattica.competition.tablut.domain.State.Turn;
 
 public class ClientDaniele extends TablutClient{
 
+
 	private int depth;
 	private AlphaBetaPruning ab = null;
 	private final int OPENING_COUNTER = 2;
 	
-	public ClientDaniele(String player) throws UnknownHostException, IOException {
+	public ClientDaniele(String player) throws  IOException {
 		super(player, "Daniele");
-		this.depth = 4;
+		this.depth = 5;
 		ab = new AlphaBetaPruning();
 	}
 
@@ -90,6 +94,7 @@ public class ClientDaniele extends TablutClient{
 		while(true) {
 			//scelta mossa
 			// @Matteo conteggio iniziale questo penso sia inevitabile, ma si fa una volta sola!!!!!
+
 			int nwhites =0;
 			int nblacks = 0;
 			int coord[] = new int[2];
@@ -118,6 +123,7 @@ public class ClientDaniele extends TablutClient{
 			this.write(new Action(DanieleAction.coord(action.getRowFrom(),action.getColumnFrom()),DanieleAction.coord(action.getRowTo(),action.getColumnTo()),Turn.WHITE));
 			//legge stato corrente modificato dal server
 			this.read();
+
 			//legge stato corrente dal server (mossa avversario)
 			this.read();
 		}

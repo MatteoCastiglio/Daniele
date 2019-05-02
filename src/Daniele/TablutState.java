@@ -1,8 +1,8 @@
 package Daniele;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -14,11 +14,11 @@ import it.unibo.ai.didattica.competition.tablut.domain.State.Turn;
 
 public class TablutState implements ITablutState{
 
-	
+
 	private State state;
 	@Override
 	public String toString() {
-		return "TablutState" + System.lineSeparator() + state + System.lineSeparator() + " nwhites=" + nwhites + ", nblacks=" + nblacks ;
+		return "TablutState" + System.lineSeparator() + state + System.lineSeparator() + " nwhites=" + nwhites + ", nblacks=" + nblacks +" king=" +coordKing[0] + " " +coordKing[1];
 	}
 
 	//private Game game;																//contiene un gioco per ogni istanza??
@@ -148,7 +148,7 @@ public class TablutState implements ITablutState{
 						}
 					}
 				}
-			} //@Matteo dovrebbe servire una correzione sui neri
+			}
 			else if(state.getTurn().equals(Turn.BLACK)) {	//MIN player
 				for (int i = 0; i < this.board.length; i++) {
 					for (int j = 0; j < this.board.length; j++) {
@@ -172,7 +172,7 @@ public class TablutState implements ITablutState{
 					}	
 				}
 			}
-
+		//Collections.reverse(moves);
 		return moves;
 	}
 	
@@ -269,9 +269,8 @@ private TablutState getNextState(State mystate, DanieleAction a) {
 			state.setTurn(State.Turn.WHITE);
 			state = checkCaptureBlack(state,a);
 		}
-		
-		// @Matteo qui manca controllo su pareggio per stato ripetuto
-		return new TablutState(state,nextStateWhites,nextStateBlacks,nextCoordKing,nextWhitePawnsMoved);
+
+	return new TablutState(state,nextStateWhites,nextStateBlacks,nextCoordKing,nextWhitePawnsMoved);
 		
 		//@ Matteo decommentare per stampe -- parametro per debug mode ???
 		/*
@@ -474,6 +473,7 @@ private State checkCaptureBlackKingRight(State state, DanieleAction a){
 			}					
 		}
 	}
+
 	return state;
 }
 
@@ -703,14 +703,54 @@ public int WhitesCount() {
 	// TODO Auto-generated method stub
 	return nwhites;
 }
-@Override
-public int getWhitesOnKingDiagonal()
-{
-	int res=0;
-	if(coordKing[0]-1>=0&&state.getPawn(coordKing[0]-1,coordKing[1]).equals(Pawn.WHITE)) res++;
-	if(coordKing[0]+1<=8&&state.getPawn(coordKing[0]+1,coordKing[1]).equals(Pawn.WHITE)) res++;
-	if(coordKing[1]-1>=0&&state.getPawn(coordKing[0],coordKing[1]-1).equals(Pawn.WHITE)) res++;
-	if(coordKing[1]+1<=8&&state.getPawn(coordKing[0],coordKing[1]+1).equals(Pawn.WHITE)) res++;
-	return res;
-}
+
+
+	@Override
+	public int getPawnsOnKingDiagonal()
+	{
+		int res=0;
+		if(coordKing[0]-1>=0)
+		{
+			if(coordKing[1]-1>=0)
+				if(state.getPawn(coordKing[0]-1,coordKing[1]-1).equals(Pawn.WHITE)) res++;
+				else if (state.getPawn(coordKing[0]-1,coordKing[1]-1).equals(Pawn.BLACK)) res--;
+			if(coordKing[1]+1<=8)
+				if(state.getPawn(coordKing[0]-1,coordKing[1]+1).equals(Pawn.WHITE)) res++;
+				else if (state.getPawn(coordKing[0]-1,coordKing[1]+1).equals(Pawn.BLACK)) res--;
+		}
+		if(coordKing[0]+1<=8){
+			if(coordKing[1]-1>=0)
+				if(state.getPawn(coordKing[0]+1,coordKing[1]-1).equals(Pawn.WHITE)) res++;
+				else if (state.getPawn(coordKing[0]+1,coordKing[1]-1).equals(Pawn.BLACK)) res--;
+			if(coordKing[1]+1<=8)
+				if(state.getPawn(coordKing[0]+1,coordKing[1]+1).equals(Pawn.WHITE)) res++;
+				else if (state.getPawn(coordKing[0]+1,coordKing[1]+1).equals(Pawn.BLACK)) res--;
+		}
+		return res;
+	}
+
+
+	@Override
+	public int getPawnsOnKingDiagonal2()
+	{
+		int res=0;
+		if(coordKing[0]-2>=0)
+		{
+			if(coordKing[1]-2>=0)
+				if(state.getPawn(coordKing[0]-2,coordKing[1]-2).equals(Pawn.WHITE)) res++;
+				else if (state.getPawn(coordKing[0]-2,coordKing[1]-2).equals(Pawn.BLACK)) res--;
+			if(coordKing[1]+2<=8)
+				if(state.getPawn(coordKing[0]-2,coordKing[1]+2).equals(Pawn.WHITE)) res++;
+				else if (state.getPawn(coordKing[0]-2,coordKing[1]+2).equals(Pawn.BLACK)) res--;
+		}
+		if(coordKing[0]+2<=8){
+			if(coordKing[1]-2>=0)
+				if(state.getPawn(coordKing[0]+2,coordKing[1]-2).equals(Pawn.WHITE)) res++;
+				else if (state.getPawn(coordKing[0]+2,coordKing[1]-2).equals(Pawn.BLACK)) res--;
+			if(coordKing[1]+2<=8)
+				if(state.getPawn(coordKing[0]+2,coordKing[1]+2).equals(Pawn.WHITE)) res++;
+				else if (state.getPawn(coordKing[0]+2,coordKing[1]+2).equals(Pawn.BLACK)) res--;
+		}
+		return res;
+	}
 }

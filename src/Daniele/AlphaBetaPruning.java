@@ -34,13 +34,13 @@ public class AlphaBetaPruning {
 			double v = MaxValue(maxDepth, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, ts,printer);
 			//@Matteo stampa per debug
 			//System.out.println("Valore scelto: " + v);
-			printer.printDecision(v);
+			printer.printDecision(v,mapMoves.get(v));
 			return mapMoves.get(v);	//si recupera l'azione con il valore v più alto
 		}
 		else if(ts.getState().getTurn().equals(Turn.BLACK)) {	//MIN player
 			double v = MinValue(maxDepth, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, ts,printer);
 			//@Matteo stampa per debug
-			printer.printDecision(v);
+			printer.printDecision(v,mapMoves.get(v));
 			return mapMoves.get(v);	//si recupera l'azione con il valore v più basso
 		}
 		//else System.out.println("partita conclusa: "+ ts.getState().getTurn());
@@ -82,21 +82,22 @@ public class AlphaBetaPruning {
 			if(childState!=null) {//  della funzione successore		
 			//	v = Math.max(v, MinValue(depth - 1, alpha, beta, childState));
 			tmp=MinValue(depth - 1, alpha, beta, childState,printer);
-			if(this.maxDepth==depth) { this.mapMoves.put(tmp, m);					//ci si salva in mappa le coppie <valore, mossa> del primo livello di profondità
+			if(this.maxDepth==depth && tmp>v) {
+				this.mapMoves.put(tmp, m);					//ci si salva in mappa le coppie <valore, mossa> del primo livello di profondità
 			//@Matteo Debug
-			printer.printChild(childState,tmp);
+				printer.printMove(m,childState,tmp);
 			}
 			//@Matteo si possono invertire queste due istruzioni??
 			v = Math.max(v, tmp);
 			if (v >= beta) {
-				printer.printReturn(v);
+				//printer.printReturn(v);
 				return v;
 			}
 
 			alpha = Math.max(alpha, v);
 			}
 		}
-		printer.printReturn(v);
+		//printer.printReturn(v);
 		return v;
 	
 
@@ -128,22 +129,21 @@ public class AlphaBetaPruning {
 			if(childState!=null) {
 			//v = Math.min(v, MaxValue(depth - 1, alpha, beta, childState));
 			tmp=MaxValue(depth - 1, alpha, beta, childState,printer);
-			if(this.maxDepth==depth) {
+			if(this.maxDepth==depth && tmp < v) {
 				this.mapMoves.put(tmp, m);	
 				//ci si salva in mappa le coppie <valore, mossa> del primo livello di profondità
 				//@Matteo Debug
-				printer.printChild(childState,tmp);
-			//	System.out.println(childState);
+				printer.printMove(m,childState,tmp);
 			}
 			v = Math.min(v,tmp);
 			if (v <= alpha) {
-				printer.printReturn(v);
+				//printer.printReturn(v);
 				return v;
 			}
 			beta = Math.min(beta, v);
 			}
 		}
-		printer.printReturn(v);
+		//printer.printReturn(v);
 		return v;
 
 	}

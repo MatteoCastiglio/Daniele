@@ -722,8 +722,8 @@ public class GameAshtonTablut implements Game {
 				&& (state.getPawn(a.getRowTo(), a.getColumnTo() + 2).equalsPawn("B")
 						|| state.getPawn(a.getRowTo(), a.getColumnTo() + 2).equalsPawn("T")
 						|| this.citadels.contains(state.getBox(a.getRowTo(), a.getColumnTo() + 2)))) {
-			// nero-re-trono N.B. No indexOutOfBoundException perchè se il re si
-			// trovasse sul bordo il giocatore bianco avrebbe già vinto
+			// nero-re-trono N.B. No indexOutOfBoundException perchï¿½ se il re si
+			// trovasse sul bordo il giocatore bianco avrebbe giï¿½ vinto
 			if (state.getPawn(a.getRowTo(), a.getColumnTo() + 1).equalsPawn("K")
 					&& state.getPawn(a.getRowTo(), a.getColumnTo() + 2).equalsPawn("T")) {
 				// ho circondato su 3 lati il re?
@@ -1032,7 +1032,6 @@ public class GameAshtonTablut implements Game {
 	public File getGameLog() {
 		return gameLog;
 	}
-
 	public int getMovesWithutCapturing() {
 		return movesWithutCapturing;
 	}

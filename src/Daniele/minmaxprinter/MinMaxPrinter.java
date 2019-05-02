@@ -1,5 +1,6 @@
 package Daniele.minmaxprinter;
 
+import Daniele.DanieleAction;
 import Daniele.ITablutState;
 
 public interface MinMaxPrinter {
@@ -12,82 +13,73 @@ public interface MinMaxPrinter {
 		else return null;
 	}
 	
-	public void printDecision(double value);
-	public void printReturn(double v);
-	public void printChild(ITablutState state, double value);
+	 void printDecision(double value, DanieleAction a);
+	void printMove(DanieleAction a, ITablutState state, double value);
+
+
 }
 
  class DumbPrinter implements MinMaxPrinter
 {
 
 	@Override
-	public void printDecision(double value) {
+	public void printDecision(double value,DanieleAction a) {
 		
 		
 	}
 
 	@Override
-	public void printReturn(double v) {
-		
-		
+	public void printMove(DanieleAction a, ITablutState state, double value) {
+
 	}
 
-	@Override
-	public void printChild(ITablutState state, double value) {
-	
-		
-	}
+
 }
-	class SimplePrinter implements MinMaxPrinter
+class SimplePrinter implements MinMaxPrinter
 	 {
 
 	 	@Override
-	 	public void printDecision(double value) {
-	 		System.out.println("valore deciso :" +value);
-	 	}
-	 		
-	 		
-	 	
-
-	 	@Override
-	 	public void printReturn(double v) {
-	 		System.out.println("valore restituito :" +v);
-	 		
+	 	public void printDecision(double value,DanieleAction a )
+		{
+	 		System.out.println("valore deciso :" +value +" -- Azione " + a);
 	 	}
 
-	 	@Override
-	 	public void printChild(ITablutState state, double value) {
-	 	
-	 		System.out.println(state.toString());
-	 		System.out.println("valore =" + value);
-	 		
-	 	}
+		 @Override
+		 public void printMove(DanieleAction a, ITablutState state, double value) {
+	 		printMove(a,value);
+
+		 }
+
+
+		 public void printMove(DanieleAction a, double value) {
+			 System.out.println("Aggiunta azione " +a +" con valore " + value);
+		 }
 	 }
 	
 	class VerbosePrinter extends SimplePrinter implements MinMaxPrinter
 		 {
 
 		 	@Override
-		 	public void printDecision(double value) {
-		 		super.printDecision(value);
-		 	}
-		 		
-		 		
-		 	
-
-		 	@Override
-		 	public void printReturn(double v) {
-		 		
-		 		super.printReturn(v);
-		 		
+		 	public void printDecision(double value,DanieleAction a) {
+		 		super.printDecision(value,a);
 		 	}
 
-		 	@Override
+
+			 @Override
+			 public void printMove(DanieleAction a, ITablutState state, double value) {
+				 printMove(a,value);
+				 printChild(state,value);
+
+			 }
+
+
+
+
 		 	public void printChild(ITablutState state, double value) {
-		 	
-		 		System.out.println("-------");
-		 		super.printChild(state, value);
+
 		 		System.out.println("------");
+		 		System.out.println(state);
+				System.out.println("------");
 		 		
 		 	}
 		 }

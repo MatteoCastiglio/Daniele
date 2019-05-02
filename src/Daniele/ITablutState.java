@@ -18,7 +18,8 @@ public interface ITablutState {
 	int BlacksCount();
 	int WhitesCount();
 	int getWhitePawnsMoved();
-	int getWhitesOnKingDiagonal();
+	int getPawnsOnKingDiagonal();
+	int getPawnsOnKingDiagonal2();
 	
 	
 }
