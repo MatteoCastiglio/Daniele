@@ -17,13 +17,17 @@ public class ClientDaniele extends TablutClient{
 
 
 	private int depth;
-	private AlphaBetaPruning ab = null;
+	//private AlphaBetaPruning ab = null;							//scommenta per AlphaBetaPruning
+	private AIGame ai = null;
 	private final int OPENING_COUNTER = 2;
+	private final int STARTING_DEPTH = 5;
+	private final int MAX_DEPTH = 6;
 	
 	public ClientDaniele(String player) throws  IOException {
 		super(player, "Daniele");
 		this.depth = 5;
-		ab = new AlphaBetaPruning();
+		//ab = new AlphaBetaPruning();								//scommenta per AlphaBetaPrunin
+		ai = new AIGame(60000);	//con -1 non c'è limite di tempo
 	}
 
 	@Override
@@ -79,7 +83,8 @@ public class ClientDaniele extends TablutClient{
 			if(turnCounter<OPENING_COUNTER)
 			action = BlackOpening.nextMove(new TablutState(currentState,nwhites,nblacks,coord,whitesMoved), turnCounter);
 			else
-			action = ab.AlphaBetaSearch(depth, new TablutState(currentState,nwhites,nblacks,coord,whitesMoved),MinMaxPrinter.getPrinter(PrintMode.Simple));
+			//action = ab.AlphaBetaSearch(depth, new TablutState(currentState,nwhites,nblacks,coord,whitesMoved),MinMaxPrinter.getPrinter(PrintMode.Simple));			//scommenta per AlphaBetaPrunin
+			action = ai.chooseBestMove(STARTING_DEPTH, MAX_DEPTH, new TablutState(currentState,nwhites,nblacks,coord,whitesMoved), MinMaxPrinter.getPrinter(PrintMode.Simple));
 			turnCounter++;
 			//comunica l'azione al server
 			this.write(new Action(DanieleAction.coord(action.getRowFrom(),action.getColumnFrom()),DanieleAction.coord(action.getRowTo(),action.getColumnTo()),Turn.BLACK));
@@ -117,7 +122,8 @@ public class ClientDaniele extends TablutClient{
 			if(turnCounter<OPENING_COUNTER)
 			action = WhiteOpening.nextMove(new TablutState(currentState,nwhites,nblacks,coord,whitesMoved), turnCounter);
 			else
-			action = ab.AlphaBetaSearch(depth, new TablutState(this.getCurrentState(),nwhites,nblacks,coord,whitesMoved),MinMaxPrinter.getPrinter(PrintMode.Simple));
+			//action = ab.AlphaBetaSearch(depth, new TablutState(this.getCurrentState(),nwhites,nblacks,coord,whitesMoved),MinMaxPrinter.getPrinter(PrintMode.Simple));			//scommenta per AlphaBetaPrunin
+			action = ai.chooseBestMove(STARTING_DEPTH, MAX_DEPTH, new TablutState(currentState,nwhites,nblacks,coord,whitesMoved), MinMaxPrinter.getPrinter(PrintMode.Simple));
 			turnCounter++;
 			//comunica l'azione al server
 			this.write(new Action(DanieleAction.coord(action.getRowFrom(),action.getColumnFrom()),DanieleAction.coord(action.getRowTo(),action.getColumnTo()),Turn.WHITE));

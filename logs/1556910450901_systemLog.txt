@@ -1,0 +1,50 @@
+mag 03, 2019 9:07:30 PM Daniele.Server run
+BUONO: Accensione server
+mag 03, 2019 9:07:30 PM Daniele.Server run
+BUONO: Partita di Tablut
+mag 03, 2019 9:07:36 PM Daniele.Server run
+BUONO: Accettata connessione con client giocatore Bianco
+mag 03, 2019 9:07:36 PM Daniele.Server run
+BUONO: Lettura nome player bianco in corso..
+mag 03, 2019 9:07:37 PM Daniele.Server run
+BUONO: White player name:	Daniele
+mag 03, 2019 9:07:37 PM Daniele.Server run
+BUONO: Accettata connessione con client giocatore Nero
+mag 03, 2019 9:07:37 PM Daniele.Server run
+BUONO: Lettura nome player nero in corso..
+mag 03, 2019 9:07:37 PM Daniele.Server run
+BUONO: Black player name:	Daniele
+mag 03, 2019 9:07:38 PM Daniele.Server run
+BUONO: Invio messaggio ai giocatori
+mag 03, 2019 9:07:38 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+mag 03, 2019 9:07:39 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from f5 to f4
+mag 03, 2019 9:07:39 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+mag 03, 2019 9:07:39 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+mag 03, 2019 9:07:40 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from f9 to f5
+mag 03, 2019 9:07:40 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+mag 03, 2019 9:07:40 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+mag 03, 2019 9:07:41 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from e6 to f6
+mag 03, 2019 9:07:41 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+mag 03, 2019 9:07:41 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+mag 03, 2019 9:07:42 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from h5 to f5
+mag 03, 2019 9:07:42 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+mag 03, 2019 9:07:42 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+mag 03, 2019 9:08:10 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from d5 to d6
+mag 03, 2019 9:08:10 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+mag 03, 2019 9:08:10 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
