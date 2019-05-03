@@ -299,55 +299,55 @@ private State checkCaptureBlack(State state, DanieleAction a) {
 private State checkCaptureWhite(State state, DanieleAction a) {
 	// controllo se mangio a destra
 	if (a.getColumnTo() < state.getBoard().length - 2
-			&& state.getPawn(a.getRowTo(), a.getColumnTo() + 1).equalsPawn("B")
-			&& (state.getPawn(a.getRowTo(), a.getColumnTo() + 2).equalsPawn("W")
-					|| state.getPawn(a.getRowTo(), a.getColumnTo() + 2).equalsPawn("T")
-					|| state.getPawn(a.getRowTo(), a.getColumnTo() + 2).equalsPawn("K")
-					|| (citadels.contains(state.getBox(a.getRowTo(), a.getColumnTo() + 2))&&!(state.getPawn(a.getRowTo(), a.getColumnTo()+2).equalsPawn("B")) &&!(a.getColumnTo()+2==8&&a.getRowTo()==4)&&!(a.getColumnTo()+2==4&&a.getRowTo()==0)&&!(a.getColumnTo()+2==4&&a.getRowTo()==0)&&!(a.getColumnTo()+2==0&&a.getRowTo()==4)))) {
-		state.removePawn(a.getRowTo(), a.getColumnTo() + 1);
+				&& state.getPawn(a.getRowTo(), a.getColumnTo() + 1).equalsPawn("B")
+				&& (state.getPawn(a.getRowTo(), a.getColumnTo() + 2).equalsPawn("W")
+						|| state.getPawn(a.getRowTo(), a.getColumnTo() + 2).equalsPawn("T")
+						|| state.getPawn(a.getRowTo(), a.getColumnTo() + 2).equalsPawn("K")
+						|| (this.citadels.contains(state.getBox(a.getRowTo(), a.getColumnTo() + 2)) &&!(a.getColumnTo()+2==8&&a.getRowTo()==4)&&!(a.getColumnTo()+2==4&&a.getRowTo()==0)&&!(a.getColumnTo()+2==4&&a.getRowTo()==8)&&!(a.getColumnTo()+2==0&&a.getRowTo()==4)))) {
+			state.removePawn(a.getRowTo(), a.getColumnTo() + 1);
 		// @Matteo AGGIUNTA
 		nextStateBlacks=nextStateBlacks-1;
 
 	}
 	// controllo se mangio a sinistra
 	if (a.getColumnTo() > 1 && state.getPawn(a.getRowTo(), a.getColumnTo() - 1).equalsPawn("B")
-			&& (state.getPawn(a.getRowTo(), a.getColumnTo() - 2).equalsPawn("W")
-					|| state.getPawn(a.getRowTo(), a.getColumnTo() - 2).equalsPawn("T")
-					|| state.getPawn(a.getRowTo(), a.getColumnTo() - 2).equalsPawn("K")
-					|| (citadels.contains(state.getBox(a.getRowTo(), a.getColumnTo() - 2))&&!(state.getPawn(a.getRowTo(), a.getColumnTo()-2).equalsPawn("B")) &&!(a.getColumnTo()-2==8&&a.getRowTo()==4)&&!(a.getColumnTo()-2==4&&a.getRowTo()==0)&&!(a.getColumnTo()-2==4&&a.getRowTo()==0)&&!(a.getColumnTo()-2==0&&a.getRowTo()==4)))) {
-		state.removePawn(a.getRowTo(), a.getColumnTo() - 1);
+				&& (state.getPawn(a.getRowTo(), a.getColumnTo() - 2).equalsPawn("W")
+						|| state.getPawn(a.getRowTo(), a.getColumnTo() - 2).equalsPawn("T")
+						|| state.getPawn(a.getRowTo(), a.getColumnTo() - 2).equalsPawn("K")
+						|| (this.citadels.contains(state.getBox(a.getRowTo(), a.getColumnTo() - 2)) &&!(a.getColumnTo()-2==8&&a.getRowTo()==4)&&!(a.getColumnTo()-2==4&&a.getRowTo()==0)&&!(a.getColumnTo()-2==4&&a.getRowTo()==8)&&!(a.getColumnTo()-2==0&&a.getRowTo()==4)))) {
+			state.removePawn(a.getRowTo(), a.getColumnTo() - 1);
 		// @Matteo AGGIUNTA
 		nextStateBlacks=nextStateBlacks-1;
 
 	}
 	// controllo se mangio sopra
-	if (a.getRowTo() > 1 && state.getPawn(a.getRowTo() - 1, a.getColumnTo()).equalsPawn("B")
-			&& (state.getPawn(a.getRowTo() - 2, a.getColumnTo()).equalsPawn("W")
-					|| state.getPawn(a.getRowTo() - 2, a.getColumnTo()).equalsPawn("T")
-					|| state.getPawn(a.getRowTo() - 2, a.getColumnTo()).equalsPawn("K")
-					|| (citadels.contains(state.getBox(a.getRowTo() - 2, a.getColumnTo()))&&!(state.getPawn(a.getRowTo()-2, a.getColumnTo()).equalsPawn("B"))&&!(a.getColumnTo()==8&&a.getRowTo()-2==4)&&!(a.getColumnTo()==4&&a.getRowTo()-2==0)&&!(a.getColumnTo()==4&&a.getRowTo()-2==0)&&!(a.getColumnTo()==0&&a.getRowTo()-2==4)) )) {
-		state.removePawn(a.getRowTo() - 1, a.getColumnTo());
+			if (a.getRowTo() > 1 && state.getPawn(a.getRowTo() - 1, a.getColumnTo()).equalsPawn("B")
+				&& (state.getPawn(a.getRowTo() - 2, a.getColumnTo()).equalsPawn("W")
+						|| state.getPawn(a.getRowTo() - 2, a.getColumnTo()).equalsPawn("T")
+						|| state.getPawn(a.getRowTo() - 2, a.getColumnTo()).equalsPawn("K")
+						|| (this.citadels.contains(state.getBox(a.getRowTo() - 2, a.getColumnTo()))&&!(a.getColumnTo()==8&&a.getRowTo()-2==4)&&!(a.getColumnTo()==4&&a.getRowTo()-2==0)&&!(a.getColumnTo()==4&&a.getRowTo()-2==8)&&!(a.getColumnTo()==0&&a.getRowTo()-2==4)) )) {
+			state.removePawn(a.getRowTo() - 1, a.getColumnTo());
 		// @Matteo AGGIUNTA
 		nextStateBlacks=nextStateBlacks-1;
 
 	}
 	// controllo se mangio sotto
 	if (a.getRowTo() < state.getBoard().length - 2
-			&& state.getPawn(a.getRowTo() + 1, a.getColumnTo()).equalsPawn("B")
-			&& (state.getPawn(a.getRowTo() + 2, a.getColumnTo()).equalsPawn("W")
-					|| state.getPawn(a.getRowTo() + 2, a.getColumnTo()).equalsPawn("T")
-					|| state.getPawn(a.getRowTo() + 2, a.getColumnTo()).equalsPawn("K")
-					|| (citadels.contains(state.getBox(a.getRowTo() + 2, a.getColumnTo()))&&!(state.getPawn(a.getRowTo()+2, a.getColumnTo()).equalsPawn("B"))&&!(a.getColumnTo()==8&&a.getRowTo()+2==4)&&!(a.getColumnTo()==4&&a.getRowTo()+2==0)&&!(a.getColumnTo()==4&&a.getRowTo()+2==0)&&!(a.getColumnTo()==0&&a.getRowTo()+2==4)))) {
-		state.removePawn(a.getRowTo() + 1, a.getColumnTo());
+				&& state.getPawn(a.getRowTo() + 1, a.getColumnTo()).equalsPawn("B")
+				&& (state.getPawn(a.getRowTo() + 2, a.getColumnTo()).equalsPawn("W")
+						|| state.getPawn(a.getRowTo() + 2, a.getColumnTo()).equalsPawn("T")
+						|| state.getPawn(a.getRowTo() + 2, a.getColumnTo()).equalsPawn("K")
+						|| (this.citadels.contains(state.getBox(a.getRowTo() + 2, a.getColumnTo()))&&!(a.getColumnTo()==8&&a.getRowTo()+2==4)&&!(a.getColumnTo()==4&&a.getRowTo()+2==0)&&!(a.getColumnTo()==4&&a.getRowTo()+2==8)&&!(a.getColumnTo()==0&&a.getRowTo()+2==4)))) {
+			state.removePawn(a.getRowTo() + 1, a.getColumnTo());
 		// @Matteo AGGIUNTA
 		nextStateBlacks=nextStateBlacks-1;
 
 	}
 	// controllo se ho vinto
-	if (a.getRowTo() == 0 || a.getRowTo() == state.getBoard().length - 1 || a.getColumnTo() == 0
-			|| a.getColumnTo() == state.getBoard().length - 1) {
-		if (state.getPawn(a.getRowTo(), a.getColumnTo()).equalsPawn("K")) {
-			state.setTurn(State.Turn.WHITEWIN);
+		if (a.getRowTo() == 0 || a.getRowTo() == state.getBoard().length - 1 || a.getColumnTo() == 0
+				|| a.getColumnTo() == state.getBoard().length - 1) {
+			if (state.getPawn(a.getRowTo(), a.getColumnTo()).equalsPawn("K")) {
+				state.setTurn(State.Turn.WHITEWIN);
 
 		}
 	}
