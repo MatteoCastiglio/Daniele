@@ -1,5 +1,6 @@
 package Daniele;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -31,8 +32,10 @@ public class AIGame {
 		};
 		//timer.schedule(timeoutTask, maxTime);
 
-		//if(maxTime!=-1) timer.cancel();
 		if(maxTime!=-1) timer.schedule(timeoutTask, maxTime);
+		
+		long startTime = System.nanoTime();
+		double time;
 		
 
 		//iterative deeping con alpha-beta prunning (versione diversa per gestire il tempo)	
@@ -62,7 +65,7 @@ public class AIGame {
 
 					ITablutState childState = ts.getChildState(m);
 					//if(depth==3) System.out.println("Depth=3 ---> mossa : " +m.toString());
-					double v = MinValue(depth-1, alpha, Double.POSITIVE_INFINITY, childState,printer, startingDepth);
+					double v = MinValue(depth-1, alpha, Double.POSITIVE_INFINITY, childState,printer);
 					// -----
 					//System.out.println("v = "+v+ "  -  mossa "+i+": "+m.toString());
 					// -----
@@ -73,7 +76,8 @@ public class AIGame {
 					if(timeOver) {
 						timer.cancel();
 						// -----
-						System.out.println("TIMEOVER depth = "+depth+" -  bestActionLastDepth: "+bestAction.toString());
+						time = (double)(System.nanoTime()-startTime) / 1_000_000_000.0;
+						System.out.println("TIMEOVER: time="+time+", depth = "+depth+" -  bestActionLastDepth: "+bestActionLastDepth.toString());
 						// -----
 						return bestActionLastDepth;
 					}
@@ -110,7 +114,8 @@ public class AIGame {
 
 			//raggiunta la profondità massima senza il timeout
 			timer.cancel();
-			System.out.println("Depth = "+ maxDepth +" - bestActionLastDepth = "+bestActionLastDepth.toString());
+			time = (double)(System.nanoTime()-startTime) / 1_000_000_000.0;
+			System.out.println("Time="+time+", depth = "+ maxDepth +" - bestActionLastDepth = "+bestActionLastDepth.toString());
 			return bestActionLastDepth;		
 		}
 
@@ -138,7 +143,7 @@ public class AIGame {
 					//i++;
 
 					ITablutState childState = ts.getChildState(m);
-					double v = MaxValue(depth-1, Double.NEGATIVE_INFINITY, beta, childState,printer, startingDepth);
+					double v = MaxValue(depth-1, Double.NEGATIVE_INFINITY, beta, childState,printer);
 					// -----
 					//System.out.println("Depth = "+depth+" - v = "+v+" - bestAction = "+m.toString());
 					// -----
@@ -149,7 +154,8 @@ public class AIGame {
 					if(timeOver) {
 						timer.cancel();
 						// -----
-						System.out.println("TIMEOVER depth = "+depth+" -  bestActionLastDepth: "+bestAction.toString());
+						time = (double)(System.nanoTime()-startTime) / 1_000_000_000.0;
+						System.out.println("TIMEOVER: time="+time+", depth = "+depth+" -  bestActionLastDepth: "+bestActionLastDepth.toString());
 						// -----
 						return bestActionLastDepth;
 					}
@@ -186,7 +192,8 @@ public class AIGame {
 
 			//raggiunta la profondità massima senza il timeout
 			timer.cancel();
-			System.out.println("Depth = "+ maxDepth +" - bestActionLastDepth = "+bestActionLastDepth.toString());
+			time = (double)(System.nanoTime()-startTime) / 1_000_000_000.0;
+			System.out.println("Time="+time+", depth = "+ maxDepth +" - bestActionLastDepth = "+bestActionLastDepth.toString());
 			return bestActionLastDepth;
 		}
 
@@ -194,7 +201,7 @@ public class AIGame {
 
 	}
 
-
+	
 	/**
 	 * funzione di valutazione del valore massimo di AlphaBetaSearch
 	 * 
@@ -205,7 +212,7 @@ public class AIGame {
 	 * @return
 	 */
 	//@Matteo manca il confronto sul percorso minimo , forse la mappa non basta , per ora provo a usare depth in cutoff
-	private double MaxValue(int depth, double alpha, double beta, ITablutState state, MinMaxPrinter printer, int startingDepth) {
+	private double MaxValue(int depth, double alpha, double beta, ITablutState state, MinMaxPrinter printer) {
 		//all'interruzione si ritorna un valore 
 		if (cutoff(depth, state)) {
 			return HeuristicTablut.HeuristicFunction(state) - depth;
@@ -223,7 +230,7 @@ public class AIGame {
 			//if(depth==3) System.out.println("Depth=3 ---> mossa : " +m.toString());
 			//@Matteo controllo su null dovrebbe essere inutile
 			if(childState!=null) {//  della funzione successore
-				tmp=MinValue(depth - 1, alpha, beta, childState,printer, startingDepth);
+				tmp=MinValue(depth - 1, alpha, beta, childState,printer);
 
 				//@Matteo si possono invertire queste due istruzioni??
 				// -----
@@ -256,7 +263,7 @@ public class AIGame {
 	 * @param state
 	 * @return
 	 */
-	private double MinValue(int depth, double alpha, double beta, ITablutState state,MinMaxPrinter printer, int startingDepth) {
+	private double MinValue(int depth, double alpha, double beta, ITablutState state,MinMaxPrinter printer) {
 		//all'interuzione si ritorna un valore 
 		//provo aggiungere -depth per favorire percorsi pi� corti
 		if (cutoff(depth, state)) {
@@ -273,7 +280,7 @@ public class AIGame {
 			ITablutState childState = state.getChildState(m);				//  della funzione successore	
 			//if(depth==2) System.out.println("Depth=2 ---> mossa : " +m.toString());
 			if(childState!=null) {
-				tmp=MaxValue(depth - 1, alpha, beta, childState,printer, startingDepth);
+				tmp=MaxValue(depth - 1, alpha, beta, childState,printer);
 
 				// -----
 				//v = Math.min(v,tmp);
@@ -310,4 +317,6 @@ public class AIGame {
 				|| (!state.getState().getTurn().equals(Turn.WHITE) && !state.getState().getTurn().equals(Turn.BLACK))
 				|| timeOver;
 	}
+	
+	
 }

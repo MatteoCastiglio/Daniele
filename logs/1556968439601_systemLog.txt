@@ -1,0 +1,48 @@
+mag 04, 2019 1:13:59 PM Daniele.Server run
+BUONO: Accensione server
+mag 04, 2019 1:13:59 PM Daniele.Server run
+BUONO: Partita di Tablut
+mag 04, 2019 1:14:02 PM Daniele.Server run
+BUONO: Accettata connessione con client giocatore Bianco
+mag 04, 2019 1:14:02 PM Daniele.Server run
+BUONO: Lettura nome player bianco in corso..
+mag 04, 2019 1:14:03 PM Daniele.Server run
+BUONO: White player name:	Daniele
+mag 04, 2019 1:14:04 PM Daniele.Server run
+BUONO: Accettata connessione con client giocatore Nero
+mag 04, 2019 1:14:04 PM Daniele.Server run
+BUONO: Lettura nome player nero in corso..
+mag 04, 2019 1:14:05 PM Daniele.Server run
+BUONO: Black player name:	Daniele
+mag 04, 2019 1:14:05 PM Daniele.Server run
+BUONO: Invio messaggio ai giocatori
+mag 04, 2019 1:14:05 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+mag 04, 2019 1:14:06 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from f5 to f4
+mag 04, 2019 1:14:06 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+mag 04, 2019 1:14:06 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+mag 04, 2019 1:14:07 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from f9 to f5
+mag 04, 2019 1:14:07 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+mag 04, 2019 1:14:07 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+mag 04, 2019 1:14:08 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from e6 to f6
+mag 04, 2019 1:14:08 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+mag 04, 2019 1:14:08 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+mag 04, 2019 1:14:08 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from h5 to f5
+mag 04, 2019 1:14:08 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+mag 04, 2019 1:14:08 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+mag 04, 2019 1:14:17 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from null to null
+mag 04, 2019 1:14:17 PM Daniele.Server run
+AVVERTENZA: Chiusura sistema per troppi errori giocatore bianco

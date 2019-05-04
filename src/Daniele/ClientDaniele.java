@@ -18,16 +18,16 @@ public class ClientDaniele extends TablutClient{
 
 	private int depth;
 	//private AlphaBetaPruning ab = null;							//scommenta per AlphaBetaPruning
-	private AIGame ai = null;
+	private AIGameP ai = null;										//usa AIGame o AIGameP
 	private final int OPENING_COUNTER = 2;
 	private final int STARTING_DEPTH = 5;
-	private final int MAX_DEPTH = 6;
+	private final int MAX_DEPTH = 5;
 	
 	public ClientDaniele(String player) throws  IOException {
 		super(player, "Daniele");
 		this.depth = 5;
-		//ab = new AlphaBetaPruning();								//scommenta per AlphaBetaPrunin
-		ai = new AIGame(60000);	//con -1 non c'è limite di tempo
+		//ab = new AlphaBetaPruning();									//scommenta per AlphaBetaPrunin
+		ai = new AIGameP(50000);	//con -1 non c'è limite di tempo	//usa AIGame o AIGameP
 	}
 
 	@Override
