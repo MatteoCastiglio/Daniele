@@ -192,8 +192,9 @@ public class AIGameSingleThread implements AIGame {
 							}
 						}
 
-					}//for-moves_same_depth
-				}
+					}
+
+				}//for-moves_same_depth
 				//si tiene traccia della migliore mossa alla profondità esaminata
 				//bestBetaLastDepth = beta;
 				bestActionLastDepth = bestAction;	

@@ -14,12 +14,11 @@ import it.unibo.ai.didattica.competition.tablut.domain.State.Turn;
 public class ClientDaniele extends TablutClient{
 
 
-	private int depth;
 	//private AlphaBetaPruning ab = null;							//scommenta per AlphaBetaPruning
 	private AIGame ai = null;										//usa AIGameSingleThread o AIGameP
 	private final int OPENING_COUNTER = 0;
 	private final int STARTING_DEPTH = 4;
-	private final int MAX_DEPTH = 7;
+	private final int MAX_DEPTH = 6;
 
 	//@Matteo
 	private int nwhites =0;
@@ -30,7 +29,6 @@ public class ClientDaniele extends TablutClient{
 	
 	public ClientDaniele(String player) throws  IOException {
 		super(player, "Daniele");
-		this.depth = 7;
 		//ab = new AlphaBetaPruning();									//scommenta per AlphaBetaPrunin
 		ai = new AIGameSingleThread(30000,MinMaxPrinter.getPrinter(PrintMode.Simple),false);	//con -1 non c'è limite di tempo	//usa AIGameSingleThread o AIGameP
 	}

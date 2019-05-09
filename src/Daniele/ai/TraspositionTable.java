@@ -24,7 +24,8 @@ public class TraspositionTable {
 
     public void clear()
     {
-        table = new HashSet<State>();
+        table = new HashSet<>();
+        //table.clear();
     }
 
     public synchronized boolean threadSafeAdd(State s)
