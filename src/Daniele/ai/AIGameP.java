@@ -9,7 +9,7 @@ import Daniele.minmaxprinter.MinMaxPrinter;
 import it.unibo.ai.didattica.competition.tablut.domain.State.Turn;
 
 
-public class AIGameP {
+public class AIGameP implements AIGame{
 
 	private volatile boolean timeOver;
 	private volatile Timer timer;

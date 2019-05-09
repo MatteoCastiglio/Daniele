@@ -1,6 +1,9 @@
 package Daniele;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,16 +21,16 @@ public class ClientDaniele extends TablutClient{
 
 	private int depth;
 	//private AlphaBetaPruning ab = null;							//scommenta per AlphaBetaPruning
-	private AIGameP ai = null;										//usa AIGame o AIGameP
-	private final int OPENING_COUNTER = 2;
-	private final int STARTING_DEPTH = 5;
-	private final int MAX_DEPTH = 5;
+	private AIGameP ai = null;										//usa AIGameSingleThread o AIGameP
+	private final int OPENING_COUNTER = 0;
+	private final int STARTING_DEPTH = 4;
+	private final int MAX_DEPTH = 7;
 	
 	public ClientDaniele(String player) throws  IOException {
 		super(player, "Daniele");
-		this.depth = 5;
+		this.depth = 7;
 		//ab = new AlphaBetaPruning();									//scommenta per AlphaBetaPrunin
-		ai = new AIGameP(50000);	//con -1 non c'è limite di tempo	//usa AIGame o AIGameP
+		ai = new AIGameP(3000);	//con -1 non c'è limite di tempo	//usa AIGameSingleThread o AIGameP
 	}
 
 	@Override
@@ -155,6 +158,7 @@ public class ClientDaniele extends TablutClient{
 			name = args[2];
 		}
 		System.out.println("Selected client: " + args[0]);
+
 
 		TablutClient client = new ClientDaniele(role);
 		client.run();

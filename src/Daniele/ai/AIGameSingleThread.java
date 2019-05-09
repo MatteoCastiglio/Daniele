@@ -9,13 +9,13 @@ import Daniele.minmaxprinter.MinMaxPrinter;
 import it.unibo.ai.didattica.competition.tablut.domain.State.Turn;
 
 
-public class AIGame {
+public class AIGameSingleThread implements AIGame{
 
 	private volatile boolean timeOver;
 	private volatile Timer timer;
 	private long maxTime;
 
-	public AIGame(long maxTime) {		//con -1 non c'è limite di tempo
+	public AIGameSingleThread(long maxTime) {		//con -1 non c'è limite di tempo
 		this.maxTime = maxTime;
 	}
 
