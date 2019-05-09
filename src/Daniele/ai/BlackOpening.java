@@ -1,4 +1,4 @@
-package Daniele;
+package Daniele.ai;
 
 import java.io.IOException;
 

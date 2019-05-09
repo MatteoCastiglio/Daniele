@@ -1,10 +1,9 @@
-package Daniele;
+package Daniele.ai;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-
+import java.util.Objects;
 
 
 import it.unibo.ai.didattica.competition.tablut.domain.State;
@@ -12,7 +11,7 @@ import it.unibo.ai.didattica.competition.tablut.domain.State.Pawn;
 import it.unibo.ai.didattica.competition.tablut.domain.State.Turn;
 
 
-public class TablutState implements ITablutState{
+public class TablutState implements ITablutState {
 
 
 	private State state;
@@ -730,6 +729,7 @@ public int WhitesCount() {
 	}
 
 
+
 	@Override
 	public int getPawnsOnKingDiagonal2()
 	{
@@ -753,4 +753,6 @@ public int WhitesCount() {
 		}
 		return res;
 	}
+
+
 }

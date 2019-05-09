@@ -1,6 +1,8 @@
-package Daniele;
+package Daniele.client;
 
 
+
+import Daniele.client.ClientDaniele;
 
 import java.io.IOException;
 

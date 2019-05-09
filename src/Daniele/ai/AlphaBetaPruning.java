@@ -1,4 +1,4 @@
-package Daniele;
+package Daniele.ai;
 
 import java.util.HashMap;
 import java.util.List;
@@ -6,6 +6,7 @@ import java.util.Map;
 
 import Daniele.minmaxprinter.MinMaxPrinter;
 import it.unibo.ai.didattica.competition.tablut.domain.State.Turn;
+
 
 public class AlphaBetaPruning {
 
@@ -24,7 +25,7 @@ public class AlphaBetaPruning {
 	 * @return
 	 * 			ritorna la migliore azione 
 	 */
-	public DanieleAction AlphaBetaSearch(int maxDepth, ITablutState ts,MinMaxPrinter printer) {
+	public DanieleAction AlphaBetaSearch(int maxDepth, ITablutState ts, MinMaxPrinter printer) {
 
 		
 		mapMoves= new HashMap<Double, DanieleAction>();

@@ -1,18 +1,13 @@
-package Daniele;
+package Daniele.client;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.List;
 
+import Daniele.ai.*;
 import Daniele.minmaxprinter.MinMaxPrinter;
 import Daniele.minmaxprinter.PrintMode;
 import it.unibo.ai.didattica.competition.tablut.client.TablutClient;
 import it.unibo.ai.didattica.competition.tablut.domain.Action;
-import it.unibo.ai.didattica.competition.tablut.domain.State;
 import it.unibo.ai.didattica.competition.tablut.domain.State.Pawn;
 import it.unibo.ai.didattica.competition.tablut.domain.State.Turn;
 
@@ -21,16 +16,45 @@ public class ClientDaniele extends TablutClient{
 
 	private int depth;
 	//private AlphaBetaPruning ab = null;							//scommenta per AlphaBetaPruning
-	private AIGameP ai = null;										//usa AIGameSingleThread o AIGameP
+	private AIGame ai = null;										//usa AIGameSingleThread o AIGameP
 	private final int OPENING_COUNTER = 0;
 	private final int STARTING_DEPTH = 4;
 	private final int MAX_DEPTH = 7;
+
+	//@Matteo
+	private int nwhites =0;
+	private int nblacks = 0;
+	private int coord[] = new int[2];
+	private int whitesMoved = 0;
+
 	
 	public ClientDaniele(String player) throws  IOException {
 		super(player, "Daniele");
 		this.depth = 7;
 		//ab = new AlphaBetaPruning();									//scommenta per AlphaBetaPrunin
-		ai = new AIGameP(3000);	//con -1 non c'è limite di tempo	//usa AIGameSingleThread o AIGameP
+		ai = new AIGameSingleThread(30000,MinMaxPrinter.getPrinter(PrintMode.Simple),false);	//con -1 non c'è limite di tempo	//usa AIGameSingleThread o AIGameP
+	}
+
+
+	private void setup()
+	{
+
+		nwhites =0;
+		nblacks = 0;
+		whitesMoved = 0;
+		for(int i =0; i< 9; i++)
+			for(int j =0; j< 9; j++)
+			{if(currentState.getPawn(i, j).equals(Pawn.WHITE))
+				nwhites++;
+			else if( currentState.getPawn(i, j).equals(Pawn.BLACK))
+				nblacks++;
+			else if(currentState.getPawn(i, j).equals(Pawn.KING)) {coord[0]=i; coord[1]=j;}
+
+				if(i == 4 && 1<j && j<7 || j==4 && 1<j && i<7)
+					if(!currentState.getPawn(i, j).equals(Pawn.WHITE))
+						whitesMoved++;
+
+			}
 	}
 
 	@Override
@@ -63,31 +87,16 @@ public class ClientDaniele extends TablutClient{
 		while(true) {	
 			//legge stato corrente dal server (mossa avversario)
 			this.read();
-			//scelta mossa
-			
-			// @Matteo conteggio iniziale questo penso sia inevitabile, ma si fa una volta sola!!!!!
-			int nwhites =0;
-			int nblacks = 0;
-			int coord[] = new int[2];
-			int whitesMoved = 0;
-			for(int i =0; i< 9; i++)
-				for(int j =0; j< 9; j++)
-			{if(currentState.getPawn(i, j).equals(Pawn.WHITE))
-				nwhites++;
-			else if( currentState.getPawn(i, j).equals(Pawn.BLACK))
-				nblacks++;
-			else if(currentState.getPawn(i, j).equals(Pawn.KING)) {coord[0]=i; coord[1]=j;}
-			
-			if(i == 4 && 1<j && j<7 || j==4 && 1<j && i<7)
-			if(!currentState.getPawn(i, j).equals(Pawn.WHITE))
-					whitesMoved++;
-				
-			}
+
+
+			setup();
+
+
 			if(turnCounter<OPENING_COUNTER)
 			action = BlackOpening.nextMove(new TablutState(currentState,nwhites,nblacks,coord,whitesMoved), turnCounter);
 			else
 			//action = ab.AlphaBetaSearch(depth, new TablutState(currentState,nwhites,nblacks,coord,whitesMoved),MinMaxPrinter.getPrinter(PrintMode.Simple));			//scommenta per AlphaBetaPrunin
-			action = ai.chooseBestMove(STARTING_DEPTH, MAX_DEPTH, new TablutState(currentState,nwhites,nblacks,coord,whitesMoved), MinMaxPrinter.getPrinter(PrintMode.Simple));
+			action = ai.chooseBestMove(STARTING_DEPTH, MAX_DEPTH, new TablutState(currentState,nwhites,nblacks,coord,whitesMoved));
 			turnCounter++;
 			//comunica l'azione al server
 			this.write(new Action(DanieleAction.coord(action.getRowFrom(),action.getColumnFrom()),DanieleAction.coord(action.getRowTo(),action.getColumnTo()),Turn.BLACK));
@@ -103,30 +112,14 @@ public class ClientDaniele extends TablutClient{
 			//scelta mossa
 			// @Matteo conteggio iniziale questo penso sia inevitabile, ma si fa una volta sola!!!!!
 
-			int nwhites =0;
-			int nblacks = 0;
-			int coord[] = new int[2];
-			int whitesMoved = 0;
-			for(int i =0; i< 9; i++)
-				for(int j =0; j< 9; j++)
-			{if(currentState.getPawn(i, j).equals(Pawn.WHITE))
-				nwhites++;
-			else if( currentState.getPawn(i, j).equals(Pawn.BLACK))
-				nblacks++;
-			else if(currentState.getPawn(i, j).equals(Pawn.KING)) {coord[0]=i; coord[1]=j;}
-			
-			if(i == 4 && 1<j && j<7 || j==4 && 1<j && i<7)
-			if(!currentState.getPawn(i, j).equals(Pawn.WHITE))
-					whitesMoved++;
-						
-			}
+			setup();
 			
 				
 			if(turnCounter<OPENING_COUNTER)
 			action = WhiteOpening.nextMove(new TablutState(currentState,nwhites,nblacks,coord,whitesMoved), turnCounter);
 			else
 			//action = ab.AlphaBetaSearch(depth, new TablutState(this.getCurrentState(),nwhites,nblacks,coord,whitesMoved),MinMaxPrinter.getPrinter(PrintMode.Simple));			//scommenta per AlphaBetaPrunin
-			action = ai.chooseBestMove(STARTING_DEPTH, MAX_DEPTH, new TablutState(currentState,nwhites,nblacks,coord,whitesMoved), MinMaxPrinter.getPrinter(PrintMode.Simple));
+			action = ai.chooseBestMove(STARTING_DEPTH, MAX_DEPTH, new TablutState(currentState,nwhites,nblacks,coord,whitesMoved));
 			turnCounter++;
 			//comunica l'azione al server
 			this.write(new Action(DanieleAction.coord(action.getRowFrom(),action.getColumnFrom()),DanieleAction.coord(action.getRowTo(),action.getColumnTo()),Turn.WHITE));

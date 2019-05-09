@@ -1,4 +1,4 @@
-package Daniele;
+package Daniele.ai;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import Daniele.minmaxprinter.MinMaxPrinter;
 import it.unibo.ai.didattica.competition.tablut.domain.State.Turn;
 
 
-public class AIGameP implements AIGame{
+public class AIGameP implements AIGame {
 
 	private volatile boolean timeOver;
 	private volatile Timer timer;
@@ -21,8 +21,11 @@ public class AIGameP implements AIGame{
 	private DanieleAction bestActionM;
 	DanieleAction bestActionLastDepthM;
 	double bestAlphaLastDepthM;
+	private boolean useTraspositionTable;
+	private MinMaxPrinter printer;
+	private TraspositionTable traspositionTable = TraspositionTable.getInstance();
 
-	public AIGameP(long maxTime) {		//con -1 non c'è limite di tempo
+	public AIGameP(long maxTime,MinMaxPrinter printer,boolean useTraspositionTable) {		//con -1 non c'è limite di tempo
 		this.maxTime = maxTime;
 		monitor = new Object();
 		alphaM = Double.NEGATIVE_INFINITY;
@@ -30,9 +33,11 @@ public class AIGameP implements AIGame{
 		bestActionM = null;
 		bestActionLastDepthM = null;
 		bestAlphaLastDepthM = Double.NEGATIVE_INFINITY;
+		this.useTraspositionTable = useTraspositionTable;
+		this.printer= printer;
 	}
 
-	public DanieleAction chooseBestMove(int startingDepth, int maxDepth, ITablutState ts,MinMaxPrinter printer) {
+	public DanieleAction chooseBestMove(int startingDepth, int maxDepth, ITablutState ts){
 
 		//impostazione del timer
 		timeOver = false;

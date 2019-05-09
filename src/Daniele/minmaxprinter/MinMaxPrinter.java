@@ -1,7 +1,7 @@
 package Daniele.minmaxprinter;
 
-import Daniele.DanieleAction;
-import Daniele.ITablutState;
+import Daniele.ai.DanieleAction;
+import Daniele.ai.ITablutState;
 
 public interface MinMaxPrinter {
 
