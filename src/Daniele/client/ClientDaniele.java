@@ -1,6 +1,7 @@
 package Daniele.client;
 
 import java.io.IOException;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.HashSet;
 import java.util.Set;
@@ -33,7 +34,7 @@ public class ClientDaniele extends TablutClient{
 	public ClientDaniele(String player) throws  IOException {
 		super(player, "Daniele");
 		//ab = new AlphaBetaPruning();									//scommenta per AlphaBetaPrunin
-		ai = new AIGameSingleThread(60000,MinMaxPrinter.getPrinter(PrintMode.Simple),true,true,true);	//con -1 non c'è limite di tempo	//usa AIGameSingleThread o AIGameP
+		ai = new AIGameSingleThread(5000,MinMaxPrinter.getPrinter(PrintMode.Simple),false,true,true);	//con -1 non c'è limite di tempo	//usa AIGameSingleThread o AIGameP
 	}
 
 
@@ -71,9 +72,14 @@ public class ClientDaniele extends TablutClient{
 			this.read();
 			
 			//INIZIO PARTITA
+			try {
 			if(this.getPlayer().equals(Turn.WHITE)) runWhite();
 			else if(this.getPlayer().equals(Turn.BLACK)) runBlack();
-		
+			}
+			catch(SocketException e)
+			{
+				
+			}
 		} catch (ClassNotFoundException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -89,7 +95,8 @@ public class ClientDaniele extends TablutClient{
 			//legge stato corrente dal server (mossa avversario)
 			this.read();
 			pastStates.add(currentState);
-
+			if(currentState== null || currentState.getTurn().equals(Turn.BLACKWIN) || currentState.getTurn().equals(Turn.WHITEWIN) || currentState.getTurn().equals(Turn.DRAW) )
+				return;
 			setup();
 
 
@@ -131,6 +138,8 @@ public class ClientDaniele extends TablutClient{
 			this.read();
 			pastStates.add(currentState);
 			//legge stato corrente dal server (mossa avversario)
+			if(currentState== null || currentState.getTurn().equals(Turn.BLACKWIN) || currentState.getTurn().equals(Turn.WHITEWIN) || currentState.getTurn().equals(Turn.DRAW) )
+				return;
 		
 		}
 	}
@@ -158,7 +167,11 @@ public class ClientDaniele extends TablutClient{
 
 
 		TablutClient client = new ClientDaniele(role);
+		
 		client.run();
+		System.out.println("partita finita");
+		
+		
 	}
 
 }

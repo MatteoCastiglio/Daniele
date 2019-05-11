@@ -25,6 +25,27 @@ public class TablutState implements ITablutState {
 	private Pawn[][] board;
 	
 	private int[] coordKing;
+	
+
+
+	public void setNwhites(int nwhites) {
+		this.nwhites = nwhites;
+	}
+
+
+
+	public void setNblacks(int nblacks) {
+		this.nblacks = nblacks;
+	}
+
+	public void setCoordKing(int[] coordKing) {
+		this.coordKing = coordKing;
+	}
+
+	public void setWhitePawnsMoved(int whitePawnsMoved) {
+		this.whitePawnsMoved = whitePawnsMoved;
+	}
+
 	private int[] nextCoordKing;
 	
 	
@@ -54,17 +75,11 @@ public class TablutState implements ITablutState {
 
 	@Override
 	public ITablutState getChildState(DanieleAction action) {
-		//try {
+		
+		// return game.getNextState(state ,action);
+		
 		return getNextState(state ,action);
-			//return new TablutState(game.checkMove(state, action));
-			// @Matteo rifare il check � superfluo se si presuppone che le mosse siano tutte valide
-		/*} catch (BoardException | ActionException | StopException | PawnException | DiagonalException
-				| ClimbingException | ThroneException | OccupitedException | ClimbingCitadelException
-				| CitadelException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;														//se ritorna null allora la mossa è sbagliata		-> ?????
-		} */
+		
 	}
 
 	
