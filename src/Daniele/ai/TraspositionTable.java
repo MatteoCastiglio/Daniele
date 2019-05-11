@@ -2,12 +2,13 @@ package Daniele.ai;
 
 import it.unibo.ai.didattica.competition.tablut.domain.State;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class TraspositionTable {
 
-    private Set<State> table = new HashSet<State>();
+    private Map<State,Couple> table = new HashMap<State,Couple>();
     private static TraspositionTable ourInstance = new TraspositionTable();
 
     public static TraspositionTable getInstance() {
@@ -17,24 +18,63 @@ public class TraspositionTable {
     private TraspositionTable() {
     }
 
-    public boolean add(State s)
+    public void add(State s,int distanceFromLeaves,double val)
     {
-        return table.add(s);
+ 
+        if(table.containsKey(s)) 
+        {
+        	int d = table.get(s).depth;
+        	if(d<distanceFromLeaves)
+        	table.put(s,new Couple(distanceFromLeaves,val));
+        }
+        else
+        {
+        	
+         	table.put(s,new Couple(distanceFromLeaves,val));
+        }	
+        	
     }
 
+    public double valueOver(State s,Integer distanceFromLeaves)
+    {
+    	 if(table.containsKey(s)) {
+    	int d = table.get(s).depth;
+    	if(d> distanceFromLeaves)
+    	 		return table.get(s).val;
+    	 }
+    	return Double.NaN;
+
+
+        	
+    }
     public void clear()
     {
-        table = new HashSet<>();
-        //table.clear();
+        table.clear();
     }
 
-    public synchronized boolean threadSafeAdd(State s)
+    public synchronized void  threadSafeAdd(State s,int depth,double val)
     {
-        return table.add(s);
+        add(s,depth,val);
     }
 
     public synchronized  void threadSafeClear()
     {
-        table = new HashSet<State>();
+    	table.clear();
     }
+
+
+
+private class Couple
+{
+private int depth;
+private double val;
+
+public Couple(int depth, double val) {
+	super();
+	this.depth = depth;
+	this.val = val;
+}
+
+
+}
 }

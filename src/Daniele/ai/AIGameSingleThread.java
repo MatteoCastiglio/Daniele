@@ -1,22 +1,40 @@
 package Daniele.ai;
 
 import java.util.List;
+import java.util.Set;
+import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import Daniele.minmaxprinter.MinMaxPrinter;
+import it.unibo.ai.didattica.competition.tablut.domain.State;
 import it.unibo.ai.didattica.competition.tablut.domain.State.Turn;
 
 
 public class AIGameSingleThread implements AIGame {
 
+	private final int DRAW_VALUE = 400;
 	private volatile boolean timeOver;
 	private volatile Timer timer;
 	private long maxTime;
 	private boolean useTraspositionTable;
+	private boolean orderingOptimization =false;
 	private MinMaxPrinter printer;
 	private TraspositionTable traspositionTable = TraspositionTable.getInstance();
+	private boolean useDrawCondition=false;
 
+
+	public AIGameSingleThread(long maxTime,MinMaxPrinter printer,boolean useTraspositionTable,boolean useDrawCondition,boolean orderingOptimization) {	
+		this(maxTime,printer,useTraspositionTable,useDrawCondition);
+		this.orderingOptimization=orderingOptimization;
+
+	}
+	
+	public AIGameSingleThread(long maxTime,MinMaxPrinter printer,boolean useTraspositionTable,boolean useDrawCondition) {		//con -1 non c'è limite di tempo
+		this(maxTime,printer,useTraspositionTable);
+		this.useDrawCondition=useDrawCondition;
+
+	}
 	public AIGameSingleThread(long maxTime,MinMaxPrinter printer,boolean useTraspositionTable) {		//con -1 non c'è limite di tempo
 		this.maxTime = maxTime;
 		this.useTraspositionTable = useTraspositionTable;
@@ -24,9 +42,11 @@ public class AIGameSingleThread implements AIGame {
 
 	}
 
-	public DanieleAction chooseBestMove(int startingDepth, int maxDepth, ITablutState ts ) {
+	public DanieleAction chooseBestMove(int startingDepth, int maxDepth, ITablutState ts ,Set<State> pastStates) {
 
 		traspositionTable.clear();
+		LinkedList<DanieleAction> movesToBeRemoved = new LinkedList<DanieleAction>();
+		
 		//impostazione del timer
 		timeOver = false;
 		timer = new Timer();
@@ -47,7 +67,7 @@ public class AIGameSingleThread implements AIGame {
 		//iterative deeping con alpha-beta prunning (versione diversa per gestire il tempo)	
 
 		if(ts.getState().getTurn().equals(Turn.WHITE)) {	//MAX player
-			List<DanieleAction> moves = ts.getAllLegalMoves();
+			LinkedList<DanieleAction> moves = (LinkedList<DanieleAction>)ts.getAllLegalMoves();
 
 			double alpha = Double.NEGATIVE_INFINITY;
 			DanieleAction bestAction = null;
@@ -55,7 +75,7 @@ public class AIGameSingleThread implements AIGame {
 			//tiene traccia dei migliori valori all'ultima profondità. ritorna bestActionLastDepth alla scadenza del tempo.
 			DanieleAction bestActionLastDepth = null;
 			//double bestAlphaLastDepth = Double.NEGATIVE_INFINITY;
-
+			traspositionTable.clear();
 			for(int depth = startingDepth; depth <= maxDepth; depth++) {
 
 				alpha = Double.NEGATIVE_INFINITY;
@@ -64,54 +84,73 @@ public class AIGameSingleThread implements AIGame {
 				//System.out.println("DEPTH = "+depth+" -----------------------------");
 				// ----
 				//int i = 0;
-				traspositionTable.clear();
+		
+				double v = 0;
+				if(orderingOptimization)
+				{
+				moves.removeAll(movesToBeRemoved);
+				for(DanieleAction a : movesToBeRemoved)
+				moves.addFirst(a);
+				movesToBeRemoved.clear();
+				}
 				//si provano tutte le mosse possibili		 - primo livello di minmax
 				for(DanieleAction m : moves) {
 					//i++;
 
 
 					ITablutState childState = ts.getChildState(m);
-
-					if (!useTraspositionTable || traspositionTable.add(childState.getState()) == true) {
-
-
-						//if(depth==3) System.out.println("Depth=3 ---> mossa : " +m.toString());
-						double v = MinValue(depth - 1, alpha, Double.POSITIVE_INFINITY, childState, printer);
-					// -----
-					//System.out.println("v = "+v+ "  -  mossa "+i+": "+m.toString());
-					// -----
-
-					//gestione del tempo : restituisce il migliore finora
-					// l'ultima mossa possibile non viene presa in considerazione,
-					// in quanto potrebbe essere errata a causa dell'arresto precoce dei calcoli.
-					if (timeOver) {
-						timer.cancel();
-						// -----
-						time = (double) (System.nanoTime() - startTime) / 1_000_000_000.0;
-						System.out.println("TIMEOVER: time=" + time + ", depth = " + depth + " -  bestActionLastDepth: " + bestActionLastDepth.toString());
-						// -----
-						return bestActionLastDepth;
-					}
-
-					//caso normale: aggiorna la nuova mossa migliore se si raggiunge 
-					// un punteggio migliore assumendolo.
-					//Nessuna potatura al livello superiore!
-					if (v > alpha) {
-						alpha = v;
-						bestAction = m;
-						printer.printMove(m,childState,alpha);
-						// -----
-						//System.out.println("v = "+v+ "  -  bestAction "+i+": "+bestAction.toString());
-						// -----
-						if (depth == startingDepth) {    //potrebbe servire nel caso si decidesse di partire con una profondità già abbastanza notevole -
-							bestActionLastDepth = m;    //in modo che se scade il timer si avrà una già una bestActionLastDepth prima di finire il for-moves_same_depth
-							//bestAlphaLastDepth = alpha;
-							// -----
-							//System.out.println("v = "+v+ "  - startingDepth = "+startingDepth+" - bestActionLastDepth "+i+": "+bestActionLastDepth.toString());
-							// -----
-						}
-					}
+					if(useDrawCondition&&pastStates.contains(childState.getState())) {
+							v=DRAW_VALUE;
+							printer.printMove(m,childState,v);
 				}
+					else {
+							//if(depth==3) System.out.println("Depth=3 ---> mossa : " +m.toString());
+							v = MinValue(depth - 1, alpha, Double.POSITIVE_INFINITY, childState, printer);
+							// -----
+							//System.out.println("v = "+v+ "  -  mossa "+i+": "+m.toString());
+							// -----
+							
+							//gestione del tempo : restituisce il migliore finora
+							// l'ultima mossa possibile non viene presa in considerazione,
+							// in quanto potrebbe essere errata a causa dell'arresto precoce dei calcoli.
+							if (timeOver) {
+								timer.cancel();
+								// -----
+								time = (double) (System.nanoTime() - startTime) / 1_000_000_000.0;
+								System.out.println("TIMEOVER: time=" + time + ", depth = " + depth + " -  bestActionLastDepth: " + bestActionLastDepth.toString());
+								// -----
+								return bestActionLastDepth;
+							}
+							
+							//caso normale: aggiorna la nuova mossa migliore se si raggiunge 
+							// un punteggio migliore assumendolo.
+							//Nessuna potatura al livello superiore!
+							if (useTraspositionTable)
+								traspositionTable.add(childState.getState(),maxDepth -depth,v); 
+							
+							
+							if (v > alpha) { //pruning
+								alpha = v;
+								bestAction = m;
+								printer.printMove(m,childState,alpha);
+						
+								if(orderingOptimization) {
+									movesToBeRemoved.addLast(m);
+									bestActionLastDepth = m;
+								}
+								// -----
+								//System.out.println("v = "+v+ "  -  bestAction "+i+": "+bestAction.toString());
+								// -----
+								if (depth == startingDepth) {    //potrebbe servire nel caso si decidesse di partire con una profondità già abbastanza notevole -
+									bestActionLastDepth = m;    //in modo che se scade il timer si avrà una già una bestActionLastDepth prima di finire il for-moves_same_depth
+									//bestAlphaLastDepth = alpha;
+									// -----
+									//System.out.println("v = "+v+ "  - startingDepth = "+startingDepth+" - bestActionLastDepth "+i+": "+bestActionLastDepth.toString());
+									// -----
+								}
+							}//pruning
+						}
+					
 				}//for-moves_same_depth
 
 				//si tiene traccia della migliore mossa alla profondità esaminata
@@ -132,7 +171,7 @@ public class AIGameSingleThread implements AIGame {
 		}
 
 		else if(ts.getState().getTurn().equals(Turn.BLACK)) {	//MIN player
-			List<DanieleAction> moves = ts.getAllLegalMoves();
+			LinkedList<DanieleAction> moves = (LinkedList<DanieleAction>) ts.getAllLegalMoves();
 
 			double beta = Double.POSITIVE_INFINITY;
 			DanieleAction bestAction = null;
@@ -144,53 +183,73 @@ public class AIGameSingleThread implements AIGame {
 			for(int depth = startingDepth; depth <= maxDepth; depth++) {
 
 				beta = Double.POSITIVE_INFINITY;
-				traspositionTable.clear();
+				double v =0;
 				// ----
 				//System.out.println("DEPTH = "+depth+" -----------------------------");
 				// ----
 				//int i = 0;
-
+				if(orderingOptimization)
+				{
+				moves.removeAll(movesToBeRemoved);
+				for(DanieleAction a : movesToBeRemoved)
+				moves.addFirst(a);
+				movesToBeRemoved.clear();
+				}
 				//si provano tutte le mosse possibili		 - primo livello di minmax
 				for(DanieleAction m : moves) {
 					//i++;
 
 						ITablutState childState = ts.getChildState(m);
-					if (!useTraspositionTable || traspositionTable.add(childState.getState()) == true) {
-						double v = MaxValue(depth - 1, Double.NEGATIVE_INFINITY, beta, childState, printer);
-						// -----
-						//System.out.println("Depth = "+depth+" - v = "+v+" - bestAction = "+m.toString());
-						// -----
-
-						//gestione del tempo : restituisce il migliore finora
-						// l'ultima mossa possibile non viene presa in considerazione,
-						// in quanto potrebbe essere errata a causa dell'arresto precoce dei calcoli.
-						if (timeOver) {
-							timer.cancel();
-							// -----
-							time = (double) (System.nanoTime() - startTime) / 1_000_000_000.0;
-							System.out.println("TIMEOVER: time=" + time + ", depth = " + depth + " -  bestActionLastDepth: " + bestActionLastDepth.toString());
-							// -----
-							return bestActionLastDepth;
+						if(useDrawCondition&&pastStates.contains(childState.getState())) {
+								v=DRAW_VALUE;
+								printer.printMove(m,childState,v);
 						}
+						else {
+							
+								v = MaxValue(depth - 1, Double.NEGATIVE_INFINITY, beta, childState, printer);
+								// -----
+								//System.out.println("Depth = "+depth+" - v = "+v+" - bestAction = "+m.toString());
+								// -----
+								
+								//gestione del tempo : restituisce il migliore finora
+								// l'ultima mossa possibile non viene presa in considerazione,
+								// in quanto potrebbe essere errata a causa dell'arresto precoce dei calcoli.
+								if (timeOver) {
+										timer.cancel();
+										// -----
+										time = (double) (System.nanoTime() - startTime) / 1_000_000_000.0;
+										System.out.println("TIMEOVER: time=" + time + ", depth = " + depth + " -  bestActionLastDepth: " + bestActionLastDepth.toString());
+										// -----
+										return bestActionLastDepth;
+								}
 
-						//caso normale: aggiorna la nuova mossa migliore se si raggiunge
-						// un punteggio migliore assumendolo.
-						//Nessuna potatura al livello superiore!
-						if (v < beta) {
-							beta = v;
-							bestAction = m;
-							printer.printMove(m,childState,beta);
-							// -----
-							//System.out.println("v = "+v+ "  -  bestAction "+i+": "+bestAction.toString());
-							// -----
-							if (depth == startingDepth) {    //potrebbe servire nel caso si decidesse di partire con una profondità già abbastanza notevole -
-								bestActionLastDepth = m;    //in modo che se scade il timer si avrà una già una bestActionLastDepth prima di finire il for-moves_same_depth
-								//bestBetaLastDepth = beta;
-								// -----
-								//System.out.println("v = "+v+ "  - startingDepth = "+startingDepth+" - bestActionLastDepth "+i+": "+bestActionLastDepth.toString());
-								// -----
-							}
-						}
+								//caso normale: aggiorna la nuova mossa migliore se si raggiunge
+								// un punteggio migliore assumendolo.
+								//Nessuna potatura al livello superiore!
+								if (useTraspositionTable)
+									traspositionTable.add(childState.getState(),maxDepth -depth,v); 
+								if (v < beta) { //pruning
+									beta = v;
+									bestAction = m;
+									printer.printMove(m,childState,beta);
+									if(orderingOptimization) {
+										movesToBeRemoved.addLast(m);
+										bestActionLastDepth =m;
+									
+									}
+									
+									// -----
+									//System.out.println("v = "+v+ "  -  bestAction "+i+": "+bestAction.toString());
+									// -----
+									if (depth == startingDepth) {    //potrebbe servire nel caso si decidesse di partire con una profondità già abbastanza notevole -
+										bestActionLastDepth = m;    //in modo che se scade il timer si avrà una già una bestActionLastDepth prima di finire il for-moves_same_depth
+										//bestBetaLastDepth = beta;
+										// -----
+										//System.out.println("v = "+v+ "  - startingDepth = "+startingDepth+" - bestActionLastDepth "+i+": "+bestActionLastDepth.toString());
+										// -----
+									}
+								} //pruning
+							
 
 					}
 
@@ -232,8 +291,12 @@ public class AIGameSingleThread implements AIGame {
 		if (cutoff(depth, state)) {
 			return HeuristicTablut.HeuristicFunction(state) - depth;
 		}
+		if(useTraspositionTable)
+		{double val = traspositionTable.valueOver(state.getState(), depth);
+		if(!Double.isNaN(val))
+			return val;
+			}
 
-		double tmp;
 		double v = Double.NEGATIVE_INFINITY;
 
 		List<DanieleAction> moves = state.getAllLegalMoves();
@@ -241,34 +304,38 @@ public class AIGameSingleThread implements AIGame {
 
 		for (DanieleAction m : moves) {											//= per ogni coppia <azione, stato>
 			ITablutState childState = state.getChildState(m);
-
-			if(useTraspositionTable)
-			{ if(traspositionTable.add(childState.getState())==false)
-				return 1000;}
+			
+			
 			//if(depth==1) System.out.println("Depth=1 ---> mossa : " +m.toString());
 			//if(depth==3) System.out.println("Depth=3 ---> mossa : " +m.toString());
 			//@Matteo controllo su null dovrebbe essere inutile
 			if(childState!=null) {//  della funzione successore
-				tmp=MinValue(depth - 1, alpha, beta, childState,printer);
+				v=Math.max(MinValue(depth - 1, alpha, beta, childState,printer),v);
+				
 
 				//@Matteo si possono invertire queste due istruzioni??
 				// -----
 				//v = Math.max(v, tmp);
 				//if(depth==1 && tmp>v) {System.out.print("Depth=1  ->  "); printer.printMove(m,childState,tmp);}
 				//if(depth==3 && tmp>v) {System.out.print("Depth=3  ->  "); printer.printMove(m,childState,tmp);}
-				if(tmp>v) {
-					v=tmp;
+		
 					//if(depth==startingDepth-1) { System.out.print("Depth = "+depth+" -> "); printer.printMove(m,childState,tmp);}
-				}
+	
 				// -----
+			
 				if (v >= beta) {
+					if(useTraspositionTable) {
+						traspositionTable.add(state.getState(), depth, v);
+					}
 					return v;
 				}
 
 				alpha = Math.max(alpha, v);
 			}
 		}
-
+		if(useTraspositionTable) {
+			traspositionTable.add(state.getState(), depth, v);
+		}
 		return v;
 	}
 
@@ -288,8 +355,12 @@ public class AIGameSingleThread implements AIGame {
 		if (cutoff(depth, state)) {
 			return HeuristicTablut.HeuristicFunction(state) + depth;
 		}
-
-		double tmp;
+		if(useTraspositionTable)
+		{double val = traspositionTable.valueOver(state.getState(), depth);
+		if(!Double.isNaN(val))
+			return val;
+			}
+	
 		double v = Double.POSITIVE_INFINITY;
 
 		List<DanieleAction> moves = state.getAllLegalMoves();
@@ -299,32 +370,35 @@ public class AIGameSingleThread implements AIGame {
 			ITablutState childState = state.getChildState(m);				//  della funzione successore
 
 
-			if(useTraspositionTable)
-			{ if(traspositionTable.add(childState.getState())==false)
-				return -1000;}
-
+		
 
 
 
 			//if(depth==2) System.out.println("Depth=2 ---> mossa : " +m.toString());
 			if(childState!=null) {
-				tmp=MaxValue(depth - 1, alpha, beta, childState,printer);
+				v=Math.min(MaxValue(depth - 1, alpha, beta, childState,printer),v);
+				
 
 				// -----
 				//v = Math.min(v,tmp);
 				//if(depth==2 && tmp<v) {System.out.print("Depth=2  ->  "); printer.printMove(m,childState,tmp);}
-				if(tmp<v) {
-					v=tmp;
+				
 					//if(depth==startingDepth-1) { System.out.print("Depth = "+depth+" -> "); printer.printMove(m,childState,tmp);}
-				}
+				
 				// -----
+			
 				if (v <= alpha) {
+					if(useTraspositionTable) {
+						traspositionTable.add(state.getState(), depth, v);
+					}
 					return v;
 				}
 				beta = Math.min(beta, v);
 			}
 		}
-
+		if(useTraspositionTable) {
+			traspositionTable.add(state.getState(), depth, v);
+		}
 		return v;
 
 	}

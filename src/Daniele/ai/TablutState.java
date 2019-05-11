@@ -2,8 +2,9 @@ package Daniele.ai;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
+
 
 
 import it.unibo.ai.didattica.competition.tablut.domain.State;
@@ -28,7 +29,7 @@ public class TablutState implements ITablutState {
 	
 	
 	// @Matteo aggiunto per controlli sui pezzi mangiati
-	private static List<String> citadels =new  ArrayList<String>(Arrays.asList("a4","a5","a6","b5","d1","e1","f1","e2","i4","i5","i6","h5","d9","e9","f9","e8"));
+	private  List<String> citadels =new  ArrayList<String>(Arrays.asList("a4","a5","a6","b5","d1","e1","f1","e2","i4","i5","i6","h5","d9","e9","f9","e8"));
 	
 	private int nwhites; // @Matteo numero di pezzi bianchi sulla scacchiera, mettendolo come propriet� si evita si calcolarlo dinamicamente
 	private int nblacks; // @Matteo numero di pezzi neri sulla scacchiera, mettendolo come propriet� si evita si calcolarlo dinamicamente
@@ -69,7 +70,7 @@ public class TablutState implements ITablutState {
 	
 	@Override
 	public List<DanieleAction> getTopLeftMoves() {
-		List<DanieleAction> moves = new ArrayList<DanieleAction>();
+		List<DanieleAction> moves = new LinkedList<DanieleAction>();
 
 			if(state.getTurn().equals(Turn.WHITE)) {	//MAX player
 				for (int i = 0; i < this.board.length/2; i++) {
@@ -123,7 +124,7 @@ public class TablutState implements ITablutState {
 	
 	@Override
 	public List<DanieleAction> getAllLegalMoves() {
-		List<DanieleAction> moves = new ArrayList<DanieleAction>();
+		List<DanieleAction> moves = new LinkedList<DanieleAction>();
 
 			if(state.getTurn().equals(Turn.WHITE)) {	//MAX player
 				for (int i = 0; i < this.board.length; i++) {

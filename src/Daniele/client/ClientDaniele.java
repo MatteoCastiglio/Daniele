@@ -2,12 +2,15 @@ package Daniele.client;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.util.HashSet;
+import java.util.Set;
 
 import Daniele.ai.*;
 import Daniele.minmaxprinter.MinMaxPrinter;
 import Daniele.minmaxprinter.PrintMode;
 import it.unibo.ai.didattica.competition.tablut.client.TablutClient;
 import it.unibo.ai.didattica.competition.tablut.domain.Action;
+import it.unibo.ai.didattica.competition.tablut.domain.State;
 import it.unibo.ai.didattica.competition.tablut.domain.State.Pawn;
 import it.unibo.ai.didattica.competition.tablut.domain.State.Turn;
 
@@ -17,9 +20,9 @@ public class ClientDaniele extends TablutClient{
 	//private AlphaBetaPruning ab = null;							//scommenta per AlphaBetaPruning
 	private AIGame ai = null;										//usa AIGameSingleThread o AIGameP
 	private final int OPENING_COUNTER = 0;
-	private final int STARTING_DEPTH = 4;
+	private final int STARTING_DEPTH = 5;
 	private final int MAX_DEPTH = 6;
-
+	private Set<State> pastStates = new HashSet<State>();
 	//@Matteo
 	private int nwhites =0;
 	private int nblacks = 0;
@@ -30,7 +33,7 @@ public class ClientDaniele extends TablutClient{
 	public ClientDaniele(String player) throws  IOException {
 		super(player, "Daniele");
 		//ab = new AlphaBetaPruning();									//scommenta per AlphaBetaPrunin
-		ai = new AIGameSingleThread(30000,MinMaxPrinter.getPrinter(PrintMode.Simple),false);	//con -1 non c'è limite di tempo	//usa AIGameSingleThread o AIGameP
+		ai = new AIGameSingleThread(60000,MinMaxPrinter.getPrinter(PrintMode.Simple),true,true,true);	//con -1 non c'è limite di tempo	//usa AIGameSingleThread o AIGameP
 	}
 
 
@@ -85,7 +88,7 @@ public class ClientDaniele extends TablutClient{
 		while(true) {	
 			//legge stato corrente dal server (mossa avversario)
 			this.read();
-
+			pastStates.add(currentState);
 
 			setup();
 
@@ -94,7 +97,7 @@ public class ClientDaniele extends TablutClient{
 			action = BlackOpening.nextMove(new TablutState(currentState,nwhites,nblacks,coord,whitesMoved), turnCounter);
 			else
 			//action = ab.AlphaBetaSearch(depth, new TablutState(currentState,nwhites,nblacks,coord,whitesMoved),MinMaxPrinter.getPrinter(PrintMode.Simple));			//scommenta per AlphaBetaPrunin
-			action = ai.chooseBestMove(STARTING_DEPTH, MAX_DEPTH, new TablutState(currentState,nwhites,nblacks,coord,whitesMoved));
+			action = ai.chooseBestMove(STARTING_DEPTH, MAX_DEPTH, new TablutState(currentState,nwhites,nblacks,coord,whitesMoved),pastStates);
 			turnCounter++;
 			//comunica l'azione al server
 			this.write(new Action(DanieleAction.coord(action.getRowFrom(),action.getColumnFrom()),DanieleAction.coord(action.getRowTo(),action.getColumnTo()),Turn.BLACK));
@@ -109,7 +112,8 @@ public class ClientDaniele extends TablutClient{
 		while(true) {
 			//scelta mossa
 			// @Matteo conteggio iniziale questo penso sia inevitabile, ma si fa una volta sola!!!!!
-
+		
+			
 			setup();
 			
 				
@@ -117,15 +121,17 @@ public class ClientDaniele extends TablutClient{
 			action = WhiteOpening.nextMove(new TablutState(currentState,nwhites,nblacks,coord,whitesMoved), turnCounter);
 			else
 			//action = ab.AlphaBetaSearch(depth, new TablutState(this.getCurrentState(),nwhites,nblacks,coord,whitesMoved),MinMaxPrinter.getPrinter(PrintMode.Simple));			//scommenta per AlphaBetaPrunin
-			action = ai.chooseBestMove(STARTING_DEPTH, MAX_DEPTH, new TablutState(currentState,nwhites,nblacks,coord,whitesMoved));
+			action = ai.chooseBestMove(STARTING_DEPTH, MAX_DEPTH, new TablutState(currentState,nwhites,nblacks,coord,whitesMoved),pastStates);
 			turnCounter++;
 			//comunica l'azione al server
 			this.write(new Action(DanieleAction.coord(action.getRowFrom(),action.getColumnFrom()),DanieleAction.coord(action.getRowTo(),action.getColumnTo()),Turn.WHITE));
 			//legge stato corrente modificato dal server
 			this.read();
-
-			//legge stato corrente dal server (mossa avversario)
+			
 			this.read();
+			pastStates.add(currentState);
+			//legge stato corrente dal server (mossa avversario)
+		
 		}
 	}
 	

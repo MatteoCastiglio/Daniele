@@ -2,10 +2,12 @@ package Daniele.ai;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import Daniele.minmaxprinter.MinMaxPrinter;
+import it.unibo.ai.didattica.competition.tablut.domain.State;
 import it.unibo.ai.didattica.competition.tablut.domain.State.Turn;
 
 
@@ -37,7 +39,7 @@ public class AIGameP implements AIGame {
 		this.printer= printer;
 	}
 
-	public DanieleAction chooseBestMove(int startingDepth, int maxDepth, ITablutState ts){
+	public DanieleAction chooseBestMove(int startingDepth, int maxDepth, ITablutState ts,Set<State> pastStates){
 
 		//impostazione del timer
 		timeOver = false;
