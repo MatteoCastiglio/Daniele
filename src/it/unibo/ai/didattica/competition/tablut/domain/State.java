@@ -126,6 +126,9 @@ public abstract class State {
 		return this.board[row][column];
 	}
 
+	public void setPawn(int row, int column,Pawn p) {
+		this.board[row][column] = p;
+	}
 	/**
 	 * this function remove a specified pawn from the board
 	 * 

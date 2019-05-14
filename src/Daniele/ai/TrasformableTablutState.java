@@ -12,7 +12,7 @@ import it.unibo.ai.didattica.competition.tablut.domain.State.Pawn;
 import it.unibo.ai.didattica.competition.tablut.domain.State.Turn;
 
 
-public class TablutState implements ITablutState {
+public class TrasformableTablutState implements ITablutState {
 
 
 	private State state;
@@ -46,24 +46,19 @@ public class TablutState implements ITablutState {
 		this.whitePawnsMoved = whitePawnsMoved;
 	}
 
-	private int[] nextCoordKing;
-	
 	
 	// @Matteo aggiunto per controlli sui pezzi mangiati
 	private  List<String> citadels =new  ArrayList<String>(Arrays.asList("a4","a5","a6","b5","d1","e1","f1","e2","i4","i5","i6","h5","d9","e9","f9","e8"));
-	
 	private int nwhites; // @Matteo numero di pezzi bianchi sulla scacchiera, mettendolo come propriet� si evita si calcolarlo dinamicamente
 	private int nblacks; // @Matteo numero di pezzi neri sulla scacchiera, mettendolo come propriet� si evita si calcolarlo dinamicamente
-	private int nextStateWhites; // @Matteo comodi per aggiornare il valore sul nuovo stato
-	private int nextStateBlacks; // @Matteo comodi per aggiornare il valore sul nuovo stato
 	private int whitePawnsMoved;
-	private int nextWhitePawnsMoved;
+
 	
 	
 	
 	// this.strangeCitadels = new ArrayList<String>();
 
-	public TablutState(State state, int WhiteCounts,int  BlackCounts,int[] king,int whitesMoved) {
+	public TrasformableTablutState(State state, int WhiteCounts,int  BlackCounts,int[] king,int whitesMoved) {
 		this.state = state;
 	//	this.game = new GameAshtonTablut(state,0, -1, "logs", "WHITE", "BLACK");
 		this.board = state.getBoard();
@@ -74,7 +69,7 @@ public class TablutState implements ITablutState {
 	}
 
 	@Override
-	public ITablutState getChildState(DanieleAction action) {
+	public List<Pos> trasformState(DanieleAction action) {
 		
 		// return game.getNextState(state ,action);
 		
@@ -82,6 +77,57 @@ public class TablutState implements ITablutState {
 		
 	}
 
+	@Override
+	public void trasformStateBack(DanieleAction a, List<Pos> pawnsRemoved) {
+		
+		// return game.getNextState(state ,action);
+		switch(state.getTurn()){
+			case WHITEWIN :{
+			state.setPawn(a.getRowFrom(), a.getColumnFrom(), Pawn.KING);
+			coordKing = new int[] {a.getRowFrom(),a.getColumnFrom()};
+			state.setTurn(Turn.WHITE);
+			break;		}
+			case BLACKWIN : {
+			state.setPawn(a.getRowFrom(), a.getColumnFrom(), Pawn.BLACK);
+			state.setTurn(Turn.BLACK);
+			for(int i = 0; i< pawnsRemoved.size(); i++) {
+				state.setPawn(pawnsRemoved.get(i).row, pawnsRemoved.get(i).col, Pawn.WHITE);
+			nwhites++;}
+			break;
+			}
+			case BLACK : {
+			state.setTurn(Turn.WHITE);
+			if(state.getPawn(a.getRowTo(),a.getColumnTo()).equals(Pawn.KING)) {
+			state.setPawn(a.getRowFrom(), a.getColumnFrom(), Pawn.KING);
+			coordKing = new int[] {a.getRowFrom(),a.getColumnFrom()};
+			}
+			else state.setPawn(a.getRowFrom(), a.getColumnFrom(), Pawn.WHITE);
+			for(int i = 0; i< pawnsRemoved.size(); i++)
+					{
+				state.setPawn(pawnsRemoved.get(i).row, pawnsRemoved.get(i).col, Pawn.BLACK);
+				nblacks++;	}
+			break; }
+		
+			case WHITE:  {
+			state.setPawn(a.getRowFrom(), a.getColumnFrom(), Pawn.BLACK);
+			state.setTurn(Turn.BLACK);
+			for(int i = 0; i< pawnsRemoved.size(); i++) {
+				state.setPawn(pawnsRemoved.get(i).row, pawnsRemoved.get(i).col, Pawn.WHITE);
+			nwhites++;
+			}
+			break;}
+		//solo per completezza
+		case DRAW:
+			break;
+		default:
+			break;
+		}
+
+		state.setPawn(a.getRowTo(), a.getColumnTo(), Pawn.EMPTY);
+		
+		
+		
+	}
 	
 	@Override
 	public List<DanieleAction> getTopLeftMoves() {
@@ -236,8 +282,9 @@ public class TablutState implements ITablutState {
 //@Matteo turn nelle action non serve a nulla, potremmo farci una nostra Action
 	
 	
-private ITablutState getNextState(State mystate, DanieleAction a) {
-		State state = mystate.clone();
+private List<Pos> getNextState(State mystate, DanieleAction a) {
+
+		List<Pos> p = null;
 		Pawn pawn = state.getPawn(a.getRowFrom(), a.getColumnFrom());
 		Pawn[][] newBoard = state.getBoard();
 		// State newState = new State();
@@ -254,65 +301,58 @@ private ITablutState getNextState(State mystate, DanieleAction a) {
 		state.setBoard(newBoard);
 		// cambio il turno
 		
+
 		
-		//@Matteo da qui in poic odice modificato
-		
-		nextStateBlacks = nblacks;
-		nextStateWhites = nwhites;
-		nextWhitePawnsMoved = whitePawnsMoved;
 		
 		//@Matteo da riguardare
 		if (pawn.equals(Pawn.WHITE)&&(a.getColumnFrom() == 4 || a.getRowFrom() == 4)) {
-			nextWhitePawnsMoved++;
+			whitePawnsMoved++;
 		}
 		if (pawn.equals(Pawn.WHITE)&&(a.getColumnTo() == 4 || a.getRowTo() == 4)) {
-			nextWhitePawnsMoved--;
+			whitePawnsMoved--;
 		}
 
 		if(pawn.equals(Pawn.KING))
-		nextCoordKing = new int[] {a.getRowTo(),a.getColumnTo()};
-		else
-		nextCoordKing= coordKing;
+		coordKing = new int[] {a.getRowTo(),a.getColumnTo()};
 		
 		
-		if (state.getTurn().equalsTurn(State.Turn.WHITE.toString())) {
+		if (state.getTurn().equals(Turn.WHITE)) {
 			state.setTurn(State.Turn.BLACK);
-			state = checkCaptureWhite(state,a);
+			p = checkCaptureWhite(state,a);
 			
 			
 		} else {
 			state.setTurn(State.Turn.WHITE);
-			state = checkCaptureBlack(state,a);
+			p = checkCaptureBlack(state,a);
 		}
 
-	return new TrasformableTablutState(state,nextStateWhites,nextStateBlacks,nextCoordKing,nextWhitePawnsMoved);
+		return p;
 		
-		//@ Matteo decommentare per stampe -- parametro per debug mode ???
-		/*
-		TablutState tmp = new TablutState(state,nwhites,nblacks);
-		System.out.println(tmp);
-		System.out.println("Value: " + HeuristicTablut.HeuristicFunction(tmp));
-		return tmp; 
-		*/
+	
 }
 	
-private State checkCaptureBlack(State state, DanieleAction a) {
+private List<Pos> checkCaptureBlack(State state, DanieleAction a) {
 		
 		
 		// @Matteo tutti i controlli a prescindere si pu� fare meglio???
-		this.checkCaptureBlackPawnRight(state, a);
-		this.checkCaptureBlackPawnLeft(state, a);
-		this.checkCaptureBlackPawnUp(state, a);
-		this.checkCaptureBlackPawnDown(state, a);
+		
+		List<Pos> p = new ArrayList<Pos>();
+		p.addAll(this.checkCaptureBlackPawnRight(state, a));
+		p.addAll(this.checkCaptureBlackPawnLeft(state, a));
+		p.addAll(this.checkCaptureBlackPawnUp(state, a));
+		p.addAll(this.checkCaptureBlackPawnDown(state, a));
+		
 		this.checkCaptureBlackKingRight(state, a);
 		this.checkCaptureBlackKingLeft(state, a);
 		this.checkCaptureBlackKingDown(state, a);
 		this.checkCaptureBlackKingUp(state, a);
-		return state;
+		return p;
 }
 
-private State checkCaptureWhite(State state, DanieleAction a) {
+private List<Pos> checkCaptureWhite(State state, DanieleAction a) {
 	// controllo se mangio a destra
+	
+	List<Pos> p = new ArrayList<Pos>() ;
 	if (a.getColumnTo() < state.getBoard().length - 2
 			&& state.getPawn(a.getRowTo(), a.getColumnTo() + 1).equalsPawn("B")
 			&& (state.getPawn(a.getRowTo(), a.getColumnTo() + 2).equalsPawn("W")
@@ -324,7 +364,9 @@ private State checkCaptureWhite(State state, DanieleAction a) {
 			&& !(a.getColumnTo() + 2 == 4 && a.getRowTo() == 8)
 			&& !(a.getColumnTo() + 2 == 0 && a.getRowTo() == 4)))) {
 		state.removePawn(a.getRowTo(), a.getColumnTo() + 1);
-		nextStateBlacks=nextStateBlacks-1;
+		nblacks=nblacks-1;
+		p.add(new Pos (a.getRowTo(), a.getColumnTo() + 1));
+		
 	}
 	// controllo se mangio a sinistra
 	if (a.getColumnTo() > 1 && state.getPawn(a.getRowTo(), a.getColumnTo() - 1).equalsPawn("B")
@@ -337,7 +379,8 @@ private State checkCaptureWhite(State state, DanieleAction a) {
 			&& !(a.getColumnTo() - 2 == 4 && a.getRowTo() == 8)
 			&& !(a.getColumnTo() - 2 == 0 && a.getRowTo() == 4)))) {
 		state.removePawn(a.getRowTo(), a.getColumnTo() - 1);
-		nextStateBlacks=nextStateBlacks-1;
+		nblacks=nblacks-1;
+		p.add(new Pos(a.getRowTo(), a.getColumnTo() - 1));
 	}
 	// controllo se mangio sopra
 	if (a.getRowTo() > 1 && state.getPawn(a.getRowTo() - 1, a.getColumnTo()).equalsPawn("B")
@@ -350,7 +393,8 @@ private State checkCaptureWhite(State state, DanieleAction a) {
 			&& !(a.getColumnTo() == 4 && a.getRowTo() - 2 == 8)
 			&& !(a.getColumnTo() == 0 && a.getRowTo() - 2 == 4)))) {
 		state.removePawn(a.getRowTo() - 1, a.getColumnTo());
-		nextStateBlacks=nextStateBlacks-1;
+		nblacks=nblacks-1;
+		p.add(new Pos (a.getRowTo() -1 , a.getColumnTo() ));
 	}
 	// controllo se mangio sotto
 	if (a.getRowTo() < state.getBoard().length - 2
@@ -364,7 +408,8 @@ private State checkCaptureWhite(State state, DanieleAction a) {
 			&& !(a.getColumnTo() == 4 && a.getRowTo() + 2 == 8)
 			&& !(a.getColumnTo() == 0 && a.getRowTo() + 2 == 4)))) {
 		state.removePawn(a.getRowTo() + 1, a.getColumnTo());
-		nextStateBlacks=nextStateBlacks-1;
+		nblacks=nblacks-1;
+		p.add(new Pos (a.getRowTo() + 1 , a.getColumnTo() ));
 	}
 	// controllo se ho vinto
 	if (a.getRowTo() == 0 || a.getRowTo() == state.getBoard().length - 1 || a.getColumnTo() == 0
@@ -376,10 +421,10 @@ private State checkCaptureWhite(State state, DanieleAction a) {
 	}
 
 
-	return state;
+	return p;
 }
 
-private State checkCaptureBlackKingLeft(State state, DanieleAction a){
+private void checkCaptureBlackKingLeft(State state, DanieleAction a){
 // ho il re sulla sinistra
 	if (a.getColumnTo() > 1 && state.getPawn(a.getRowTo(), a.getColumnTo() - 1).equalsPawn("K")) {
 		// re sul trono
@@ -387,7 +432,7 @@ private State checkCaptureBlackKingLeft(State state, DanieleAction a){
 			if (state.getPawn(3, 4).equalsPawn("B") && state.getPawn(4, 3).equalsPawn("B")
 					&& state.getPawn(5, 4).equalsPawn("B")) {
 				state.setTurn(State.Turn.BLACKWIN);
-
+	
 			}
 		}
 		// re adiacente al trono
@@ -421,10 +466,10 @@ private State checkCaptureBlackKingLeft(State state, DanieleAction a){
 			}
 		}
 	}
-	return state;
+
 }
 
-private State checkCaptureBlackKingRight(State state, DanieleAction a){
+private void checkCaptureBlackKingRight(State state, DanieleAction a){
 	// ho il re sulla destra
 	if (a.getColumnTo() < state.getBoard().length - 2
 			&& (state.getPawn(a.getRowTo(), a.getColumnTo() + 1).equalsPawn("K"))) {
@@ -467,10 +512,10 @@ private State checkCaptureBlackKingRight(State state, DanieleAction a){
 			}
 		}
 	}
-	return state;
+
 }
 
-private State checkCaptureBlackKingDown(State state, DanieleAction a){
+private void checkCaptureBlackKingDown(State state, DanieleAction a){
 	// ho il re sotto
 	if (a.getRowTo() < state.getBoard().length - 2
 			&& state.getPawn(a.getRowTo() + 1, a.getColumnTo()).equalsPawn("K")) {
@@ -514,10 +559,10 @@ private State checkCaptureBlackKingDown(State state, DanieleAction a){
 			}
 		}
 	}
-	return state;
+
 }
 
-private State checkCaptureBlackKingUp(State state, DanieleAction a){
+private void checkCaptureBlackKingUp(State state, DanieleAction a){
 	// ho il re sopra
 	if (a.getRowTo() > 1 && state.getPawn(a.getRowTo() - 1, a.getColumnTo()).equalsPawn("K")) {
 		// re sul trono
@@ -560,37 +605,43 @@ private State checkCaptureBlackKingUp(State state, DanieleAction a){
 		}
 	}
 
-	return state;
+
 }
 
-private State checkCaptureBlackPawnRight(State state, DanieleAction a)	{
+private List<Pos> checkCaptureBlackPawnRight(State state, DanieleAction a)	{
 
-		if (a.getColumnTo() < state.getBoard().length - 2
+	List<Pos> p = new ArrayList<Pos>() ;	
+	if (a.getColumnTo() < state.getBoard().length - 2
 			&& state.getPawn(a.getRowTo(), a.getColumnTo() + 1).equalsPawn("W")) {
 		if (state.getPawn(a.getRowTo(), a.getColumnTo() + 2).equalsPawn("B")) {
 			state.removePawn(a.getRowTo(), a.getColumnTo() + 1);
-			nextStateWhites=nextStateWhites-1;
+			nwhites=nwhites-1;
+			p.add(new Pos (a.getRowTo()  , a.getColumnTo() +1));
 		}
 		if (state.getPawn(a.getRowTo(), a.getColumnTo() + 2).equalsPawn("T")) {
 			state.removePawn(a.getRowTo(), a.getColumnTo() + 1);
-			nextStateWhites=nextStateWhites-1;
+			nwhites=nwhites-1;
+			p.add(new Pos (a.getRowTo()  , a.getColumnTo() +1));
 		}
 		if (this.citadels.contains(state.getBox(a.getRowTo(), a.getColumnTo() + 2))) {
 			state.removePawn(a.getRowTo(), a.getColumnTo() + 1);
-			nextStateWhites=nextStateWhites-1;
+			nwhites=nwhites-1;
+			p.add(new Pos (a.getRowTo()  , a.getColumnTo() +1));
 		}
 		if (state.getBox(a.getRowTo(), a.getColumnTo() + 2).equals("e5")) {
 			state.removePawn(a.getRowTo(), a.getColumnTo() + 1);
-			nextStateWhites=nextStateWhites-1;
+			nwhites=nwhites-1;
+			p.add(new Pos (a.getRowTo()  , a.getColumnTo() +1 ));
 		}
 		
 	}
 	
-	return state;
+	return p;
 }
 
-private State checkCaptureBlackPawnLeft(State state, DanieleAction a){
+private List<Pos> checkCaptureBlackPawnLeft(State state, DanieleAction a){
 	//mangio a sinistra
+	List<Pos> p = new ArrayList<Pos>() ;
 	if (a.getColumnTo() > 1 && state.getPawn(a.getRowTo(), a.getColumnTo() - 1).equalsPawn("W")
 			&& (state.getPawn(a.getRowTo(), a.getColumnTo() - 2).equalsPawn("B")
 			|| state.getPawn(a.getRowTo(), a.getColumnTo() - 2).equalsPawn("T")
@@ -599,14 +650,16 @@ private State checkCaptureBlackPawnLeft(State state, DanieleAction a){
 
 	{
 		state.removePawn(a.getRowTo(), a.getColumnTo() - 1);
+		p.add(new Pos (a.getRowTo()  , a.getColumnTo() -1));
 		// @Matteo AGGIUNTA
-		nextStateWhites=nextStateWhites-1;
+		nwhites=nwhites-1;
 	}
-	return state;
+	return p;
 }
 
-private State checkCaptureBlackPawnUp(State state, DanieleAction a){
+private List<Pos> checkCaptureBlackPawnUp(State state, DanieleAction a){
 	// controllo se mangio sopra
+	List<Pos> p = new ArrayList<Pos>() ;
 	if (a.getRowTo() > 1 && state.getPawn(a.getRowTo() - 1, a.getColumnTo()).equalsPawn("W")
 			&& (state.getPawn(a.getRowTo() - 2, a.getColumnTo()).equalsPawn("B")
 			|| state.getPawn(a.getRowTo() - 2, a.getColumnTo()).equalsPawn("T")
@@ -616,14 +669,16 @@ private State checkCaptureBlackPawnUp(State state, DanieleAction a){
 	{
 		state.removePawn(a.getRowTo()-1, a.getColumnTo());
 		// @Matteo AGGIUNTA
-		nextStateWhites=nextStateWhites-1;
+		nwhites=nwhites-1;
+		p.add(new Pos (a.getRowTo() -1 , a.getColumnTo() ));
 
 	}
-	return state;
+	return p;
 }
 
-private State checkCaptureBlackPawnDown(State state, DanieleAction a){
+private List<Pos> checkCaptureBlackPawnDown(State state, DanieleAction a){
 	// controllo se mangio sotto
+	List<Pos> p = new ArrayList<Pos>() ;
 	if (a.getRowTo() < state.getBoard().length - 2
 			&& state.getPawn(a.getRowTo() + 1, a.getColumnTo()).equalsPawn("W")
 			&& (state.getPawn(a.getRowTo() + 2, a.getColumnTo()).equalsPawn("B")
@@ -632,11 +687,12 @@ private State checkCaptureBlackPawnDown(State state, DanieleAction a){
 			|| (state.getBox(a.getRowTo() + 2, a.getColumnTo()).equals("e5"))))
 	{
 		state.removePawn(a.getRowTo()+1, a.getColumnTo());
+		p.add(new Pos (a.getRowTo() +1 , a.getColumnTo() ));
 		// @Matteo AGGIUNTA
-		nextStateWhites=nextStateWhites-1;
+		nwhites=nwhites- 1;
 	
 	}
-	return state;
+	return p;
 }
 
 //@Matteo test in caso da cambiare
@@ -719,18 +775,23 @@ public int WhitesCount() {
 
 
 	@Override
-	public List<Pos> trasformState(DanieleAction action) {
-		return null;
-		
-	}
-
-
-
-	@Override
-	public void trasformStateBack(DanieleAction a, List<Pos> pawnsRemoved) {
+	public ITablutState getChildState(DanieleAction action) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
+
+}
+
+class Pos {
+
+ int col;
+
+public Pos(int row, int col) {
+	this.col = col;
+	this.row = row;
+
+}
+int row;
 
 }

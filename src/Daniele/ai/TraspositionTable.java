@@ -21,7 +21,7 @@ public class TraspositionTable {
     public void add(State s,int distanceFromLeaves,double val)
     {
  
-        if(table.containsKey(s)) 
+    	if(table.containsKey(s)) 
         {
         	int d = table.get(s).depth;
         	if(d<distanceFromLeaves)
