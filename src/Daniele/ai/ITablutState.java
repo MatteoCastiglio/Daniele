@@ -20,6 +20,7 @@ public interface ITablutState {
 	int getWhitePawnsMoved();
 	int getPawnsOnKingDiagonal();
 	int getPawnsOnKingDiagonal2();
+	double getFlow();
 	List<Pos> trasformState(DanieleAction action);
 	void trasformStateBack(DanieleAction a, List<Pos> pawnsRemoved);
 	

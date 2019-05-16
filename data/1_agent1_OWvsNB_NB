@@ -1,0 +1,35 @@
+weights  000,226062 000,198133 000,295363 000,050988 000,110315 000,119138 
+--- 0.226062
+--- 0.198133
+--- 0.295363
+--- 0.050988
+--- 0.110315
+--- 0.119138
+Selected client: WHITE
+Aggiunta azione Pawn from e3 to d3 con valore 22.562814999999997
+Aggiunta azione Pawn from e3 to c3 con valore 24.945574999999998
+Aggiunta azione Pawn from e4 to d4 con valore 26.757464999999996
+Aggiunta azione Pawn from e4 to d4 con valore 20.850205
+Aggiunta azione Pawn from e3 to c3 con valore 21.371434999999998
+Aggiunta azione Pawn from e4 to f4 con valore 22.562814999999997
+Time=0.590984999, depth = 4 - bestActionLastDepth = Pawn from e4 to f4
+Aggiunta azione Pawn from f4 to f3 con valore 19.90582
+Aggiunta azione Pawn from c5 to c4 con valore 21.077905
+Aggiunta azione Pawn from c5 to c3 con valore 23.460665000000002
+Aggiunta azione Pawn from d5 to d4 con valore 31.434754999999996
+Aggiunta azione Pawn from d5 to d4 con valore 24.906985
+Time=0.211610965, depth = 4 - bestActionLastDepth = Pawn from d5 to d4
+Aggiunta azione Pawn from d4 to d3 con valore 21.332845
+Aggiunta azione Pawn from d4 to d6 con valore 24.906985
+Aggiunta azione Pawn from c5 to c4 con valore 31.986329999999995
+Aggiunta azione Pawn from c5 to c3 con valore 34.36908999999999
+Aggiunta azione Pawn from c5 to c3 con valore 24.26718
+Aggiunta azione Pawn from g5 to g4 con valore 25.45856
+Time=0.577031954, depth = 4 - bestActionLastDepth = Pawn from g5 to g4
+Aggiunta azione Pawn from d4 to d3 con valore 22.435995
+Aggiunta azione Pawn from g4 to g3 con valore 25.439265
+Aggiunta azione Pawn from f5 to f6 con valore 33.964929999999995
+Aggiunta azione Pawn from f5 to f6 con valore 22.75987
+Aggiunta azione Pawn from e6 to d6 con valore 23.311445
+Time=0.195170561, depth = 4 - bestActionLastDepth = Pawn from e6 to d6
+partita finita

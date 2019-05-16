@@ -1,0 +1,16 @@
+weights  000,226062 000,198133 000,295363 000,050988 000,110315 000,119138 
+--- 0.226062
+--- 0.198133
+--- 0.295363
+--- 0.050988
+--- 0.110315
+--- 0.119138
+Selected client: WHITE
+Aggiunta azione Pawn from e3 to d3 con valore 22.562814999999997
+Aggiunta azione Pawn from e3 to c3 con valore 24.945574999999998
+Aggiunta azione Pawn from e4 to d4 con valore 26.757464999999996
+Aggiunta azione Pawn from e4 to d4 con valore 20.850205
+Aggiunta azione Pawn from e3 to c3 con valore 21.371434999999998
+Aggiunta azione Pawn from e4 to f4 con valore 22.562814999999997
+Time=0.52396313, depth = 4 - bestActionLastDepth = Pawn from e4 to f4
+partita finita

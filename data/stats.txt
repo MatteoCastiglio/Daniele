@@ -1,0 +1,12 @@
+Current Generation: 0 Total games: 0
+PlayerOLD wins: 0 - PlayerNEW wins: 0
+Total agents updated: 0
+Agents updated because of more moves: 0
+Current Generation: 1 Total games: 2
+PlayerOLD wins: 0 - PlayerNEW wins: 0
+Total agents updated: 0
+Agents updated because of more moves: 0
+Current Generation: 1 Total games: 4
+PlayerOLD wins: 0 - PlayerNEW wins: 0
+Total agents updated: 0
+Agents updated because of more moves: 0

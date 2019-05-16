@@ -1,0 +1,27 @@
+weights  000,132269 000,111895 000,268088 000,142375 000,153743 000,191629 
+--- 0.132269
+--- 0.111895
+--- 0.268088
+--- 0.142375
+--- 0.153743
+--- 0.191629
+Selected client: BLACK
+Aggiunta azione Pawn from d1 to d2 con valore -Infinity
+Aggiunta azione Pawn from d1 to d2 con valore -Infinity
+Time=0.008287428, depth = 4 - bestActionLastDepth = Pawn from d1 to d2
+Aggiunta azione Pawn from e1 to d1 con valore -Infinity
+Aggiunta azione Pawn from e1 to d1 con valore -Infinity
+Time=0.007627671, depth = 4 - bestActionLastDepth = Pawn from e1 to d1
+Aggiunta azione Pawn from d1 to d2 con valore -Infinity
+Aggiunta azione Pawn from d1 to d2 con valore -Infinity
+Time=0.006114349, depth = 4 - bestActionLastDepth = Pawn from d1 to d2
+Aggiunta azione Pawn from f1 to f2 con valore -Infinity
+Aggiunta azione Pawn from f1 to f2 con valore -Infinity
+Time=0.005322119, depth = 4 - bestActionLastDepth = Pawn from f1 to f2
+Aggiunta azione Pawn from e2 to e1 con valore -Infinity
+Aggiunta azione Pawn from e2 to e1 con valore -Infinity
+Time=0.002989287, depth = 4 - bestActionLastDepth = Pawn from e2 to e1
+Aggiunta azione Pawn from e1 to e2 con valore -Infinity
+Aggiunta azione Pawn from e1 to e2 con valore -Infinity
+Time=0.004707336, depth = 4 - bestActionLastDepth = Pawn from e1 to e2
+partita finita

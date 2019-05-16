@@ -39,7 +39,7 @@ public class AIGameP implements AIGame {
 		this.printer= printer;
 	}
 
-	public DanieleAction chooseBestMove(int startingDepth, int maxDepth, ITablutState ts,Set<State> pastStates){
+	public DanieleAction chooseBestMove(int startingDepth, int maxDepth, ITablutState ts,Set<String> pastStates){
 
 		//impostazione del timer
 		timeOver = false;

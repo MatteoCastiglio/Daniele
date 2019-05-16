@@ -21,9 +21,10 @@ public class ClientDaniele extends TablutClient{
 	//private AlphaBetaPruning ab = null;							//scommenta per AlphaBetaPruning
 	private AIGame ai = null;										//usa AIGameSingleThread o AIGameP
 	private final int OPENING_COUNTER = 0;
-	private final int STARTING_DEPTH = 6;
-	private final int MAX_DEPTH = 6;
-	private Set<State> pastStates = new HashSet<State>();
+	private final int STARTING_DEPTH = 3;
+	private final int MAX_DEPTH = 4;
+	//private Set<State> pastStates = new HashSet<State>();
+	private Set<String> pastStates = new HashSet<String>();
 	//@Matteo
 	private int nwhites =0;
 	private int nblacks = 0;
@@ -35,7 +36,7 @@ public class ClientDaniele extends TablutClient{
 		super(player, "Daniele");
 
 		//ab = new AlphaBetaPruning();									//scommenta per AlphaBetaPrunin
-		ai = new AIGameSingleThread(30000,MinMaxPrinter.getPrinter(PrintMode.Simple),false,false,true);	//con -1 non c'è limite di tempo	//usa AIGameSingleThread o AIGameP
+		ai = new AIGameSingleThread(-1,MinMaxPrinter.getPrinter(PrintMode.Simple),false,true,true);	//con -1 non c'è limite di tempo	//usa AIGameSingleThread o AIGameP
 		//ai = new AIGameP(30000,MinMaxPrinter.getPrinter(PrintMode.Simple),false);
 	}
 
@@ -96,7 +97,7 @@ public class ClientDaniele extends TablutClient{
 		while(true) {	
 			//legge stato corrente dal server (mossa avversario)
 			this.read();
-			pastStates.add(currentState);
+			pastStates.add(currentState.toLinearString());
 			if(currentState== null || currentState.getTurn().equals(Turn.BLACKWIN) || currentState.getTurn().equals(Turn.WHITEWIN) || currentState.getTurn().equals(Turn.DRAW) )
 				return;
 			setup();
@@ -112,6 +113,7 @@ public class ClientDaniele extends TablutClient{
 			this.write(new Action(DanieleAction.coord(action.getRowFrom(),action.getColumnFrom()),DanieleAction.coord(action.getRowTo(),action.getColumnTo()),Turn.BLACK));
 			//legge stato corrente modificato dal server
 			this.read();
+			pastStates.add(currentState.toLinearString());
 		}
 	}
 
@@ -136,9 +138,10 @@ public class ClientDaniele extends TablutClient{
 			this.write(new Action(DanieleAction.coord(action.getRowFrom(),action.getColumnFrom()),DanieleAction.coord(action.getRowTo(),action.getColumnTo()),Turn.WHITE));
 			//legge stato corrente modificato dal server
 			this.read();
+			pastStates.add(currentState.toLinearString());
 			
 			this.read();
-			pastStates.add(currentState);
+			pastStates.add(currentState.toLinearString());
 			//legge stato corrente dal server (mossa avversario)
 			if(currentState== null || currentState.getTurn().equals(Turn.BLACKWIN) || currentState.getTurn().equals(Turn.WHITEWIN) || currentState.getTurn().equals(Turn.DRAW) )
 				return;
