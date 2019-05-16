@@ -14,7 +14,7 @@ import it.unibo.ai.didattica.competition.tablut.domain.State.Turn;
 
 public class TablutState implements ITablutState {
 
-	
+
 	private State state;
 	@Override
 	public String toString() {
@@ -258,7 +258,7 @@ public class TablutState implements ITablutState {
 		//@Matteo da qui in poic odice modificato
 		nextStateBlacks = nblacks;
 		nextStateWhites = nwhites;
-		
+
 
 
 
@@ -627,22 +627,22 @@ public class TablutState implements ITablutState {
 	}
 
 
-	
+
 	public double getFlow()
 	{
 		//	4|1
 		//	3|2
-		
+
 		double res=0;
 		//troppo pesante
-//		int n1W=0, n2W=0, n3W=0, n4W=0;
-//		int n1B=0, n2B=0, n3B=0, n4B=0;
+		//		int n1W=0, n2W=0, n3W=0, n4W=0;
+		//		int n1B=0, n2B=0, n3B=0, n4B=0;
 		int n1=0, n2=0, n3=0, n4=0;
-		
+
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
-//				if(this.board[i][j].equals(Pawn.BLACK)) n4B++;
-//				else if(this.board[i][j].equals(Pawn.WHITE)) n4W++;
+				//				if(this.board[i][j].equals(Pawn.BLACK)) n4B++;
+				//				else if(this.board[i][j].equals(Pawn.WHITE)) n4W++;
 				if(!this.board[i][j].equals(Pawn.EMPTY)) n4++;
 			}
 			for (int j = 5; j < 9; j++) {
@@ -657,13 +657,13 @@ public class TablutState implements ITablutState {
 				if(!this.board[i][j].equals(Pawn.EMPTY)) n2++;
 			}
 		}
-		
-//		int asse14=0, asse12=0, asse23=0, asse34=0;
-//		if(coordKing[0]==4 && coordKing[1]>=0 && coordKing[1]<=3) asse34++;
-//		if(coordKing[0]==4 && coordKing[1]>=5 && coordKing[1]<=8) asse12++;
-//		if(coordKing[1]==4 && coordKing[0]>=0 && coordKing[0]<=3) asse14++;
-//		if(coordKing[1]==4 && coordKing[0]>=0 && coordKing[0]<=3) asse23++;
-		
+
+		//		int asse14=0, asse12=0, asse23=0, asse34=0;
+		//		if(coordKing[0]==4 && coordKing[1]>=0 && coordKing[1]<=3) asse34++;
+		//		if(coordKing[0]==4 && coordKing[1]>=5 && coordKing[1]<=8) asse12++;
+		//		if(coordKing[1]==4 && coordKing[0]>=0 && coordKing[0]<=3) asse14++;
+		//		if(coordKing[1]==4 && coordKing[0]>=0 && coordKing[0]<=3) asse23++;
+
 		int max=Math.max(n1, n2); max=Math.max(max, n3); max=Math.max(max, n4);
 		if(max==n1) res=n1+(n2>n4?(n2+0.5*n4):(0.5*n2+n4));
 		if(max==n2) res=n2+(n1>n3?(n1+0.5*n3):(0.5*n1+n3));
@@ -671,9 +671,9 @@ public class TablutState implements ITablutState {
 		if(max==n4) res=n4+(n1>n3?(n1+0.5*n3):(0.5*n1+n3));
 
 		return res;
-		
+
 	}
-	
+
 
 
 
@@ -769,42 +769,42 @@ public class TablutState implements ITablutState {
 
 		int whitePawnsOnflow=0;
 		int blackPawnsOnFlow=0;
-			if(coordKing[0]<4) {
-				for (int i = 0; i < 4; i++)
-					for (int j = 0; j < 9; j++) {
-						if (state.getPawn(i, j).equals(Pawn.WHITE))
-							whitePawnsOnflow++;
-						else if (state.getPawn(i, j).equals(Pawn.BLACK))
-							blackPawnsOnFlow++;
-					}
-			}
-			else if(coordKing[0]>4){
-				for(int i =5; i< 9; i++)
-					for(int j =0; j< 9; j++) {
-						if (state.getPawn(i, j).equals(Pawn.WHITE))
-							whitePawnsOnflow++;
-						else if (state.getPawn(i, j).equals(Pawn.BLACK))
-							blackPawnsOnFlow++;
-					}
+		if(coordKing[0]<4) {
+			for (int i = 0; i < 4; i++)
+				for (int j = 0; j < 9; j++) {
+					if (state.getPawn(i, j).equals(Pawn.WHITE))
+						whitePawnsOnflow++;
+					else if (state.getPawn(i, j).equals(Pawn.BLACK))
+						blackPawnsOnFlow++;
+				}
+		}
+		else if(coordKing[0]>4){
+			for(int i =5; i< 9; i++)
+				for(int j =0; j< 9; j++) {
+					if (state.getPawn(i, j).equals(Pawn.WHITE))
+						whitePawnsOnflow++;
+					else if (state.getPawn(i, j).equals(Pawn.BLACK))
+						blackPawnsOnFlow++;
+				}
 
-			}
-			if(coordKing[1]<4) {
-				for (int i = 0; i < 9; i++)
-					for (int j = 0; j < 4; j++) {
-						if (state.getPawn(i, j).equals(Pawn.WHITE))
-							whitePawnsOnflow++;
-						else if (state.getPawn(i, j).equals(Pawn.BLACK))
-							blackPawnsOnFlow++;
-					}
-			}
-			else if(coordKing[1]>4){
-				for(int i =0; i< 9; i++)
-					for(int j =5; j< 9; j++) {
-						if (state.getPawn(i, j).equals(Pawn.WHITE))
-							whitePawnsOnflow++;
-						else if (state.getPawn(i, j).equals(Pawn.BLACK))
-							blackPawnsOnFlow++;
-					}
+		}
+		if(coordKing[1]<4) {
+			for (int i = 0; i < 9; i++)
+				for (int j = 0; j < 4; j++) {
+					if (state.getPawn(i, j).equals(Pawn.WHITE))
+						whitePawnsOnflow++;
+					else if (state.getPawn(i, j).equals(Pawn.BLACK))
+						blackPawnsOnFlow++;
+				}
+		}
+		else if(coordKing[1]>4){
+			for(int i =0; i< 9; i++)
+				for(int j =5; j< 9; j++) {
+					if (state.getPawn(i, j).equals(Pawn.WHITE))
+						whitePawnsOnflow++;
+					else if (state.getPawn(i, j).equals(Pawn.BLACK))
+						blackPawnsOnFlow++;
+				}
 
 		}
 		return new int[]{whitePawnsOnflow,blackPawnsOnFlow};

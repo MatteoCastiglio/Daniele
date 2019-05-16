@@ -14,7 +14,8 @@ import it.unibo.ai.didattica.competition.tablut.domain.State.Turn;
 
 public class AIGameSingleThread implements AIGame {
 
-	private final int DRAW_VALUE = 400;
+	private final int DRAW_VALUE_WHITE = -900;
+	private final int DRAW_VALUE_BLACK = 900;
 	private volatile boolean timeOver;
 	private volatile Timer timer;
 	private long maxTime;
@@ -101,7 +102,7 @@ public class AIGameSingleThread implements AIGame {
 
 					ITablutState childState = ts.getChildState(m);
 					if(useDrawCondition&&pastStates.contains(childState.getState().toLinearString())) {
-						v=DRAW_VALUE;
+						v=DRAW_VALUE_WHITE;
 						System.out.print("------- trovata mossa pareggio: "); printer.printMove(m,childState,v);
 					}
 					else {
@@ -110,47 +111,47 @@ public class AIGameSingleThread implements AIGame {
 						// -----
 						//System.out.println("v = "+v+ "  -  mossa "+i+": "+m.toString());
 						// -----
-
-						//gestione del tempo : restituisce il migliore finora
-						// l'ultima mossa possibile non viene presa in considerazione,
-						// in quanto potrebbe essere errata a causa dell'arresto precoce dei calcoli.
-						if (timeOver) {
-							timer.cancel();
-							// -----
-							time = (double) (System.nanoTime() - startTime) / 1_000_000_000.0;
-							System.out.println("TIMEOVER: time=" + time + ", depth = " + depth + " -  bestActionLastDepth: " + bestActionLastDepth.toString());
-							// -----
-							return bestActionLastDepth;
-						}
-
-						//caso normale: aggiorna la nuova mossa migliore se si raggiunge 
-						// un punteggio migliore assumendolo.
-						//Nessuna potatura al livello superiore!
-						if (useTraspositionTable)
-							traspositionTable.add(childState.getState(),maxDepth -depth,v); 
-
-
-						if (v > alpha) { //pruning
-							alpha = v;
-							bestAction = m;
-							printer.printMove(m,childState,alpha);
-
-							if(orderingOptimization) {
-								movesToBeRemoved.addLast(m);
-								bestActionLastDepth = m;
-							}
-							// -----
-							//System.out.println("v = "+v+ "  -  bestAction "+i+": "+bestAction.toString());
-							// -----
-							if (depth == startingDepth) {    //potrebbe servire nel caso si decidesse di partire con una profondità già abbastanza notevole -
-								bestActionLastDepth = m;    //in modo che se scade il timer si avrà una già una bestActionLastDepth prima di finire il for-moves_same_depth
-								//bestAlphaLastDepth = alpha;
-								// -----
-								//System.out.println("v = "+v+ "  - startingDepth = "+startingDepth+" - bestActionLastDepth "+i+": "+bestActionLastDepth.toString());
-								// -----
-							}
-						}//pruning
 					}
+
+					//gestione del tempo : restituisce il migliore finora
+					// l'ultima mossa possibile non viene presa in considerazione,
+					// in quanto potrebbe essere errata a causa dell'arresto precoce dei calcoli.
+					if (timeOver) {
+						timer.cancel();
+						// -----
+						time = (double) (System.nanoTime() - startTime) / 1_000_000_000.0;
+						System.out.println("TIMEOVER: time=" + time + ", depth = " + depth + " -  bestActionLastDepth: " + bestActionLastDepth.toString());
+						// -----
+						return bestActionLastDepth;
+					}
+
+					//caso normale: aggiorna la nuova mossa migliore se si raggiunge 
+					// un punteggio migliore assumendolo.
+					//Nessuna potatura al livello superiore!
+					if (useTraspositionTable)
+						traspositionTable.add(childState.getState(),maxDepth -depth,v); 
+
+
+					if (v > alpha) { //pruning
+						alpha = v;
+						bestAction = m;
+						printer.printMove(m,childState,alpha);
+
+						if(orderingOptimization) {
+							movesToBeRemoved.addLast(m);
+							bestActionLastDepth = m;
+						}
+						// -----
+						//System.out.println("v = "+v+ "  -  bestAction "+i+": "+bestAction.toString());
+						// -----
+						if (depth == startingDepth) {    //potrebbe servire nel caso si decidesse di partire con una profondità già abbastanza notevole -
+							bestActionLastDepth = m;    //in modo che se scade il timer si avrà una già una bestActionLastDepth prima di finire il for-moves_same_depth
+							//bestAlphaLastDepth = alpha;
+							// -----
+							//System.out.println("v = "+v+ "  - startingDepth = "+startingDepth+" - bestActionLastDepth "+i+": "+bestActionLastDepth.toString());
+							// -----
+						}
+					}//pruning
 
 				}//for-moves_same_depth
 
@@ -202,7 +203,7 @@ public class AIGameSingleThread implements AIGame {
 
 					ITablutState childState = ts.getChildState(m);
 					if(useDrawCondition&&pastStates.contains(childState.getState().toLinearString())) {
-						v=DRAW_VALUE;
+						v=DRAW_VALUE_BLACK;
 						System.out.print("------- trovata mossa pareggio: "); printer.printMove(m,childState,v);
 					}
 					else {
@@ -211,48 +212,46 @@ public class AIGameSingleThread implements AIGame {
 						// -----
 						//System.out.println("Depth = "+depth+" - v = "+v+" - bestAction = "+m.toString());
 						// -----
+					}
 
-						//gestione del tempo : restituisce il migliore finora
-						// l'ultima mossa possibile non viene presa in considerazione,
-						// in quanto potrebbe essere errata a causa dell'arresto precoce dei calcoli.
-						if (timeOver) {
-							timer.cancel();
-							// -----
-							time = (double) (System.nanoTime() - startTime) / 1_000_000_000.0;
-							System.out.println("TIMEOVER: time=" + time + ", depth = " + depth + " -  bestActionLastDepth: " + bestActionLastDepth.toString());
-							// -----
-							return bestActionLastDepth;
+					//gestione del tempo : restituisce il migliore finora
+					// l'ultima mossa possibile non viene presa in considerazione,
+					// in quanto potrebbe essere errata a causa dell'arresto precoce dei calcoli.
+					if (timeOver) {
+						timer.cancel();
+						// -----
+						time = (double) (System.nanoTime() - startTime) / 1_000_000_000.0;
+						System.out.println("TIMEOVER: time=" + time + ", depth = " + depth + " -  bestActionLastDepth: " + bestActionLastDepth.toString());
+						// -----
+						return bestActionLastDepth;
+					}
+
+					//caso normale: aggiorna la nuova mossa migliore se si raggiunge
+					// un punteggio migliore assumendolo.
+					//Nessuna potatura al livello superiore!
+					if (useTraspositionTable)
+						traspositionTable.add(childState.getState(),maxDepth -depth,v); 
+					if (v < beta) { //pruning
+						beta = v;
+						bestAction = m;
+						printer.printMove(m,childState,beta);
+						if(orderingOptimization) {
+							movesToBeRemoved.addLast(m);
+							bestActionLastDepth =m;
+
 						}
 
-						//caso normale: aggiorna la nuova mossa migliore se si raggiunge
-						// un punteggio migliore assumendolo.
-						//Nessuna potatura al livello superiore!
-						if (useTraspositionTable)
-							traspositionTable.add(childState.getState(),maxDepth -depth,v); 
-						if (v < beta) { //pruning
-							beta = v;
-							bestAction = m;
-							printer.printMove(m,childState,beta);
-							if(orderingOptimization) {
-								movesToBeRemoved.addLast(m);
-								bestActionLastDepth =m;
-
-							}
-
+						// -----
+						//System.out.println("v = "+v+ "  -  bestAction "+i+": "+bestAction.toString());
+						// -----
+						if (depth == startingDepth) {    //potrebbe servire nel caso si decidesse di partire con una profondità già abbastanza notevole -
+							bestActionLastDepth = m;    //in modo che se scade il timer si avrà una già una bestActionLastDepth prima di finire il for-moves_same_depth
+							//bestBetaLastDepth = beta;
 							// -----
-							//System.out.println("v = "+v+ "  -  bestAction "+i+": "+bestAction.toString());
+							//System.out.println("v = "+v+ "  - startingDepth = "+startingDepth+" - bestActionLastDepth "+i+": "+bestActionLastDepth.toString());
 							// -----
-							if (depth == startingDepth) {    //potrebbe servire nel caso si decidesse di partire con una profondità già abbastanza notevole -
-								bestActionLastDepth = m;    //in modo che se scade il timer si avrà una già una bestActionLastDepth prima di finire il for-moves_same_depth
-								//bestBetaLastDepth = beta;
-								// -----
-								//System.out.println("v = "+v+ "  - startingDepth = "+startingDepth+" - bestActionLastDepth "+i+": "+bestActionLastDepth.toString());
-								// -----
-							}
-						} //pruning
-
-
-					}
+						}
+					} //pruning
 
 				}//for-moves_same_depth
 				//si tiene traccia della migliore mossa alla profondità esaminata
