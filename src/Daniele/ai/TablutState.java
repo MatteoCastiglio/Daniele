@@ -14,7 +14,7 @@ import it.unibo.ai.didattica.competition.tablut.domain.State.Turn;
 
 public class TablutState implements ITablutState {
 
-
+	
 	private State state;
 	@Override
 	public String toString() {
@@ -26,7 +26,10 @@ public class TablutState implements ITablutState {
 
 	private int[] coordKing;
 
-
+	private int whitePawnsInFlowDirection;
+	private int nextWhitePawnsInFlowDirection;
+	private int blackPawnsInFlowDirection;
+	private int nextBlackPawnsInFlowDirection;
 
 	public void setNwhites(int nwhites) {
 		this.nwhites = nwhites;
@@ -42,9 +45,7 @@ public class TablutState implements ITablutState {
 		this.coordKing = coordKing;
 	}
 
-	public void setWhitePawnsMoved(int whitePawnsMoved) {
-		this.whitePawnsMoved = whitePawnsMoved;
-	}
+
 
 	private int[] nextCoordKing;
 
@@ -56,21 +57,20 @@ public class TablutState implements ITablutState {
 	private int nblacks; // @Matteo numero di pezzi neri sulla scacchiera, mettendolo come propriet� si evita si calcolarlo dinamicamente
 	private int nextStateWhites; // @Matteo comodi per aggiornare il valore sul nuovo stato
 	private int nextStateBlacks; // @Matteo comodi per aggiornare il valore sul nuovo stato
-	private int whitePawnsMoved;
-	private int nextWhitePawnsMoved;
+
 
 
 
 	// this.strangeCitadels = new ArrayList<String>();
 
-	public TablutState(State state, int WhiteCounts,int  BlackCounts,int[] king,int whitesMoved) {
+	public TablutState(State state, int WhiteCounts,int  BlackCounts,int[] king,int whitePawnsInFlowDirection,int blackPawnsInFlowDirection) {
 		this.state = state;
 		//	this.game = new GameAshtonTablut(state,0, -1, "logs", "WHITE", "BLACK");
 		this.board = state.getBoard();
 		nwhites= WhiteCounts;
 		nblacks= BlackCounts;
-		whitePawnsMoved = whitesMoved;
 		coordKing = king;
+		this.whitePawnsInFlowDirection=whitePawnsInFlowDirection;
 	}
 
 	@Override
@@ -172,17 +172,17 @@ public class TablutState implements ITablutState {
 						//..in verticale
 						for(int x = i-1; x >= 0; x--)
 							if(!this.board[x][j].equals(Pawn.EMPTY) || (!isPawnAccampamento(i, j) && isPawnAccampamento(x, j))) break; 	//non posso scavalcare o terminare su altre pedine o (accampamento) o castello
-							else moves.add(new DanieleAction(i, j,x, j));
+							else if((x!=0&&j!=0)&&(x!=0&&j!=8))moves.add(new DanieleAction(i, j,x, j));
 						for(int x = i+1; x < this.board.length; x++)
 							if(!this.board[x][j].equals(Pawn.EMPTY) || (!isPawnAccampamento(i, j) && isPawnAccampamento(x, j))) break; 	//non posso scavalcare o terminare su altre pedine o (accampamento) o castello
-							else moves.add(new DanieleAction(i, j,x, j));
+							else if((x!=9&&j!=0)&&(x!=9&&j!=8))moves.add(new DanieleAction(i, j,x, j));
 						//..in orizzontale
 						for(int x = j-1; x >= 0; x--)
 							if(!this.board[i][x].equals(Pawn.EMPTY) || (!isPawnAccampamento(i, j) && isPawnAccampamento(i, x))) break; 	//non posso scavalcare o terminare su altre pedine o (accampamento) o castello
-							else moves.add(new DanieleAction(i, j,i, x));
+							else if((x!=0&&i!=0)&&(x!=0&&i!=9))moves.add(new DanieleAction(i, j,i, x));
 						for(int x = j+1; x < this.board.length; x++)
 							if(!this.board[i][x].equals(Pawn.EMPTY) || (!isPawnAccampamento(i, j) && isPawnAccampamento(i, x))) break; 	//non posso scavalcare o terminare su altre pedine o (accampamento) o castello
-							else moves.add(new DanieleAction(i, j,i, x));
+							else if((x!=9&&i!=0)&&(x!=9&&i!=9))moves.add(new DanieleAction(i, j,i, x));
 					}
 				}	
 			}
@@ -253,26 +253,38 @@ public class TablutState implements ITablutState {
 		// aggiorno il tabellone
 		state.setBoard(newBoard);
 		// cambio il turno
-
-
-		//@Matteo da qui in poic odice modificato
-
-		nextStateBlacks = nblacks;
-		nextStateWhites = nwhites;
-		nextWhitePawnsMoved = whitePawnsMoved;
-
-		//@Matteo da riguardare
-		if (pawn.equals(Pawn.WHITE)&&(a.getColumnFrom() == 4 || a.getRowFrom() == 4)) {
-			nextWhitePawnsMoved++;
-		}
-		if (pawn.equals(Pawn.WHITE)&&(a.getColumnTo() == 4 || a.getRowTo() == 4)) {
-			nextWhitePawnsMoved--;
-		}
-
 		if(pawn.equals(Pawn.KING))
 			nextCoordKing = new int[] {a.getRowTo(),a.getColumnTo()};
 		else
 			nextCoordKing= coordKing;
+
+		//@Matteo da qui in poic odice modificato
+		nextWhitePawnsInFlowDirection = whitePawnsInFlowDirection;
+		nextBlackPawnsInFlowDirection = blackPawnsInFlowDirection;
+		nextStateBlacks = nblacks;
+		nextStateWhites = nwhites;
+		
+		if(pawn.equals(Pawn.WHITE)) {
+		if(nextCoordKing[0]<4&&a.getRowTo()<4&&!(a.getRowFrom()<4))
+			nextWhitePawnsInFlowDirection++;
+		else if(nextCoordKing[0]>4&&a.getRowTo()>4&&!(a.getRowFrom()>4))
+			nextWhitePawnsInFlowDirection++;
+		if(nextCoordKing[1]<4&&a.getColumnTo()<4&&!(a.getColumnFrom()<4))
+			nextWhitePawnsInFlowDirection++;
+		else if(nextCoordKing[1]>4&&a.getColumnTo()>4&&!(a.getColumnFrom()>4))
+			nextWhitePawnsInFlowDirection++;
+		}
+		if(pawn.equals(Pawn.BLACK)) {
+			if(nextCoordKing[0]<4&&a.getRowTo()<4&&!(a.getRowFrom()<4))
+				nextBlackPawnsInFlowDirection++;
+			else if(nextCoordKing[0]>4&&a.getRowTo()>4&&!(a.getRowFrom()>4))
+				nextBlackPawnsInFlowDirection++;
+			if(nextCoordKing[1]<4&&a.getColumnTo()<4&&!(a.getColumnFrom()<4))
+				nextBlackPawnsInFlowDirection++;
+			else if(nextCoordKing[1]>4&&a.getColumnTo()>4&&!(a.getColumnFrom()>4))
+				nextBlackPawnsInFlowDirection++;
+			}
+		
 
 
 		if (state.getTurn().equalsTurn(State.Turn.WHITE.toString())) {
@@ -285,7 +297,7 @@ public class TablutState implements ITablutState {
 			state = checkCaptureBlack(state,a);
 		}
 
-		return new TrasformableTablutState(state,nextStateWhites,nextStateBlacks,nextCoordKing,nextWhitePawnsMoved);
+		return new TrasformableTablutState(state,nextStateWhites,nextStateBlacks,nextCoordKing,nextWhitePawnsInFlowDirection,nextBlackPawnsInFlowDirection);
 
 		//@ Matteo decommentare per stampe -- parametro per debug mode ???
 		/*
@@ -639,19 +651,7 @@ public class TablutState implements ITablutState {
 		return state;
 	}
 
-	//@Matteo test in caso da cambiare
-	public int getWhitePawnsMoved()
-	{
-		/*int res =0;
-		for (int j = 2; j < 7; j++) 
-			if(!this.board[4][j].equals(Pawn.WHITE)) res++;
-		for (int j = 2; j < 7; j++) 
-			if(!this.board[j][4].equals(Pawn.WHITE)) res++;
 
-		return res;
-		 */
-		return whitePawnsMoved;
-	}
 	
 	public double getFlow()
 	{
@@ -699,6 +699,20 @@ public class TablutState implements ITablutState {
 		
 	}
 	
+
+
+	public int getWhitePawnsInFlowDirection() {
+		return whitePawnsInFlowDirection;
+	}
+
+
+
+	public void setWhitePawnsInFlowDirection(int whitePawnsInFlowDirection) {
+		this.whitePawnsInFlowDirection = whitePawnsInFlowDirection;
+	}
+
+
+
 
 	@Override
 	public int BlacksCount() {
@@ -777,6 +791,14 @@ public class TablutState implements ITablutState {
 	public void trasformStateBack(DanieleAction a, List<Pos> pawnsRemoved) {
 		// TODO Auto-generated method stub
 
+	}
+
+
+
+	@Override
+	public int getBlackPawnsInFlowDirection() {
+		 return blackPawnsInFlowDirection;
+		
 	}
 
 

@@ -113,10 +113,10 @@ public class ClientDETraining extends TablutClient{
 
 
 				if(turnCounter<OPENING_COUNTER)
-					action = BlackOpening.nextMove(new TablutState(currentState,nwhites,nblacks,coord,whitesMoved), turnCounter);
+					action = BlackOpening.nextMove(new TablutState(currentState,nwhites,nblacks,coord,whitesMoved,0), turnCounter);
 				else
 					//action = ab.AlphaBetaSearch(depth, new TablutState(currentState,nwhites,nblacks,coord,whitesMoved),MinMaxPrinter.getPrinter(PrintMode.Simple));			//scommenta per AlphaBetaPrunin
-					action = ai.chooseBestMove(STARTING_DEPTH, MAX_DEPTH, new TablutState(currentState,nwhites,nblacks,coord,whitesMoved),pastStates);
+					action = ai.chooseBestMove(STARTING_DEPTH, MAX_DEPTH, new TablutState(currentState,nwhites,nblacks,coord,whitesMoved,0),pastStates);
 				turnCounter++;
 				//comunica l'azione al server
 				this.write(new Action(DanieleAction.coord(action.getRowFrom(),action.getColumnFrom()),DanieleAction.coord(action.getRowTo(),action.getColumnTo()),Turn.BLACK));
@@ -141,10 +141,10 @@ public class ClientDETraining extends TablutClient{
 
 
 				if(turnCounter<OPENING_COUNTER)
-					action = WhiteOpening.nextMove(new TablutState(currentState,nwhites,nblacks,coord,whitesMoved), turnCounter);
+					action = WhiteOpening.nextMove(new TablutState(currentState,nwhites,nblacks,coord,whitesMoved,0), turnCounter);
 				else
 					//action = ab.AlphaBetaSearch(depth, new TablutState(this.getCurrentState(),nwhites,nblacks,coord,whitesMoved),MinMaxPrinter.getPrinter(PrintMode.Simple));			//scommenta per AlphaBetaPrunin
-					action = ai.chooseBestMove(STARTING_DEPTH, MAX_DEPTH, new TablutState(currentState,nwhites,nblacks,coord,whitesMoved),pastStates);
+					action = ai.chooseBestMove(STARTING_DEPTH, MAX_DEPTH, new TablutState(currentState,nwhites,nblacks,coord,whitesMoved,0),pastStates);
 				turnCounter++;
 				//comunica l'azione al server
 				this.write(new Action(DanieleAction.coord(action.getRowFrom(),action.getColumnFrom()),DanieleAction.coord(action.getRowTo(),action.getColumnTo()),Turn.WHITE));

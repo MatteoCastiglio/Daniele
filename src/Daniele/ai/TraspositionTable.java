@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class TraspositionTable {
 
-    private Map<State,Couple> table = new HashMap<State,Couple>();
+    private Map<String,Couple> table = new HashMap<String,Couple>();
     private static TraspositionTable ourInstance = new TraspositionTable();
 
     public static TraspositionTable getInstance() {
@@ -18,9 +18,9 @@ public class TraspositionTable {
     private TraspositionTable() {
     }
 
-    public void add(State s,int distanceFromLeaves,double val)
+    public void add(State state,int distanceFromLeaves,double val)
     {
- 
+ String s=state.toLinearString();
     	if(table.containsKey(s)) 
         {
         	int d = table.get(s).depth;
@@ -35,8 +35,9 @@ public class TraspositionTable {
         	
     }
 
-    public double valueOver(State s,Integer distanceFromLeaves)
+    public double valueOver(State state,Integer distanceFromLeaves)
     {
+    	 String s=state.toLinearString();
     	 if(table.containsKey(s)) {
     	int d = table.get(s).depth;
     	if(d> distanceFromLeaves)

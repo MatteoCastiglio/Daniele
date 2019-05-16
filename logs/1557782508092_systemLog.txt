@@ -1,0 +1,38 @@
+mag 13, 2019 11:21:48 PM Daniele.Server run
+BUONO: Accensione server
+mag 13, 2019 11:21:48 PM Daniele.Server run
+BUONO: Partita di Tablut
+mag 13, 2019 11:21:57 PM Daniele.Server run
+BUONO: Accettata connessione con client giocatore Bianco
+mag 13, 2019 11:21:57 PM Daniele.Server run
+BUONO: Lettura nome player bianco in corso..
+mag 13, 2019 11:21:58 PM Daniele.Server run
+BUONO: White player name:	Daniele
+mag 13, 2019 11:21:58 PM Daniele.Server run
+BUONO: Accettata connessione con client giocatore Nero
+mag 13, 2019 11:21:58 PM Daniele.Server run
+BUONO: Lettura nome player nero in corso..
+mag 13, 2019 11:21:59 PM Daniele.Server run
+BUONO: Black player name:	Daniele
+mag 13, 2019 11:21:59 PM Daniele.Server run
+BUONO: Invio messaggio ai giocatori
+mag 13, 2019 11:21:59 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+mag 13, 2019 11:22:05 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from e3 to d3
+mag 13, 2019 11:22:05 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+mag 13, 2019 11:22:05 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+mag 13, 2019 11:22:27 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from i4 to h4
+mag 13, 2019 11:22:27 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+mag 13, 2019 11:22:27 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+mag 13, 2019 11:22:37 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from d3 to e3
+mag 13, 2019 11:22:37 PM Daniele.Server run
+AVVERTENZA: Errore invio messaggio ai client
+mag 13, 2019 11:22:37 PM Daniele.Server run
+AVVERTENZA: Chiusura sistema

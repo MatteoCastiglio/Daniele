@@ -26,6 +26,10 @@ public class TrasformableTablutState implements ITablutState {
 
 	private int[] coordKing;
 
+	private int whitePawnsInFlowDirection;
+	private int blackPawnsInFlowDirection;
+	
+
 
 
 	public void setNwhites(int nwhites) {
@@ -42,30 +46,29 @@ public class TrasformableTablutState implements ITablutState {
 		this.coordKing = coordKing;
 	}
 
-	public void setWhitePawnsMoved(int whitePawnsMoved) {
-		this.whitePawnsMoved = whitePawnsMoved;
-	}
+	
 
 
 	// @Matteo aggiunto per controlli sui pezzi mangiati
 	private  List<String> citadels =new  ArrayList<String>(Arrays.asList("a4","a5","a6","b5","d1","e1","f1","e2","i4","i5","i6","h5","d9","e9","f9","e8"));
 	private int nwhites; // @Matteo numero di pezzi bianchi sulla scacchiera, mettendolo come propriet� si evita si calcolarlo dinamicamente
 	private int nblacks; // @Matteo numero di pezzi neri sulla scacchiera, mettendolo come propriet� si evita si calcolarlo dinamicamente
-	private int whitePawnsMoved;
+
 
 
 
 
 	// this.strangeCitadels = new ArrayList<String>();
 
-	public TrasformableTablutState(State state, int WhiteCounts,int  BlackCounts,int[] king,int whitesMoved) {
+	public TrasformableTablutState(State state, int WhiteCounts,int  BlackCounts,int[] king,int whitePawnsInFlowDirection,int blackPawnsInFlowDirection) {
 		this.state = state;
 		//	this.game = new GameAshtonTablut(state,0, -1, "logs", "WHITE", "BLACK");
 		this.board = state.getBoard();
 		nwhites= WhiteCounts;
 		nblacks= BlackCounts;
-		whitePawnsMoved = whitesMoved;
 		coordKing = king;
+		this.whitePawnsInFlowDirection=whitePawnsInFlowDirection;
+		this.blackPawnsInFlowDirection = blackPawnsInFlowDirection;
 	}
 
 	@Override
@@ -80,6 +83,9 @@ public class TrasformableTablutState implements ITablutState {
 	@Override
 	public void trasformStateBack(DanieleAction a, List<Pos> pawnsRemoved) {
 
+ 
+			
+		
 		// return game.getNextState(state ,action);
 		switch(state.getTurn()){
 		case WHITEWIN :{
@@ -88,6 +94,14 @@ public class TrasformableTablutState implements ITablutState {
 			state.setTurn(Turn.WHITE);
 			break;		}
 		case BLACKWIN : {
+			if(coordKing[0]<4&&a.getRowTo()<4&&!(a.getRowFrom()<4))
+				blackPawnsInFlowDirection--;
+				else if(coordKing[0]>4&&a.getRowTo()>4&&!(a.getRowFrom()>4))
+					blackPawnsInFlowDirection--;
+				if(coordKing[1]<4&&a.getColumnTo()<4&&!(a.getColumnFrom()<4))
+					blackPawnsInFlowDirection--;
+				else if(coordKing[1]>4&&a.getColumnTo()>4&&!(a.getColumnFrom()>4))
+					blackPawnsInFlowDirection--;
 			state.setPawn(a.getRowFrom(), a.getColumnFrom(), Pawn.BLACK);
 			state.setTurn(Turn.BLACK);
 			for(int i = 0; i< pawnsRemoved.size(); i++) {
@@ -96,12 +110,27 @@ public class TrasformableTablutState implements ITablutState {
 			break;
 		}
 		case BLACK : {
+			
+				
+				
+		
 			state.setTurn(Turn.WHITE);
 			if(state.getPawn(a.getRowTo(),a.getColumnTo()).equals(Pawn.KING)) {
 				state.setPawn(a.getRowFrom(), a.getColumnFrom(), Pawn.KING);
 				coordKing = new int[] {a.getRowFrom(),a.getColumnFrom()};
 			}
-			else state.setPawn(a.getRowFrom(), a.getColumnFrom(), Pawn.WHITE);
+			
+			else {state.setPawn(a.getRowFrom(), a.getColumnFrom(), Pawn.WHITE);
+			if(coordKing[0]<4&&a.getRowTo()<4&&!(a.getRowFrom()<4))
+				whitePawnsInFlowDirection--;
+				else if(coordKing[0]>4&&a.getRowTo()>4&&!(a.getRowFrom()>4))
+					whitePawnsInFlowDirection--;
+				if(coordKing[1]<4&&a.getColumnTo()<4&&!(a.getColumnFrom()<4))
+					whitePawnsInFlowDirection--;
+				else if(coordKing[1]>4&&a.getColumnTo()>4&&!(a.getColumnFrom()>4))
+					whitePawnsInFlowDirection--;
+			}
+			
 			for(int i = 0; i< pawnsRemoved.size(); i++)
 			{
 				state.setPawn(pawnsRemoved.get(i).row, pawnsRemoved.get(i).col, Pawn.BLACK);
@@ -109,6 +138,14 @@ public class TrasformableTablutState implements ITablutState {
 			break; }
 
 		case WHITE:  {
+			if(coordKing[0]<4&&a.getRowTo()<4&&!(a.getRowFrom()<4))
+				blackPawnsInFlowDirection--;
+				else if(coordKing[0]>4&&a.getRowTo()>4&&!(a.getRowFrom()>4))
+					blackPawnsInFlowDirection--;
+				if(coordKing[1]<4&&a.getColumnTo()<4&&!(a.getColumnFrom()<4))
+					blackPawnsInFlowDirection--;
+				else if(coordKing[1]>4&&a.getColumnTo()>4&&!(a.getColumnFrom()>4))
+					blackPawnsInFlowDirection--;
 			state.setPawn(a.getRowFrom(), a.getColumnFrom(), Pawn.BLACK);
 			state.setTurn(Turn.BLACK);
 			for(int i = 0; i< pawnsRemoved.size(); i++) {
@@ -218,17 +255,17 @@ public class TrasformableTablutState implements ITablutState {
 						//..in verticale
 						for(int x = i-1; x >= 0; x--)
 							if(!this.board[x][j].equals(Pawn.EMPTY) || (!isPawnAccampamento(i, j) && isPawnAccampamento(x, j))) break; 	//non posso scavalcare o terminare su altre pedine o (accampamento) o castello
-							else moves.add(new DanieleAction(i, j,x, j));
+							else if((x!=0&&j!=0)&&(x!=0&&j!=8))moves.add(new DanieleAction(i, j,x, j));
 						for(int x = i+1; x < this.board.length; x++)
 							if(!this.board[x][j].equals(Pawn.EMPTY) || (!isPawnAccampamento(i, j) && isPawnAccampamento(x, j))) break; 	//non posso scavalcare o terminare su altre pedine o (accampamento) o castello
-							else moves.add(new DanieleAction(i, j,x, j));
+							else if((x!=9&&j!=0)&&(x!=9&&j!=8))moves.add(new DanieleAction(i, j,x, j));
 						//..in orizzontale
 						for(int x = j-1; x >= 0; x--)
 							if(!this.board[i][x].equals(Pawn.EMPTY) || (!isPawnAccampamento(i, j) && isPawnAccampamento(i, x))) break; 	//non posso scavalcare o terminare su altre pedine o (accampamento) o castello
-							else moves.add(new DanieleAction(i, j,i, x));
+							else if((x!=0&&i!=0)&&(x!=0&&i!=9))moves.add(new DanieleAction(i, j,i, x));
 						for(int x = j+1; x < this.board.length; x++)
 							if(!this.board[i][x].equals(Pawn.EMPTY) || (!isPawnAccampamento(i, j) && isPawnAccampamento(i, x))) break; 	//non posso scavalcare o terminare su altre pedine o (accampamento) o castello
-							else moves.add(new DanieleAction(i, j,i, x));
+							else if((x!=9&&i!=0)&&(x!=9&&i!=9))moves.add(new DanieleAction(i, j,i, x));
 					}
 				}	
 			}
@@ -300,20 +337,35 @@ public class TrasformableTablutState implements ITablutState {
 		// aggiorno il tabellone
 		state.setBoard(newBoard);
 		// cambio il turno
-
-
-
-
-		//@Matteo da riguardare
-		if (pawn.equals(Pawn.WHITE)&&(a.getColumnFrom() == 4 || a.getRowFrom() == 4)) {
-			whitePawnsMoved++;
-		}
-		if (pawn.equals(Pawn.WHITE)&&(a.getColumnTo() == 4 || a.getRowTo() == 4)) {
-			whitePawnsMoved--;
-		}
-
 		if(pawn.equals(Pawn.KING))
 			coordKing = new int[] {a.getRowTo(),a.getColumnTo()};
+		
+		if(pawn.equals(Pawn.WHITE)) {
+			if(coordKing[0]<4&&a.getRowTo()<4&&!(a.getRowFrom()<4))
+			whitePawnsInFlowDirection++;
+			else if(coordKing[0]>4&&a.getRowTo()>4&&!(a.getRowFrom()>4))
+				whitePawnsInFlowDirection++;
+			if(coordKing[1]<4&&a.getColumnTo()<4&&!(a.getColumnFrom()<4))
+				whitePawnsInFlowDirection++;
+			else if(coordKing[1]>4&&a.getColumnTo()>4&&!(a.getColumnFrom()>4))
+				whitePawnsInFlowDirection++;
+			}
+			
+		
+		if(pawn.equals(Pawn.BLACK)) {
+			if(coordKing[0]<4&&a.getRowTo()<4&&!(a.getRowFrom()<4))
+				blackPawnsInFlowDirection++;
+			else if(coordKing[0]>4&&a.getRowTo()>4&&!(a.getRowFrom()>4))
+				blackPawnsInFlowDirection++;
+			if(coordKing[1]<4&&a.getColumnTo()<4&&!(a.getColumnFrom()<4))
+				blackPawnsInFlowDirection++;
+			else if(coordKing[1]>4&&a.getColumnTo()>4&&!(a.getColumnFrom()>4))
+				blackPawnsInFlowDirection++;
+			}
+		
+		
+
+		
 
 
 		if (state.getTurn().equals(Turn.WHITE)) {
@@ -695,20 +747,7 @@ public class TrasformableTablutState implements ITablutState {
 		return p;
 	}
 
-	//@Matteo test in caso da cambiare
-	public int getWhitePawnsMoved()
-	{
-		/*int res =0;
-		for (int j = 2; j < 7; j++) 
-			if(!this.board[4][j].equals(Pawn.WHITE)) res++;
-		for (int j = 2; j < 7; j++) 
-			if(!this.board[j][4].equals(Pawn.WHITE)) res++;
 
-		return res;
-		 */
-		return whitePawnsMoved;
-	}
-	
 	public double getFlow()
 	{
 		//	4|1
@@ -824,6 +863,25 @@ public class TrasformableTablutState implements ITablutState {
 	public ITablutState getChildState(DanieleAction action) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+
+
+
+
+	@Override
+	public int getWhitePawnsInFlowDirection() {
+		// TODO Auto-generated method stub
+		return whitePawnsInFlowDirection;
+	}
+
+
+
+	@Override
+	public int getBlackPawnsInFlowDirection() {
+		// TODO Auto-generated method stub
+		return blackPawnsInFlowDirection;
 	}
 
 

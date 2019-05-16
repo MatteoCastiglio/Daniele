@@ -14,7 +14,7 @@ public class TablutGame implements ITablutGame {
 		
 public TablutState getNextState(TablutState mystate, DanieleAction a) {
 		State state = mystate.getState().clone();
-		TablutState nextstate = new TablutState(state,mystate.WhitesCount(),mystate.BlacksCount(),mystate.getCoordKing(),mystate.getWhitePawnsMoved());
+		TablutState nextstate = new TablutState(state,mystate.WhitesCount(),mystate.BlacksCount(),mystate.getCoordKing(),mystate.getWhitePawnsInFlowDirection(),mystate.getBlackPawnsInFlowDirection());
 		Pawn pawn = state.getPawn(a.getRowFrom(), a.getColumnFrom());
 		Pawn[][] newBoard = state.getBoard();
 		// State newState = new State();
@@ -36,13 +36,7 @@ public TablutState getNextState(TablutState mystate, DanieleAction a) {
 		
 
 		
-		//@Matteo da riguardare
-		if (pawn.equals(Pawn.WHITE)&&(a.getColumnFrom() == 4 || a.getRowFrom() == 4)) {
-			nextstate.setWhitePawnsMoved(nextstate.getWhitePawnsMoved()+1);
-		}
-		if (pawn.equals(Pawn.WHITE)&&(a.getColumnTo() == 4 || a.getRowTo() == 4)) {
-			nextstate.setWhitePawnsMoved(nextstate.getWhitePawnsMoved()-1);
-		}
+
 
 		if(pawn.equals(Pawn.KING))
 			nextstate.setCoordKing(new int[] {a.getRowTo(),a.getColumnTo()});
