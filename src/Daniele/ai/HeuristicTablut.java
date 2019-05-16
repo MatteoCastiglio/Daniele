@@ -50,12 +50,13 @@ public class HeuristicTablut {
 		
 		//@Matteo valutazioni sul numero di pezzi
 		result+=state.WhitesCount()*40;
-		result-=state.BlacksCount()*25;
+		result-=state.BlacksCount()*20;
 	//	result+=state.getFlow()*5;
-		result+=state.getWhitePawnsInFlowDirection()*20;
-		result-=state.getBlackPawnsInFlowDirection()*20;
-		result+=state.getPawnsOnKingDiagonal()*30;
-		result+=state.getPawnsOnKingDiagonal2()*10;
+		int[] pawnsInFlow =state.getPawnsInFlowDirection();
+		result+=pawnsInFlow[0]*2;
+		result-=pawnsInFlow[1]*1;
+		result+=state.getPawnsOnKingDiagonal()*20;
+		result+=state.getPawnsOnKingDiagonal2()*5;
 		//caso in cui un bianco sia in pericolo (se rimangono poche pedine, altrimenti privilegiare quella sotto) / caso in cui il nero possa mangiare un bianco
 		
 		//caso in cui un bianco pu� mangiare un nero / caso in cui il nero sia in pericolo (se rimangono poche pedine da privilegiare, rispetto quella sopra)

@@ -14,7 +14,7 @@ public class TablutGame implements ITablutGame {
 		
 public TablutState getNextState(TablutState mystate, DanieleAction a) {
 		State state = mystate.getState().clone();
-		TablutState nextstate = new TablutState(state,mystate.WhitesCount(),mystate.BlacksCount(),mystate.getCoordKing(),mystate.getWhitePawnsInFlowDirection(),mystate.getBlackPawnsInFlowDirection());
+		TablutState nextstate = new TablutState(state,mystate.WhitesCount(),mystate.BlacksCount(),mystate.getCoordKing());
 		Pawn pawn = state.getPawn(a.getRowFrom(), a.getColumnFrom());
 		Pawn[][] newBoard = state.getBoard();
 		// State newState = new State();

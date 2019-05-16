@@ -19,8 +19,7 @@ public interface ITablutState {
 	int WhitesCount();
 	int getPawnsOnKingDiagonal();
 	int getPawnsOnKingDiagonal2();
-	int getWhitePawnsInFlowDirection();
-	int getBlackPawnsInFlowDirection();
+	int[] getPawnsInFlowDirection();
 	double getFlow();
 	List<Pos> trasformState(DanieleAction action);
 	void trasformStateBack(DanieleAction a, List<Pos> pawnsRemoved);

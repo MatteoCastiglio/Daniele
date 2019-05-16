@@ -37,7 +37,7 @@ public class ClientDaniele extends TablutClient{
 		super(player, "Daniele");
 
 		//ab = new AlphaBetaPruning();									//scommenta per AlphaBetaPrunin
-		ai = new AIGameSingleThread(5000,MinMaxPrinter.getPrinter(PrintMode.Simple),false,true,true);	//con -1 non c'è limite di tempo	//usa AIGameSingleThread o AIGameP
+		ai = new AIGameSingleThread(25000,MinMaxPrinter.getPrinter(PrintMode.Simple),false,true,true);	//con -1 non c'è limite di tempo	//usa AIGameSingleThread o AIGameP
 		//ai = new AIGameP(30000,MinMaxPrinter.getPrinter(PrintMode.Simple),false);
 	}
 
@@ -57,27 +57,7 @@ public class ClientDaniele extends TablutClient{
 				nblacks++;
 			else if(currentState.getPawn(i, j).equals(Pawn.KING)) {coord[0]=i; coord[1]=j;}
 			}
-		for(int i =0; i< 9; i++)
-			for(int j =0; j< 9; j++) {
-				if(currentState.getPawn(i, j).equals(Pawn.WHITE))		{
-				if(coord[0]<4&&coord[1]<4&&i<4&&j<4)
-							whitesMovedinFlowDirection++;
-						else if(coord[0]<4&&coord[1]>4&&i<4&&j>4)
-							whitesMovedinFlowDirection++;
-						else if(coord[0]>4&&coord[1]<4&&i>4&&j<4)
-							whitesMovedinFlowDirection++;
-						else if(coord[0]>4&&coord[1]>4&&i>4&&j>4)
-							whitesMovedinFlowDirection++;}
-					else if(currentState.getPawn(i, j).equals(Pawn.BLACK))		{
-						if(coord[0]<4&&coord[1]<4&&i<4&&j<4)
-							blacksMovedinFlowDirection++;
-						else if(coord[0]<4&&coord[1]>4&&i<4&&j>4)
-							blacksMovedinFlowDirection++;
-						else if(coord[0]>4&&coord[1]<4&&i>4&&j<4)
-							blacksMovedinFlowDirection++;
-						else if(coord[0]>4&&coord[1]>4&&i>4&&j>4)
-							blacksMovedinFlowDirection++;}
-					}
+
 			}
 
 
@@ -125,10 +105,10 @@ public class ClientDaniele extends TablutClient{
 
 
 			if(turnCounter<OPENING_COUNTER)
-			action = BlackOpening.nextMove(new TablutState(currentState,nwhites,nblacks,coord,	whitesMovedinFlowDirection,blacksMovedinFlowDirection), turnCounter);
+			action = BlackOpening.nextMove(new TablutState(currentState,nwhites,nblacks,coord), turnCounter);
 			else
 			//action = ab.AlphaBetaSearch(depth, new TablutState(currentState,nwhites,nblacks,coord,whitesMoved),MinMaxPrinter.getPrinter(PrintMode.Simple));			//scommenta per AlphaBetaPrunin
-			action = ai.chooseBestMove(STARTING_DEPTH, MAX_DEPTH, new TablutState(currentState,nwhites,nblacks,coord,whitesMovedinFlowDirection,blacksMovedinFlowDirection),pastStates);
+			action = ai.chooseBestMove(STARTING_DEPTH, MAX_DEPTH, new TablutState(currentState,nwhites,nblacks,coord),pastStates);
 			turnCounter++;
 			//comunica l'azione al server
 			this.write(new Action(DanieleAction.coord(action.getRowFrom(),action.getColumnFrom()),DanieleAction.coord(action.getRowTo(),action.getColumnTo()),Turn.BLACK));
@@ -150,10 +130,10 @@ public class ClientDaniele extends TablutClient{
 			
 				
 			if(turnCounter<OPENING_COUNTER)
-			action = WhiteOpening.nextMove(new TablutState(currentState,nwhites,nblacks,coord,whitesMovedinFlowDirection,blacksMovedinFlowDirection), turnCounter);
+			action = WhiteOpening.nextMove(new TablutState(currentState,nwhites,nblacks,coord), turnCounter);
 			else
 			//action = ab.AlphaBetaSearch(depth, new TablutState(this.getCurrentState(),nwhites,nblacks,coord,whitesMoved),MinMaxPrinter.getPrinter(PrintMode.Simple));			//scommenta per AlphaBetaPrunin
-			action = ai.chooseBestMove(STARTING_DEPTH, MAX_DEPTH, new TablutState(currentState,nwhites,nblacks,coord,whitesMovedinFlowDirection,blacksMovedinFlowDirection),pastStates);
+			action = ai.chooseBestMove(STARTING_DEPTH, MAX_DEPTH, new TablutState(currentState,nwhites,nblacks,coord),pastStates);
 			turnCounter++;
 			//comunica l'azione al server
 			this.write(new Action(DanieleAction.coord(action.getRowFrom(),action.getColumnFrom()),DanieleAction.coord(action.getRowTo(),action.getColumnTo()),Turn.WHITE));

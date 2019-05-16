@@ -26,10 +26,7 @@ public class TablutState implements ITablutState {
 
 	private int[] coordKing;
 
-	private int whitePawnsInFlowDirection;
-	private int nextWhitePawnsInFlowDirection;
-	private int blackPawnsInFlowDirection;
-	private int nextBlackPawnsInFlowDirection;
+
 
 	public void setNwhites(int nwhites) {
 		this.nwhites = nwhites;
@@ -63,14 +60,14 @@ public class TablutState implements ITablutState {
 
 	// this.strangeCitadels = new ArrayList<String>();
 
-	public TablutState(State state, int WhiteCounts,int  BlackCounts,int[] king,int whitePawnsInFlowDirection,int blackPawnsInFlowDirection) {
+	public TablutState(State state, int WhiteCounts,int  BlackCounts,int[] king) {
 		this.state = state;
 		//	this.game = new GameAshtonTablut(state,0, -1, "logs", "WHITE", "BLACK");
 		this.board = state.getBoard();
 		nwhites= WhiteCounts;
 		nblacks= BlackCounts;
 		coordKing = king;
-		this.whitePawnsInFlowDirection=whitePawnsInFlowDirection;
+
 	}
 
 	@Override
@@ -259,32 +256,10 @@ public class TablutState implements ITablutState {
 			nextCoordKing= coordKing;
 
 		//@Matteo da qui in poic odice modificato
-		nextWhitePawnsInFlowDirection = whitePawnsInFlowDirection;
-		nextBlackPawnsInFlowDirection = blackPawnsInFlowDirection;
 		nextStateBlacks = nblacks;
 		nextStateWhites = nwhites;
 		
-		if(pawn.equals(Pawn.WHITE)) {
-		if(nextCoordKing[0]<4&&a.getRowTo()<4&&!(a.getRowFrom()<4))
-			nextWhitePawnsInFlowDirection++;
-		else if(nextCoordKing[0]>4&&a.getRowTo()>4&&!(a.getRowFrom()>4))
-			nextWhitePawnsInFlowDirection++;
-		if(nextCoordKing[1]<4&&a.getColumnTo()<4&&!(a.getColumnFrom()<4))
-			nextWhitePawnsInFlowDirection++;
-		else if(nextCoordKing[1]>4&&a.getColumnTo()>4&&!(a.getColumnFrom()>4))
-			nextWhitePawnsInFlowDirection++;
-		}
-		if(pawn.equals(Pawn.BLACK)) {
-			if(nextCoordKing[0]<4&&a.getRowTo()<4&&!(a.getRowFrom()<4))
-				nextBlackPawnsInFlowDirection++;
-			else if(nextCoordKing[0]>4&&a.getRowTo()>4&&!(a.getRowFrom()>4))
-				nextBlackPawnsInFlowDirection++;
-			if(nextCoordKing[1]<4&&a.getColumnTo()<4&&!(a.getColumnFrom()<4))
-				nextBlackPawnsInFlowDirection++;
-			else if(nextCoordKing[1]>4&&a.getColumnTo()>4&&!(a.getColumnFrom()>4))
-				nextBlackPawnsInFlowDirection++;
-			}
-		
+
 
 
 		if (state.getTurn().equalsTurn(State.Turn.WHITE.toString())) {
@@ -297,7 +272,7 @@ public class TablutState implements ITablutState {
 			state = checkCaptureBlack(state,a);
 		}
 
-		return new TrasformableTablutState(state,nextStateWhites,nextStateBlacks,nextCoordKing,nextWhitePawnsInFlowDirection,nextBlackPawnsInFlowDirection);
+		return new TrasformableTablutState(state,nextStateWhites,nextStateBlacks,nextCoordKing);
 
 		//@ Matteo decommentare per stampe -- parametro per debug mode ???
 		/*
@@ -701,15 +676,9 @@ public class TablutState implements ITablutState {
 	
 
 
-	public int getWhitePawnsInFlowDirection() {
-		return whitePawnsInFlowDirection;
-	}
 
 
 
-	public void setWhitePawnsInFlowDirection(int whitePawnsInFlowDirection) {
-		this.whitePawnsInFlowDirection = whitePawnsInFlowDirection;
-	}
 
 
 
@@ -796,9 +765,49 @@ public class TablutState implements ITablutState {
 
 
 	@Override
-	public int getBlackPawnsInFlowDirection() {
-		 return blackPawnsInFlowDirection;
-		
+	public int[] getPawnsInFlowDirection() {
+
+		int whitePawnsOnflow=0;
+		int blackPawnsOnFlow=0;
+			if(coordKing[0]<4) {
+				for (int i = 0; i < 4; i++)
+					for (int j = 0; j < 9; j++) {
+						if (state.getPawn(i, j).equals(Pawn.WHITE))
+							whitePawnsOnflow++;
+						else if (state.getPawn(i, j).equals(Pawn.BLACK))
+							blackPawnsOnFlow++;
+					}
+			}
+			else if(coordKing[0]>4){
+				for(int i =5; i< 9; i++)
+					for(int j =0; j< 9; j++) {
+						if (state.getPawn(i, j).equals(Pawn.WHITE))
+							whitePawnsOnflow++;
+						else if (state.getPawn(i, j).equals(Pawn.BLACK))
+							blackPawnsOnFlow++;
+					}
+
+			}
+			if(coordKing[1]<4) {
+				for (int i = 0; i < 9; i++)
+					for (int j = 0; j < 4; j++) {
+						if (state.getPawn(i, j).equals(Pawn.WHITE))
+							whitePawnsOnflow++;
+						else if (state.getPawn(i, j).equals(Pawn.BLACK))
+							blackPawnsOnFlow++;
+					}
+			}
+			else if(coordKing[1]>4){
+				for(int i =0; i< 9; i++)
+					for(int j =5; j< 9; j++) {
+						if (state.getPawn(i, j).equals(Pawn.WHITE))
+							whitePawnsOnflow++;
+						else if (state.getPawn(i, j).equals(Pawn.BLACK))
+							blackPawnsOnFlow++;
+					}
+
+		}
+		return new int[]{whitePawnsOnflow,blackPawnsOnFlow};
 	}
 
 
