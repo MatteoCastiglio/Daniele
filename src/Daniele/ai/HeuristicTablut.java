@@ -100,8 +100,8 @@ public class HeuristicTablut {
 		else if(possibileCattura==1) return true;//altro
 		
 		//@Matteo mancano alcuni accampamenti
-		else if((king[0]==5||king[0]==3)&&king[1]==1||king[1]==7) return true;
-		else if((king[0]==1||king[0]==7)&&king[1]==5||king[1]==3) return true;
+		else if((king[0]==5||king[0]==3)&&(king[1]==1||king[1]==7)) return true;
+		else if((king[0]==1||king[0]==7)&&(king[1]==5||king[1]==3)) return true;
 		
 		return false;
 		
