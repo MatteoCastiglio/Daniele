@@ -140,20 +140,20 @@ public  abstract class AbstractTablutState implements ITablutState {
                         for (int x = i - 1; x >= 0; x--)
                             if (!this.board[x][j].equals(State.Pawn.EMPTY) || (!isPawnAccampamento(i, j) && isPawnAccampamento(x, j)))
                                 break;    //non posso scavalcare o terminare su altre pedine o (accampamento) o castello
-                            else if ((x != 0 && j != 0) && (x != 0 && j != 8)) moves.add(new DanieleAction(i, j, x, j));
+                            else if (x != 0 && (j != 0 || j != 8)) moves.add(new DanieleAction(i, j, x, j));
                         for (int x = i + 1; x < this.board.length; x++)
                             if (!this.board[x][j].equals(State.Pawn.EMPTY) || (!isPawnAccampamento(i, j) && isPawnAccampamento(x, j)))
                                 break;    //non posso scavalcare o terminare su altre pedine o (accampamento) o castello
-                            else if ((x != 9 && j != 0) && (x != 9 && j != 8)) moves.add(new DanieleAction(i, j, x, j));
+                            else if (x != 8 && (j != 0 || j != 8)) moves.add(new DanieleAction(i, j, x, j));
                         //..in orizzontale
                         for (int x = j - 1; x >= 0; x--)
                             if (!this.board[i][x].equals(State.Pawn.EMPTY) || (!isPawnAccampamento(i, j) && isPawnAccampamento(i, x)))
                                 break;    //non posso scavalcare o terminare su altre pedine o (accampamento) o castello
-                            else if ((x != 0 && i != 0) && (x != 0 && i != 9)) moves.add(new DanieleAction(i, j, i, x));
+                            else if (x != 0 && (i != 0 || i != 8)) moves.add(new DanieleAction(i, j, i, x));
                         for (int x = j + 1; x < this.board.length; x++)
                             if (!this.board[i][x].equals(State.Pawn.EMPTY) || (!isPawnAccampamento(i, j) && isPawnAccampamento(i, x)))
                                 break;    //non posso scavalcare o terminare su altre pedine o (accampamento) o castello
-                            else if ((x != 9 && i != 0) && (x != 9 && i != 9)) moves.add(new DanieleAction(i, j, i, x));
+                            else if (x != 8 && (i != 0 || i != 8)) moves.add(new DanieleAction(i, j, i, x));
                     }
                 }
             }

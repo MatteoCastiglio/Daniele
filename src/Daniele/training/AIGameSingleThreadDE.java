@@ -16,8 +16,8 @@ import it.unibo.ai.didattica.competition.tablut.domain.State.Turn;
 
 public class AIGameSingleThreadDE implements AIGame {
 
-	private final int DRAW_VALUE_WHITE = -900;
-	private final int DRAW_VALUE_BLACK = 900;
+	private final int DRAW_VALUE_WHITE = -9000;
+	private final int DRAW_VALUE_BLACK = 9000;
 	private volatile boolean timeOver;
 	private volatile Timer timer;
 	private long maxTime;

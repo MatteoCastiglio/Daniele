@@ -27,11 +27,11 @@ public class HeuristicTablut {
 	public double value(ITablutState state) {
 		
 		//caso di nodo terminale
-		if(state.getState().getTurn().equals(Turn.WHITEWIN)) return 1000;
+		if(state.getState().getTurn().equals(Turn.WHITEWIN)) return 10000;
 
 		//if(state.getState().getTurn().equals(Turn.DRAW)) return 0;
 
-		if(state.getState().getTurn().equals(Turn.BLACKWIN)) return -1000;
+		if(state.getState().getTurn().equals(Turn.BLACKWIN)) return -10000;
 		
 		//@Matteo ho cambiato i return e inserito questa variabile per iniziare a strutturare un euristica pi� completa
 		double result  = 0;

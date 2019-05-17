@@ -1,4 +1,0 @@
-mag 16, 2019 9:35:26 AM Daniele.Server run
-BUONO: Accensione server
-mag 16, 2019 9:35:26 AM Daniele.Server run
-BUONO: Partita di Tablut

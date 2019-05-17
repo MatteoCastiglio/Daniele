@@ -16,7 +16,7 @@ public static void main(String[] args) throws ClassNotFoundException, IOExceptio
 			br.readLine();
 			String secondLine = br.readLine();
 			String numbers = secondLine.substring(9);
-			//System.out.println("weights " + numbers);
+			System.out.println("weights " + numbers);
 	        System.out.flush();
 			
 			weights = new double[DifferentialEvolution.d];

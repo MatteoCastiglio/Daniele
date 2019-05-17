@@ -121,7 +121,7 @@ public class Server implements Runnable {
 	 * 
 	 */
 	public static void main(String[] args) {
-		int time = 25;
+		int time = 20;
 		int moveCache = -1;
 		int repeated = 0;
 		int errors = 0;
@@ -578,8 +578,8 @@ public class Server implements Runnable {
 				// aggiorna tutto e determina anche eventuali fine partita
 				state = this.game.checkMove(state, move);
 				//---DE---
-				if(movesNEW+movesOLD>maxMoves && isKingSurronded(state)
-						&& (state.getTurn().equals(Turn.BLACK)||state.getTurn().equals(Turn.WHITE))) {state.setTurn(Turn.DRAW); forcedDraw=true;}
+				if(movesNEW+movesOLD>maxMoves*2 /*&& isKingSurronded(state)
+						&& (state.getTurn().equals(Turn.BLACK)||state.getTurn().equals(Turn.WHITE))*/) {state.setTurn(Turn.DRAW); forcedDraw=true;}
 				//--------
 			} catch (Exception e) {
 				// exception means error, therefore increase the error counters

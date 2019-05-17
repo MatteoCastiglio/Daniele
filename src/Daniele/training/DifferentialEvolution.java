@@ -28,7 +28,7 @@ public class DifferentialEvolution {
 	public static int n = 8;		// population size 		(ovvero dei vettori soluzione - agenti)	-	� tipicamente tra 10 e 25
 	public static double F = 0.7;	// differential weight	-	un buon range � tra 0.4 e 0.95
 	public static double Cr = 0.5;	// crossover rate	-	un buon range � tra 0.1 e 0.8
-	public static int d = 9;		// number of parameters
+	public static int d = 8;		// number of parameters
 
 	//Utility variables
 	public static Random random = new Random();
@@ -181,13 +181,13 @@ public class DifferentialEvolution {
 			if(i % 2 == 0) {	//OLD BLACK vs NEW WHITE
 				ProcessBuilder clientOldBlack_pb = new ProcessBuilder("java", "-cp", "lib/gson-2.2.2.jar:bin", /*"-Xms520m",*/ "Daniele.training.ClientDEOld", "BLACK");		//serve un client di allenamento		-- + BLACK
 				//clientOldBlack_pb.inheritIO();
-				//clientOldBlack_pb.redirectOutput(new File("data", nGeneration+"_agent"+x+"_OBvsNW_OB.txt"));
+				clientOldBlack_pb.redirectOutput(new File("data", nGeneration+"_agent"+x+"_OBvsNW_OB.txt"));
 				clientOld = clientOldBlack_pb.start();
 			}
 			else {				//OLD WHITE vs NEW BLACK
 				ProcessBuilder clientOldWhite_pb = new ProcessBuilder("java", "-cp", "lib/gson-2.2.2.jar:bin", /*"-Xms520m",*/ "Daniele.training.ClientDEOld", "WHITE");		//serve un client di allenamento		-- + WHITE
 				//clientOldWhite_pb.inheritIO();
-				//clientOldWhite_pb.redirectOutput(new File("data", nGeneration+"_agent"+x+"_OWvsNB_OW.txt"));
+				clientOldWhite_pb.redirectOutput(new File("data", nGeneration+"_agent"+x+"_OWvsNB_OW.txt"));
 				clientOld = clientOldWhite_pb.start();
 			}
 
@@ -200,13 +200,13 @@ public class DifferentialEvolution {
 			if(i % 2 == 0) {	//OLD BLACK vs NEW WHITE
 				ProcessBuilder clientNewWhite_pb = new ProcessBuilder("java", "-cp", "lib/gson-2.2.2.jar:bin", /*"-Xms520m",*/ "Daniele.training.ClientDENew", "WHITE");		//serve un client di allenamento		-- + WHITE
 				//clientNewWhite_pb.inheritIO();
-				//clientNewWhite_pb.redirectOutput(new File("data", nGeneration+"_agent"+x+"_OBvsNW_NW.txt"));
+				clientNewWhite_pb.redirectOutput(new File("data", nGeneration+"_agent"+x+"_OBvsNW_NW.txt"));
 				clientNew = clientNewWhite_pb.start();
 			}
 			else {				//OLD WHITE vs NEW BLACK
 				ProcessBuilder clientNewBlack_pb = new ProcessBuilder("java", "-cp", "lib/gson-2.2.2.jar:bin", /*"-Xms520m",*/ "Daniele.training.ClientDENew", "BLACK");		//serve un client di allenamento		-- + BLACK
 				//clientNewBlack_pb.inheritIO();
-				//clientNewBlack_pb.redirectOutput(new File("data", nGeneration+"_agent"+x+"_OWvsNB_NB.txt"));
+				clientNewBlack_pb.redirectOutput(new File("data", nGeneration+"_agent"+x+"_OWvsNB_NB.txt"));
 				clientNew = clientNewBlack_pb.start();
 			}
 

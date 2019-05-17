@@ -1,8 +1,0 @@
-mag 17, 2019 2:38:33 AM Daniele.training.Server run
-BUONO: Accensione server
-mag 17, 2019 2:38:33 AM Daniele.training.Server run
-BUONO: Partita di Tablut
-mag 17, 2019 2:38:33 AM Daniele.training.Server run
-AVVERTENZA: Errore connessioni
-mag 17, 2019 2:38:33 AM Daniele.training.Server run
-AVVERTENZA: Chiusura sistema

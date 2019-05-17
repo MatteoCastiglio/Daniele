@@ -23,22 +23,20 @@ public class ClientDETraining extends TablutClient{
 	//private AlphaBetaPruning ab = null;							//scommenta per AlphaBetaPruning
 	private AIGame ai = null;										//usa AIGameSingleThread o AIGameP
 	private final int OPENING_COUNTER = 0;
-	private final int STARTING_DEPTH = 5;
-	private final int MAX_DEPTH = 9;
+	private final int STARTING_DEPTH = 2;
+	private final int MAX_DEPTH = 10;
 	//private Set<State> pastStates = new HashSet<State>();
 	private Set<String> pastStates = new HashSet<String>();
 	//@Matteo
 	private int nwhites =0;
 	private int nblacks = 0;
 	private int coord[] = new int[2];
-	private int whitesMovedinFlowDirection = 0;
-	private int blacksMovedinFlowDirection =0;
 
 
 	public ClientDETraining(double[] weights, String player, String name) throws  IOException {
 		super(player, name);
 		//ab = new AlphaBetaPruning();									//scommenta per AlphaBetaPrunin
-		ai = new AIGameSingleThreadDE(18000,MinMaxPrinter.getPrinter(PrintMode.None),false,true,true, weights);	//con -1 non c'è limite di tempo	//usa AIGameSingleThread o AIGameP
+		ai = new AIGameSingleThreadDE(15000,MinMaxPrinter.getPrinter(PrintMode.None),false,true,true, weights);	//con -1 non c'è limite di tempo	//usa AIGameSingleThread o AIGameP
 
 	}
 
@@ -48,8 +46,6 @@ public class ClientDETraining extends TablutClient{
 
 		nwhites =0;
 		nblacks = 0;
-		whitesMovedinFlowDirection = 0;
-		blacksMovedinFlowDirection = 0;
 		for(int i =0; i< 9; i++)
 			for(int j =0; j< 9; j++)
 			{if(currentState.getPawn(i, j).equals(Pawn.WHITE))

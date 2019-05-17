@@ -15,7 +15,7 @@ public class ClientDEOld {
 			br = new BufferedReader(new FileReader("data/playing.txt"));
 			String firstLine = br.readLine();
 			String numbers = firstLine.substring(9);
-			//System.out.println("weights " + numbers);
+			System.out.println("weights " + numbers);
 	        System.out.flush();
 			
 			weights = new double[DifferentialEvolution.d];
