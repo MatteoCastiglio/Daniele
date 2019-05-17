@@ -9,11 +9,11 @@ import java.util.Set;
 
 
 import Daniele.ai.BlackOpening;
-import Daniele.ai.DanieleAction;
-import Daniele.ai.TablutState;
 import Daniele.ai.WhiteOpening;
 import Daniele.minmaxprinter.MinMaxPrinter;
 import Daniele.minmaxprinter.PrintMode;
+import Daniele.state.DanieleAction;
+import Daniele.state.TablutState;
 import it.unibo.ai.didattica.competition.tablut.client.TablutClient;
 import it.unibo.ai.didattica.competition.tablut.domain.Action;
 import it.unibo.ai.didattica.competition.tablut.domain.State.Pawn;

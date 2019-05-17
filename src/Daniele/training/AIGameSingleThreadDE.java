@@ -6,11 +6,11 @@ import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import Daniele.ai.DanieleAction;
-import Daniele.ai.ITablutState;
-import Daniele.ai.Pos;
 import Daniele.ai.TraspositionTable;
 import Daniele.minmaxprinter.MinMaxPrinter;
+import Daniele.state.DanieleAction;
+import Daniele.state.ITablutState;
+import Daniele.state.Pos;
 import it.unibo.ai.didattica.competition.tablut.domain.State.Turn;
 
 

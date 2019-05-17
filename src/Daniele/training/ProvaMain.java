@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-import Daniele.ai.ITablutState;
-import Daniele.ai.TablutState;
+import Daniele.state.ITablutState;
+import Daniele.state.TablutState;
 import it.unibo.ai.didattica.competition.tablut.domain.State;
 import it.unibo.ai.didattica.competition.tablut.domain.State.Pawn;
 import it.unibo.ai.didattica.competition.tablut.domain.State.Turn;

@@ -1,6 +1,6 @@
 package Daniele.training;
 
-import Daniele.ai.ITablutState;
+import Daniele.state.ITablutState;
 import it.unibo.ai.didattica.competition.tablut.domain.State.Pawn;
 import it.unibo.ai.didattica.competition.tablut.domain.State.Turn;
 

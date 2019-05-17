@@ -9,6 +9,8 @@ import java.util.Set;
 import Daniele.ai.*;
 import Daniele.minmaxprinter.MinMaxPrinter;
 import Daniele.minmaxprinter.PrintMode;
+import Daniele.state.DanieleAction;
+import Daniele.state.TablutState;
 import it.unibo.ai.didattica.competition.tablut.client.TablutClient;
 import it.unibo.ai.didattica.competition.tablut.domain.Action;
 import it.unibo.ai.didattica.competition.tablut.domain.State;
@@ -21,24 +23,24 @@ public class ClientDaniele extends TablutClient{
 	//private AlphaBetaPruning ab = null;							//scommenta per AlphaBetaPruning
 	private AIGame ai = null;										//usa AIGameSingleThread o AIGameP
 	private final int OPENING_COUNTER = 0;
-	private final int STARTING_DEPTH = 5;
-	private final int MAX_DEPTH = 9;
+	private final int STARTING_DEPTH = 1;
+	private final int MAX_DEPTH = 7;
 	//private Set<State> pastStates = new HashSet<State>();
 	private Set<String> pastStates = new HashSet<String>();
 	//@Matteo
 	private int nwhites =0;
 	private int nblacks = 0;
 	private int coord[] = new int[2];
-	private int whitesMovedinFlowDirection = 0;
-	private int blacksMovedinFlowDirection =0;
 
 
 	public ClientDaniele(String player) throws  IOException {
 		super(player, "Daniele");
 
 		//ab = new AlphaBetaPruning();									//scommenta per AlphaBetaPrunin
-		ai = new AIGameSingleThread(25000,MinMaxPrinter.getPrinter(PrintMode.Simple),false,true,true);	//con -1 non c'è limite di tempo	//usa AIGameSingleThread o AIGameP
+		ai = new AIGameSingleThread(10000,MinMaxPrinter.getPrinter(PrintMode.Simple),false,true,true);	//con -1 non c'è limite di tempo	//usa AIGameSingleThread o AIGameP
+		//ai = new AIGameP2(30000,MinMaxPrinter.getPrinter(PrintMode.Simple),false,false,true);
 		//ai = new AIGameP(30000,MinMaxPrinter.getPrinter(PrintMode.Simple),false);
+
 	}
 
 
@@ -47,8 +49,6 @@ public class ClientDaniele extends TablutClient{
 
 		nwhites =0;
 		nblacks = 0;
-		whitesMovedinFlowDirection = 0;
-		blacksMovedinFlowDirection = 0;
 		for(int i =0; i< 9; i++)
 			for(int j =0; j< 9; j++)
 			{if(currentState.getPawn(i, j).equals(Pawn.WHITE))

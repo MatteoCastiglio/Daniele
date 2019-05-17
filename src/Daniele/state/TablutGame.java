@@ -1,4 +1,4 @@
-package Daniele.ai;
+package Daniele.state;
 
 import java.util.ArrayList;
 import java.util.Arrays;

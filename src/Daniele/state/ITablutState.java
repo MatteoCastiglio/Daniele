@@ -1,7 +1,6 @@
-package Daniele.ai;
+package Daniele.state;
 
 import java.util.List;
-
 
 import it.unibo.ai.didattica.competition.tablut.domain.State;
 

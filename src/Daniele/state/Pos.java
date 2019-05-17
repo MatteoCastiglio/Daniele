@@ -1,4 +1,4 @@
-package Daniele.ai;
+package Daniele.state;
 
 public class Pos {
 

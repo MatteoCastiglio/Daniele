@@ -7,6 +7,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import Daniele.minmaxprinter.MinMaxPrinter;
+import Daniele.state.DanieleAction;
+import Daniele.state.ITablutState;
+import Daniele.state.Pos;
 import it.unibo.ai.didattica.competition.tablut.domain.State;
 import it.unibo.ai.didattica.competition.tablut.domain.State.Pawn;
 import it.unibo.ai.didattica.competition.tablut.domain.State.Turn;
@@ -14,8 +17,8 @@ import it.unibo.ai.didattica.competition.tablut.domain.State.Turn;
 
 public class AIGameSingleThread implements AIGame {
 
-	private final int DRAW_VALUE_WHITE = -900;
-	private final int DRAW_VALUE_BLACK = 900;
+	private final int DRAW_VALUE_WHITE = -9000;
+	private final int DRAW_VALUE_BLACK = 9000;
 	private volatile boolean timeOver;
 	private volatile Timer timer;
 	private long maxTime;
@@ -293,8 +296,10 @@ public class AIGameSingleThread implements AIGame {
 		}
 		if(useTraspositionTable){
 			double val = traspositionTable.valueOver(state.getState(), depth);
-			if(!Double.isNaN(val))
+			if(!Double.isNaN(val)) {
+				//System.out.println("-----------------------> TT usata: depth="+depth+", val="+val);
 				return val;
+			}
 		}
 
 		double v = Double.NEGATIVE_INFINITY;
@@ -355,10 +360,12 @@ public class AIGameSingleThread implements AIGame {
 		if (cutoff(depth, state)) {
 			return HeuristicTablut.HeuristicFunction(state) + depth;
 		}
-		if(useTraspositionTable)
-		{double val = traspositionTable.valueOver(state.getState(), depth);
-		if(!Double.isNaN(val))
-			return val;
+		if(useTraspositionTable){
+			double val = traspositionTable.valueOver(state.getState(), depth);
+			if(!Double.isNaN(val)){
+				//System.out.println("-----------------------> TT usata: depth="+depth+", val="+val);
+				return val;
+			}
 		}
 
 		double v = Double.POSITIVE_INFINITY;

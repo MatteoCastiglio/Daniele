@@ -2,8 +2,8 @@ package Daniele.training;
 
 import java.util.Set;
 
-import Daniele.ai.DanieleAction;
-import Daniele.ai.ITablutState;
+import Daniele.state.DanieleAction;
+import Daniele.state.ITablutState;
 
 public interface AIGame {
 

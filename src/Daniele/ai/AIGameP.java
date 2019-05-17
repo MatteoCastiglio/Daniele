@@ -7,11 +7,13 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import Daniele.minmaxprinter.MinMaxPrinter;
+import Daniele.state.DanieleAction;
+import Daniele.state.ITablutState;
 import it.unibo.ai.didattica.competition.tablut.domain.State;
 import it.unibo.ai.didattica.competition.tablut.domain.State.Turn;
 
 
-public class AIGameP implements AIGame {
+public class AIGameP implements AIGame { 
 
 	private volatile boolean timeOver;
 	private volatile Timer timer;
