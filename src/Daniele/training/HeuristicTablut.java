@@ -51,11 +51,13 @@ public class HeuristicTablut {
 		result -= weights[1]*800;
 		
 		//@Matteo valutazioni sul numero di pezzi
-		result += weights[2]*(state.WhitesCount()*10);
-		result += weights[3]*(state.BlacksCount()*-5);
-		result += weights[4]*(state.getPawnsInFlowDirection()[0]*5);
-		result += weights[5]*(state.getPawnsOnKingDiagonal()*30);
-		result += weights[5]*(state.getPawnsOnKingDiagonal2()*20);
+		result += weights[2]*(state.WhitesCount()*40);
+		result += weights[3]*(state.BlacksCount()*20);
+		int[] pawnsInFlow = state.getPawnsInFlowDirection();
+		result += weights[4]*pawnsInFlow[0];
+		result -= weights[5]*pawnsInFlow[1];
+		result += weights[6]*(state.getPawnsOnKingDiagonal()*15);
+		result += weights[7]*(state.getPawnsOnKingDiagonal2()*5);
 		//caso in cui un bianco sia in pericolo (se rimangono poche pedine, altrimenti privilegiare quella sotto) / caso in cui il nero possa mangiare un bianco
 		
 		//caso in cui un bianco pu� mangiare un nero / caso in cui il nero sia in pericolo (se rimangono poche pedine da privilegiare, rispetto quella sopra)
@@ -68,185 +70,149 @@ public class HeuristicTablut {
 	}
 
 	//@Matteo in generale brutto usare ogni volta state.getState().getBoard.lenght  -> meglio costante !!!!
-	//@Matteo isKingInDanger non sembra funzionare, inoltre le sposterei in TablutState
-	
-	private static boolean isKingInDanger(ITablutState state) {				//da risistemare per renderla generica? ma mi sa che vale solo per tablut
+		//@Matteo isKingInDanger non sembra funzionare, inoltre le sposterei in TablutState
 		
-		
-		int[] king = state.getCoordKing();
-		//@Matteo versione semplificata -- quella completa non funziona
+		private static boolean isKingInDanger(ITablutState state) {				//da risistemare per renderla generica? ma mi sa che vale solo per tablut
+			
+			
+			int[] king = state.getCoordKing();
+			//@Matteo versione semplificata -- quella completa non funziona
 
-	
-			int possibileCattura = 0;
+		
+				int possibileCattura = 0;
 
-			if(state.getState().getPawn(king[0] -1,king[1]).equals(Pawn.BLACK)) possibileCattura++;
-			if(state.getState().getPawn(king[0] +1 ,king[1]).equals(Pawn.BLACK)) possibileCattura++;
-			if(state.getState().getPawn(king[0],king[1] -1).equals(Pawn.BLACK)) possibileCattura++;
-			if(state.getState().getPawn(king[0],king[1]+ 1).equals(Pawn.BLACK)) possibileCattura++;
+				if(state.getState().getPawn(king[0] -1,king[1]).equals(Pawn.BLACK)) possibileCattura++;
+				if(state.getState().getPawn(king[0] +1 ,king[1]).equals(Pawn.BLACK)) possibileCattura++;
+				if(state.getState().getPawn(king[0],king[1] -1).equals(Pawn.BLACK)) possibileCattura++;
+				if(state.getState().getPawn(king[0],king[1]+ 1).equals(Pawn.BLACK)) possibileCattura++;
+				
+			if( king[0] == 4) {
+					if( king[1] ==4 && possibileCattura == 3) return true; // trono
+					else if( king[1] ==3 && possibileCattura == 2) return true; //adiacente al trono
+					else if( king[1] ==5 && possibileCattura == 2) return true;}//adiacente al trono
+			else if( king[1] == 4) {
+					if( king[0] ==3 && possibileCattura == 2) return true;//adiacente al trono
+					else if( king[0] ==5 && possibileCattura == 2) return true;//adiacente al trono
+			}
+			else if (king[0]==2 && king[1] == 4) return true; //accampamento
+			else if (king[0]==4 && king[1] == 2) return true;//accampamento
+			else if (king[0]==6 && king[1] == 4)  return true;//accampamento
+			else if (king[0]==4 && king[1] == 6)  return true;//accampamento
 			
-		if( king[0] == 4) {
-				if( king[1] ==4 && possibileCattura == 3) return true; // trono
-				else if( king[1] ==3 && possibileCattura == 2) return true; //adiacente al trono
-				else if( king[1] ==5 && possibileCattura == 2) return true;}//adiacente al trono
-		else if( king[1] == 4) {
-				if( king[0] ==3 && possibileCattura == 2) return true;//adiacente al trono
-				else if( king[0] ==5 && possibileCattura == 2) return true;//adiacente al trono
+			else if(possibileCattura==1) return true;//altro
+			
+			//@Matteo mancano alcuni accampamenti
+			else if((king[0]==5||king[0]==3)&&(king[1]==1||king[1]==7)) return true;
+			else if((king[0]==1||king[0]==7)&&(king[1]==5||king[1]==3)) return true;
+			
+			return false;
+			
 		}
-		else if (king[0]==2 && king[1] == 4) return true; //accampamento
-		else if (king[0]==4 && king[1] == 2) return true;//accampamento
-		else if (king[0]==6 && king[1] == 4)  return true;//accampamento
-		else if (king[0]==4 && king[1] == 6)  return true;//accampamento
-		
-		else if(possibileCattura==1) return true;//altro
-		return false;
-		//@Matteo mancano alcuni accampamenti
 
-			
-	
-		/*
-		//1) il re è nel castello (4 nere lo circondano) - nota: la cattura è attiva
-		if(state.getState().getPawn(4, 4).equals(Pawn.KING)) {
-			int configurazione = 0;
-			int possibileCattura = 0;
-			
-			if(state.getState().getPawn(3, 4).equals(Pawn.BLACK)) possibileCattura++;		//N up
-			else configurazione = 1;
-			if(state.getState().getPawn(4, 3).equals(Pawn.BLACK)) possibileCattura++;		//N left
-			else configurazione = 2;
-			if(state.getState().getPawn(5, 4).equals(Pawn.BLACK)) possibileCattura++;		//N down
-			else configurazione = 3;
-			if(state.getState().getPawn(4, 5).equals(Pawn.BLACK)) possibileCattura++;		//N right
-			else configurazione = 4;
-			
-			if(possibileCattura!=3)
-				return false;
-			
-			switch(configurazione) {
-			case 1:
-				if(!state.getState().getPawn(3, 4).equals(Pawn.EMPTY)) return false;			//c'è uno ostacolo nel percorso
-				for(int i=2; i>=0; i--)
-					if(state.getState().getPawn(i, 4).equals(Pawn.BLACK)) return true;			//c'è un N col percorso libero
-					else if(!state.getState().getPawn(i, 4).equals(Pawn.EMPTY)) return false;	//c'è uno ostacolo nel percorso
-				return false;																	//tutto il percorso è libero
-			case 2:
-				if(!state.getState().getPawn(4, 3).equals(Pawn.EMPTY)) return false;			//c'è uno ostacolo nel percorso
-				for(int i=2; i>=0; i--)
-					if(state.getState().getPawn(4, i).equals(Pawn.BLACK)) return true;			//c'è un N col percorso libero
-					else if(!state.getState().getPawn(4, i).equals(Pawn.EMPTY)) return false;	//c'è uno ostacolo nel percorso
-				return false;																	//tutto il percorso è libero
-			case 3:
-				if(!state.getState().getPawn(5, 4).equals(Pawn.EMPTY)) return false;			//c'è uno ostacolo nel percorso
-				for(int i=6; i<9; i++)
-					if(state.getState().getPawn(i, 4).equals(Pawn.BLACK)) return true;			//c'è un N col percorso libero
-					else if(!state.getState().getPawn(i, 4).equals(Pawn.EMPTY)) return false;	//c'è uno ostacolo nel percorso
-				return false;																	//tutto il percorso è libero
-			case 4:
-				if(!state.getState().getPawn(4, 5).equals(Pawn.EMPTY)) return false;			//c'è uno ostacolo nel percorso
-				for(int i=6; i<9; i++)
-					if(state.getState().getPawn(4, i).equals(Pawn.BLACK)) return true;			//c'è un N col percorso libero
-					else if(!state.getState().getPawn(4, i).equals(Pawn.EMPTY)) return false;	//c'è uno ostacolo nel percorso
-				return false;																	//tutto il percorso è libero
-			default: return false;
-			}
-		}
-		
-	//2) il re è adiacente al castello (3 nere lo circondano) - nota: la cattura è attiva
-		if(state.getState().getPawn(3, 4).equals(Pawn.KING) && state.getState().getPawn(2, 4).equals(Pawn.BLACK)) {					//KING up
-			if(state.getState().getPawn(3, 3).equals(Pawn.BLACK) && state.getState().getPawn(3, 5).equals(Pawn.EMPTY)) {
-				for(int i=6; i<9; i++)
-					if(state.getState().getPawn(3, i).equals(Pawn.BLACK)) return true;			//c'è un N col percorso libero
-					else if(!state.getState().getPawn(3, i).equals(Pawn.EMPTY)) return false;	//c'è uno ostacolo nel percorso
-				//tutto il percorso è libero -> il re non è in pericolo in questa configurazione
-			}
-			else if(state.getState().getPawn(3, 5).equals(Pawn.BLACK) && state.getState().getPawn(3, 3).equals(Pawn.EMPTY)) {
-				for(int i=2; i>=0; i--)
-					if(state.getState().getPawn(3, i).equals(Pawn.BLACK)) return true;			//c'è un N col percorso libero
-					else if(!state.getState().getPawn(3, i).equals(Pawn.EMPTY)) return false;	//c'è uno ostacolo nel percorso
-				//tutto il percorso è libero -> il re non è in pericolo in questa configurazione
-			}
-			return false;
-		}
-		else if(state.getState().getPawn(5, 4).equals(Pawn.KING) && state.getState().getPawn(6, 4).equals(Pawn.BLACK)) {			//KING down
-			if(state.getState().getPawn(5, 3).equals(Pawn.BLACK) && state.getState().getPawn(5, 5).equals(Pawn.EMPTY)) {
-				for(int i=6; i<9; i++)
-					if(state.getState().getPawn(5, i).equals(Pawn.BLACK)) return true;			//c'è un N col percorso libero
-					else if(!state.getState().getPawn(5, i).equals(Pawn.EMPTY)) return false;	//c'è uno ostacolo nel percorso
-				//tutto il percorso è libero -> il re non è in pericolo in questa configurazione
-			}
-			else if(state.getState().getPawn(5, 5).equals(Pawn.BLACK) && state.getState().getPawn(5, 3).equals(Pawn.EMPTY)) {
-				for(int i=2; i>=0; i--)
-					if(state.getState().getPawn(5, i).equals(Pawn.BLACK)) return true;			//c'è un N col percorso libero
-					else if(!state.getState().getPawn(5, i).equals(Pawn.EMPTY)) return false;	//c'è uno ostacolo nel percorso
-				//tutto il percorso è libero -> il re non è in pericolo in questa configurazione
-			}
-			return false;
-		}
-		else if(state.getState().getPawn(4, 3).equals(Pawn.KING) && state.getState().getPawn(4, 2).equals(Pawn.BLACK)) {			//KING left
-			if(state.getState().getPawn(3, 3).equals(Pawn.BLACK) && state.getState().getPawn(5, 3).equals(Pawn.EMPTY)) {
-				for(int i=6; i<9; i++)
-					if(state.getState().getPawn(i, 3).equals(Pawn.BLACK)) return true;			//c'è un N col percorso libero
-					else if(!state.getState().getPawn(i, 3).equals(Pawn.EMPTY)) return false;	//c'è uno ostacolo nel percorso
-				//tutto il percorso è libero -> il re non è in pericolo in questa configurazione
-			}
-			else if(state.getState().getPawn(5, 3).equals(Pawn.BLACK) && state.getState().getPawn(3, 3).equals(Pawn.EMPTY)) {
-				for(int i=2; i>=0; i--)
-					if(state.getState().getPawn(i, 3).equals(Pawn.BLACK)) return true;			//c'è un N col percorso libero
-					else if(!state.getState().getPawn(i, 3).equals(Pawn.EMPTY)) return false;	//c'è uno ostacolo nel percorso
-				//tutto il percorso è libero -> il re non è in pericolo in questa configurazione
-			}
-			return false;
-		}
-		else if(state.getState().getPawn(4, 5).equals(Pawn.KING) && state.getState().getPawn(4, 6).equals(Pawn.BLACK)) {			//KING right
-			if(state.getState().getPawn(3, 5).equals(Pawn.BLACK) && state.getState().getPawn(5, 5).equals(Pawn.EMPTY)) {
-				for(int i=6; i<9; i++)
-					if(state.getState().getPawn(i, 5).equals(Pawn.BLACK)) return true;			//c'è un N col percorso libero
-					else if(!state.getState().getPawn(i, 5).equals(Pawn.EMPTY)) return false;	//c'è uno ostacolo nel percorso
-				//tutto il percorso è libero -> il re non è in pericolo in questa configurazione
-			}
-			else if(state.getState().getPawn(5, 5).equals(Pawn.BLACK) && state.getState().getPawn(3, 5).equals(Pawn.EMPTY)) {
-				for(int i=2; i>=0; i--)
-					if(state.getState().getPawn(i, 5).equals(Pawn.BLACK)) return true;			//c'è un N col percorso libero
-					else if(!state.getState().getPawn(i, 5).equals(Pawn.EMPTY)) return false;	//c'è uno ostacolo nel percorso
-				//tutto il percorso è libero -> il re non è in pericolo in questa configurazione
-			}
+
+
+		private static boolean isKingReadyToWin(ITablutState state) {
+			int king[] = state.getCoordKing();
+			int x, y;
+			//se il percorso in orizzontale è libero e non c'è alcun accampamento
+			for (x = king[0]+1; x < state.getState().getBoard().length; x++)
+				if(!state.getState().getPawn(x, king[1]).equals(Pawn.EMPTY) || state.isPawnAccampamento(x, king[1])) break;	
+			if(x==state.getState().getBoard().length) return true;
+			for (x = king[0]-1; x >=0; x--)
+				if(!state.getState().getPawn(x, king[1]).equals(Pawn.EMPTY) || state.isPawnAccampamento(x, king[1]))	break;
+			if(x<0) return true;
+			//se il percorso in verticale è libero e non c'è alcun accampamento
+			for (y = king[1]+1; y < state.getState().getBoard().length; y++)
+				if(!state.getState().getPawn(king[0], y).equals(Pawn.EMPTY) || state.isPawnAccampamento(king[0], y))	break;
+			if(y==state.getState().getBoard().length) return true;
+			for (y = king[1]-1; y >= 0; y--)
+				if(!state.getState().getPawn(king[0], y).equals(Pawn.EMPTY) || state.isPawnAccampamento(king[0], y))	break;
+			if(y<0) return true;
+			//altrimenti non è pronto a vincere	
 			return false;
 		}
 		
-	//3) re adiacente all'accampamento (è lo stesso per il cavaliere)
-		if (state.getState().getPawn(2, 4).equals(Pawn.KING)) return isWhiteInDangerNearCamp(2, 4);
-		if (state.getState().getPawn(4, 2).equals(Pawn.KING)) return isWhiteInDangerNearCamp(4, 2);
-		if (state.getState().getPawn(6, 4).equals(Pawn.KING)) return isWhiteInDangerNearCamp(6, 4);
-		if (state.getState().getPawn(4, 6).equals(Pawn.KING)) return isWhiteInDangerNearCamp(4, 6);
+//		private static boolean canYouEat(ITablutState state) {
+//			
+//			if(state.getState().getTurn().equals(Turn.WHITE)) {
+//				for(int i=0; i<9; i++) {
+//					for(int j=0; j<9; j++) {
+//						if(state.getState().getPawn(i, j).equals(Pawn.WHITE))
+//							if(valuesEating(i,j, Turn.WHITE, state)) return true;
+//					}
+//				}
+//			}
+////			else if(state.getState().getTurn().equals(Turn.BLACK)) {
+////				for(int i=0; i<9; i++) {
+////					for(int j=0; j<9; j++) {
+////						if(state.getState().getPawn(i, j).equals(Pawn.BLACK))
+////							if(valuesEating(i,j, Turn.BLACK, state)) return true;
+////					}
+////				}
+////			}
+	//
+//			return false;
+//		}
 		
-		return false;
-		*/
+//		public static int canYouEat(ITablutState state) {
+//			int eaten = 0;
+//			
+//				for(int i=0; i<9; i++) {
+//					for(int j=0; j<9; j++) {
+//						if(state.getState().getPawn(i, j).equals(Pawn.WHITE))
+//							if(valuesEating(i,j, Turn.WHITE, state)) eaten++;
+//					}
+//				}
+//			
+////			else if(state.getState().getTurn().equals(Turn.BLACK)) {
+////				for(int i=0; i<9; i++) {
+////					for(int j=0; j<9; j++) {
+////						if(state.getState().getPawn(i, j).equals(Pawn.BLACK))
+////							if(valuesEating(i,j, Turn.BLACK, state)) return true;
+////					}
+////				}
+////			}
+//			
+//				if(state.getState().getTurn().equals(Turn.WHITE)) return eaten*3;
+//				else return -eaten;
+//		}
+	//
+//		private static boolean valuesEating(int i, int j, Turn turn, ITablutState state) {
+//			
+////			if(turn.equals(Turn.WHITE)) {
+//				if(j-1<=0); //(forse)nero sul bordo a sinistra e non lo mangia
+//				else if(state.getState().getPawn(i, j-1).equals(Pawn.BLACK) && 
+//								(state.getState().getPawn(i, j-2).equals(Pawn.WHITE)||
+//								state.getState().getPawn(i, j-2).equals(Pawn.THRONE)||
+//								state.isPawnAccampamento(i, j-2))
+//								) return true;
+//				if(i-1<=0); //(forse)nero sul bordo in alto e non lo mangia
+//				else if(state.getState().getPawn(i-1, j).equals(Pawn.BLACK) && 
+//								(state.getState().getPawn(i-2, j).equals(Pawn.WHITE)||
+//								state.getState().getPawn(i-2, j).equals(Pawn.THRONE)||
+//								state.isPawnAccampamento(i-2, j))
+//								) return true;
+//				if(j+1>=8); //(forse)nero sul bordo a destra e non lo mangia
+//				else if(state.getState().getPawn(i, j+1).equals(Pawn.BLACK) && 
+//								(state.getState().getPawn(i, j+2).equals(Pawn.WHITE)||
+//								state.getState().getPawn(i, j+2).equals(Pawn.THRONE)||
+//								state.isPawnAccampamento(i, j+2))
+//								) return true;
+//				if(i+1>=0); //(forse)nero sul bordo in basso e non lo mangia
+//				else if(state.getState().getPawn(i+1, j).equals(Pawn.BLACK) && 
+//								(state.getState().getPawn(i+2, j).equals(Pawn.WHITE)||
+//								state.getState().getPawn(i+2, j).equals(Pawn.THRONE)||
+//								state.isPawnAccampamento(i+2, j))
+//								) return true;
+//				
+////			}
+////			else if(turn.equals(Turn.BLACK)) {
+////				
+////			}
+//			
+//			
+//			return false;
+//		}
+
+
 	}
-
-	private static boolean isWhiteInDangerNearCamp(int i, int j) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	private static boolean isKingReadyToWin(ITablutState state) {
-		int king[] = state.getCoordKing();
-		int x, y;
-		//se il percorso in orizzontale è libero e non c'è alcun accampamento
-		for (x = king[0]+1; x < state.getState().getBoard().length; x++)
-			if(!state.getState().getPawn(x, king[1]).equals(Pawn.EMPTY) || state.isPawnAccampamento(x, king[1])) break;	
-		if(x==state.getState().getBoard().length) return true;
-		for (x = king[0]-1; x >=0; x--)
-			if(!state.getState().getPawn(x, king[1]).equals(Pawn.EMPTY) || state.isPawnAccampamento(x, king[1]))	break;
-		if(x<0) return true;
-		//se il percorso in verticale è libero e non c'è alcun accampamento
-		for (y = king[1]+1; y < state.getState().getBoard().length; y++)
-			if(!state.getState().getPawn(king[0], y).equals(Pawn.EMPTY) || state.isPawnAccampamento(king[0], y))	break;
-		if(y==state.getState().getBoard().length) return true;
-		for (y = king[1]-1; y >= 0; y--)
-			if(!state.getState().getPawn(king[0], y).equals(Pawn.EMPTY) || state.isPawnAccampamento(king[0], y))	break;
-		if(y<0) return true;
-		//altrimenti non è pronto a vincere	
-		return false;
-	}
-
-
-}

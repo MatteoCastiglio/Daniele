@@ -14,6 +14,7 @@ import java.nio.file.Paths;
 import java.util.Date;
 import java.util.logging.*;
 import it.unibo.ai.didattica.competition.tablut.domain.*;
+import it.unibo.ai.didattica.competition.tablut.domain.State.Pawn;
 import it.unibo.ai.didattica.competition.tablut.domain.State.Turn;
 import it.unibo.ai.didattica.competition.tablut.gui.Gui;
 import it.unibo.ai.didattica.competition.tablut.util.StreamUtils;
@@ -32,6 +33,9 @@ public class Server implements Runnable {
 	//---DE---
 	private int movesOLD = 0;
 	private int movesNEW = 0;
+	private int maxMoves = 50;
+	private int timesKingIsSurrondedFrom7 = 0;
+	private boolean forcedDraw = false;
 	public static String data_dir = "data";
 	protected static final String OUTCOME_FILE = "outcomes.txt";
 	//--------
@@ -117,7 +121,7 @@ public class Server implements Runnable {
 	 * 
 	 */
 	public static void main(String[] args) {
-		int time = 10000;
+		int time = 25;
 		int moveCache = -1;
 		int repeated = 0;
 		int errors = 0;
@@ -536,6 +540,25 @@ public class Server implements Runnable {
 				System.out.println("Player " + state.getTurn().toString() + " has lost!");
 				loggSys.warning("Timeout! Player " + state.getTurn() + " lose!");
 				loggSys.warning("Chiusura sistema per timeout");
+				
+				// Append the outcome to the outcome file											<- DE
+				try {
+					PrintStream out = new PrintStream(new FileOutputStream(new File(data_dir, OUTCOME_FILE), true));
+					String delim = ",";
+					out.print(System.currentTimeMillis() + delim + "PlayerOLD" + delim + movesOLD + delim + "PlayerNEW" + delim + movesNEW + delim);
+
+
+					if (state.getTurn().equalsTurn(StateTablut.Turn.DRAW.toString())) {
+						System.out.println("RESULT: DRAW");
+						out.println("F"+StateTablut.Turn.DRAW.toString());
+					}
+
+					out.close();
+				} catch (Exception e) {
+					System.err.println("Failed to append outcome to '" + OUTCOME_FILE + "': ");
+					e.printStackTrace();
+				}			//																		<- DE
+				
 				System.exit(0);
 			}
 
@@ -554,6 +577,10 @@ public class Server implements Runnable {
 				//--------
 				// aggiorna tutto e determina anche eventuali fine partita
 				state = this.game.checkMove(state, move);
+				//---DE---
+				if(movesNEW+movesOLD>maxMoves && isKingSurronded(state)
+						&& (state.getTurn().equals(Turn.BLACK)||state.getTurn().equals(Turn.WHITE))) {state.setTurn(Turn.DRAW); forcedDraw=true;}
+				//--------
 			} catch (Exception e) {
 				// exception means error, therefore increase the error counters
 				if (state.getTurn().equalsTurn("B")) {
@@ -601,7 +628,7 @@ public class Server implements Runnable {
 			if (!state.getTurn().equalsTurn("W") && !state.getTurn().equalsTurn("B")) {
 				System.out.println("END OF THE GAME");
 
-				// Append the outcome to the outcome file
+				// Append the outcome to the outcome file											<- DE
 				try {
 					PrintStream out = new PrintStream(new FileOutputStream(new File(data_dir, OUTCOME_FILE), true));
 					String delim = ",";
@@ -610,7 +637,8 @@ public class Server implements Runnable {
 
 					if (state.getTurn().equalsTurn(StateTablut.Turn.DRAW.toString())) {
 						System.out.println("RESULT: DRAW");
-						out.println(StateTablut.Turn.DRAW.toString());
+						if(forcedDraw) out.println("F"+StateTablut.Turn.DRAW.toString());
+						else out.println(StateTablut.Turn.DRAW.toString());
 					}
 					if (state.getTurn().equalsTurn(StateTablut.Turn.WHITEWIN.toString())) {
 						System.out.println("RESULT: PLAYER WHITE WIN");
@@ -631,6 +659,59 @@ public class Server implements Runnable {
 			}
 		}
 		System.exit(0);
+	}
+
+	private boolean isKingSurronded(State state2) {
+		int[] coordKing = getCoordKing(state2);
+		int count = 0;
+		Pawn p = state2.getBoard()[coordKing[0]-1][coordKing[1]];	//sopra
+		if(!p.equals(Pawn.EMPTY) || isPawnAccampamento(coordKing[0]-1,coordKing[1],state2)) count++;
+		p = state2.getBoard()[coordKing[0]+1][coordKing[1]];		//sotto
+		if(!p.equals(Pawn.EMPTY) || isPawnAccampamento(coordKing[0]+1,coordKing[1],state2)) count++;
+		p = state2.getBoard()[coordKing[0]][coordKing[1]-1];		//sinistra
+		if(!p.equals(Pawn.EMPTY) || isPawnAccampamento(coordKing[0],coordKing[1]-1,state2)) count++;
+		p = state2.getBoard()[coordKing[0]][coordKing[1]+1];		//destra
+		if(!p.equals(Pawn.EMPTY) || isPawnAccampamento(coordKing[0],coordKing[1]+1,state2)) count++;
+		p = state2.getBoard()[coordKing[0]-1][coordKing[1]-1];		//sopra a sinistra
+		if(!p.equals(Pawn.EMPTY) || isPawnAccampamento(coordKing[0]-1,coordKing[1]-1,state2)) count++;
+		p = state2.getBoard()[coordKing[0]-1][coordKing[1]+1];		//sopra a destra
+		if(!p.equals(Pawn.EMPTY) || isPawnAccampamento(coordKing[0]-1,coordKing[1]+1,state2)) count++;
+		p = state2.getBoard()[coordKing[0]+1][coordKing[1]-1];		//sotto a sinistra
+		if(!p.equals(Pawn.EMPTY) || isPawnAccampamento(coordKing[0]+1,coordKing[1]-1,state2)) count++;
+		p = state2.getBoard()[coordKing[0]+1][coordKing[1]+1];		//sotto a sinistra
+		if(!p.equals(Pawn.EMPTY) || isPawnAccampamento(coordKing[0]+1,coordKing[1]+1,state2)) count++;
+
+		else if(count>=7 && this.timesKingIsSurrondedFrom7>=3) return true;
+		else if(count>=7) this.timesKingIsSurrondedFrom7++;
+		else if(count<7) this.timesKingIsSurrondedFrom7=0;
+		return false;
+	}
+	
+	private int[] getCoordKing(State state2) {
+
+		int coord[] = new int[2];
+		for (int i = 0; i < state2.getBoard().length; i++) {
+			for (int j = 0; j < state2.getBoard().length; j++) {
+				if(state2.getBoard()[i][j].equals(Pawn.KING)) {coord[0]=i; coord[1]=j; return coord;}
+			}
+		}
+		return coord; //dovrebbe semrpe esserci il re, altrimenti la partita è conclusa
+	}
+	
+	private boolean isPawnAccampamento(int i, int j, State state2) {
+		int middle = (state2.getBoard().length-1)/2;
+
+		//parti di accampamenti sui bordi
+		if( (i>=middle-1 && i<=middle+1) && (j==0 || j==state2.getBoard().length-1) ) return true;
+		if( (i==0 || i==state2.getBoard().length-1) && (j>=middle-1 && j<=middle+1) ) return true;
+		//parti di accampamenti interni
+		if( i==middle && (j==1 || j==state2.getBoard().length-2) ) return true;
+		if( (i==1 || i==state2.getBoard().length-2) && j==middle ) return true;
+
+		//trono 														(non dovrebbe servire) -> si presuppone che quando il re si muove questo pawn diventi Pawn.THRONE
+		//if( i==middle && j==middle ) return true;
+
+		return false;
 	}
 
 }

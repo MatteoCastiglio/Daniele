@@ -32,7 +32,7 @@ public class ClientDaniele extends TablutClient{
 	private int whitesMovedinFlowDirection = 0;
 	private int blacksMovedinFlowDirection =0;
 
-	
+
 	public ClientDaniele(String player) throws  IOException {
 		super(player, "Daniele");
 
@@ -58,37 +58,37 @@ public class ClientDaniele extends TablutClient{
 			else if(currentState.getPawn(i, j).equals(Pawn.KING)) {coord[0]=i; coord[1]=j;}
 			}
 
-			}
+	}
 
 
-	
+
 
 	@Override
 	public void run() {
-		
-	/* generalizzazione per altri giochi */
-		
+
+		/* generalizzazione per altri giochi */
+
 		try {
 			//comunica nome al server
 			this.declareName();
 
 			//lettura stato attuale server
 			this.read();
-			
+
 			//INIZIO PARTITA
 			try {
-			if(this.getPlayer().equals(Turn.WHITE)) runWhite();
-			else if(this.getPlayer().equals(Turn.BLACK)) runBlack();
+				if(this.getPlayer().equals(Turn.WHITE)) runWhite();
+				else if(this.getPlayer().equals(Turn.BLACK)) runBlack();
 			}
 			catch(SocketException e)
 			{
-				
+
 			}
 		} catch (ClassNotFoundException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	//@turnCounter serve per gestire le mosse di apertura
@@ -105,10 +105,10 @@ public class ClientDaniele extends TablutClient{
 
 
 			if(turnCounter<OPENING_COUNTER)
-			action = BlackOpening.nextMove(new TablutState(currentState,nwhites,nblacks,coord), turnCounter);
+				action = BlackOpening.nextMove(new TablutState(currentState,nwhites,nblacks,coord), turnCounter);
 			else
-			//action = ab.AlphaBetaSearch(depth, new TablutState(currentState,nwhites,nblacks,coord,whitesMoved),MinMaxPrinter.getPrinter(PrintMode.Simple));			//scommenta per AlphaBetaPrunin
-			action = ai.chooseBestMove(STARTING_DEPTH, MAX_DEPTH, new TablutState(currentState,nwhites,nblacks,coord),pastStates);
+				//action = ab.AlphaBetaSearch(depth, new TablutState(currentState,nwhites,nblacks,coord,whitesMoved),MinMaxPrinter.getPrinter(PrintMode.Simple));			//scommenta per AlphaBetaPrunin
+				action = ai.chooseBestMove(STARTING_DEPTH, MAX_DEPTH, new TablutState(currentState,nwhites,nblacks,coord),pastStates);
 			turnCounter++;
 			//comunica l'azione al server
 			this.write(new Action(DanieleAction.coord(action.getRowFrom(),action.getColumnFrom()),DanieleAction.coord(action.getRowTo(),action.getColumnTo()),Turn.BLACK));
@@ -124,32 +124,32 @@ public class ClientDaniele extends TablutClient{
 		while(true) {
 			//scelta mossa
 			// @Matteo conteggio iniziale questo penso sia inevitabile, ma si fa una volta sola!!!!!
-		
-			
+
+
 			setup();
-			
-				
+
+
 			if(turnCounter<OPENING_COUNTER)
-			action = WhiteOpening.nextMove(new TablutState(currentState,nwhites,nblacks,coord), turnCounter);
+				action = WhiteOpening.nextMove(new TablutState(currentState,nwhites,nblacks,coord), turnCounter);
 			else
-			//action = ab.AlphaBetaSearch(depth, new TablutState(this.getCurrentState(),nwhites,nblacks,coord,whitesMoved),MinMaxPrinter.getPrinter(PrintMode.Simple));			//scommenta per AlphaBetaPrunin
-			action = ai.chooseBestMove(STARTING_DEPTH, MAX_DEPTH, new TablutState(currentState,nwhites,nblacks,coord),pastStates);
+				//action = ab.AlphaBetaSearch(depth, new TablutState(this.getCurrentState(),nwhites,nblacks,coord,whitesMoved),MinMaxPrinter.getPrinter(PrintMode.Simple));			//scommenta per AlphaBetaPrunin
+				action = ai.chooseBestMove(STARTING_DEPTH, MAX_DEPTH, new TablutState(currentState,nwhites,nblacks,coord),pastStates);
 			turnCounter++;
 			//comunica l'azione al server
 			this.write(new Action(DanieleAction.coord(action.getRowFrom(),action.getColumnFrom()),DanieleAction.coord(action.getRowTo(),action.getColumnTo()),Turn.WHITE));
 			//legge stato corrente modificato dal server
 			this.read();
 			pastStates.add(currentState.toLinearString());
-			
+
 			this.read();
 			pastStates.add(currentState.toLinearString());
 			//legge stato corrente dal server (mossa avversario)
 			if(currentState== null || currentState.getTurn().equals(Turn.BLACKWIN) || currentState.getTurn().equals(Turn.WHITEWIN) || currentState.getTurn().equals(Turn.DRAW) )
 				return;
-		
+
 		}
 	}
-	
+
 	public static void main(String[] args) throws UnknownHostException, IOException, ClassNotFoundException {
 		int gametype = 4;
 		String role = "";
@@ -173,11 +173,11 @@ public class ClientDaniele extends TablutClient{
 
 
 		TablutClient client = new ClientDaniele(role);
-		
+
 		client.run();
 		System.out.println("partita finita");
-		
-		
+
+
 	}
 
 }

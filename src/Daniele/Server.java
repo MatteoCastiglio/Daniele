@@ -108,7 +108,7 @@ public class Server implements Runnable {
 	 * 
 	 */
 	public static void main(String[] args) {
-		int time = 10000;
+		int time = 60;	//10000
 		int moveCache = -1;
 		int repeated = 0;
 		int errors = 0;

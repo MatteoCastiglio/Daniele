@@ -25,17 +25,17 @@ public class DifferentialEvolution {
 	 */
 
 	//DE variables
-	public static int n = 10;		// population size 		(ovvero dei vettori soluzione - agenti)	-	� tipicamente tra 10 e 25
+	public static int n = 8;		// population size 		(ovvero dei vettori soluzione - agenti)	-	� tipicamente tra 10 e 25
 	public static double F = 0.7;	// differential weight	-	un buon range � tra 0.4 e 0.95
 	public static double Cr = 0.5;	// crossover rate	-	un buon range � tra 0.1 e 0.8
-	public static int d = 6;		// number of parameters
+	public static int d = 9;		// number of parameters
 
 	//Utility variables
 	public static Random random = new Random();
 	public static LinkedList<double[]> population = new LinkedList<>();
 	public static int Lb = 0;
 	public static int Ub = 2;
-	public static int maxGenerations = 2;			//10-100-1000?
+	public static int maxGenerations = 100;			//10-100-1000?
 	public static int weightSize = 10;
 
 	//Evolution's track variables
@@ -95,10 +95,10 @@ public class DifferentialEvolution {
 				double[] agentR = population.get(r);
 
 				//4. CROSSOVER: agentU[j] =		or agentV[j] if R == j || random.nextDouble() < Cr		or agentX[j] otherwise
-				//int R = random.nextInt(d);
+				int R = random.nextInt(d);
 				double[] newAgent = new double[d];
 				for(int j = 0; j < d; j++) {
-					if (/*R == j ||*/ random.nextDouble() < Cr) 
+					if (R == j || random.nextDouble() < Cr) 
 						newAgent[j] =  agentP[j] + F * (agentQ[j] - agentR[j]);		//= agentV[j]
 					else
 						newAgent[j] =  population.get(x)[j];
@@ -179,15 +179,15 @@ public class DifferentialEvolution {
 			}
 
 			if(i % 2 == 0) {	//OLD BLACK vs NEW WHITE
-				ProcessBuilder clientOldBlack_pb = new ProcessBuilder("java", "-cp", "lib/gson-2.2.2.jar:bin", "-Xms520m", "Daniele.training.ClientDEOld", "BLACK");		//serve un client di allenamento		-- + BLACK
+				ProcessBuilder clientOldBlack_pb = new ProcessBuilder("java", "-cp", "lib/gson-2.2.2.jar:bin", /*"-Xms520m",*/ "Daniele.training.ClientDEOld", "BLACK");		//serve un client di allenamento		-- + BLACK
 				//clientOldBlack_pb.inheritIO();
-				clientOldBlack_pb.redirectOutput(new File("data", nGeneration+"_agent"+x+"_OBvsNW_OB.txt"));
+				//clientOldBlack_pb.redirectOutput(new File("data", nGeneration+"_agent"+x+"_OBvsNW_OB.txt"));
 				clientOld = clientOldBlack_pb.start();
 			}
 			else {				//OLD WHITE vs NEW BLACK
-				ProcessBuilder clientOldWhite_pb = new ProcessBuilder("java", "-cp", "lib/gson-2.2.2.jar:bin", "-Xms520m", "Daniele.training.ClientDEOld", "WHITE");		//serve un client di allenamento		-- + WHITE
+				ProcessBuilder clientOldWhite_pb = new ProcessBuilder("java", "-cp", "lib/gson-2.2.2.jar:bin", /*"-Xms520m",*/ "Daniele.training.ClientDEOld", "WHITE");		//serve un client di allenamento		-- + WHITE
 				//clientOldWhite_pb.inheritIO();
-				clientOldWhite_pb.redirectOutput(new File("data", nGeneration+"_agent"+x+"_OWvsNB_OW.txt"));
+				//clientOldWhite_pb.redirectOutput(new File("data", nGeneration+"_agent"+x+"_OWvsNB_OW.txt"));
 				clientOld = clientOldWhite_pb.start();
 			}
 
@@ -198,15 +198,15 @@ public class DifferentialEvolution {
 			}
 
 			if(i % 2 == 0) {	//OLD BLACK vs NEW WHITE
-				ProcessBuilder clientNewWhite_pb = new ProcessBuilder("java", "-cp", "lib/gson-2.2.2.jar:bin", "-Xms520m", "Daniele.training.ClientDENew", "WHITE");		//serve un client di allenamento		-- + WHITE
+				ProcessBuilder clientNewWhite_pb = new ProcessBuilder("java", "-cp", "lib/gson-2.2.2.jar:bin", /*"-Xms520m",*/ "Daniele.training.ClientDENew", "WHITE");		//serve un client di allenamento		-- + WHITE
 				//clientNewWhite_pb.inheritIO();
-				clientNewWhite_pb.redirectOutput(new File("data", nGeneration+"_agent"+x+"_OBvsNW_NW.txt"));
+				//clientNewWhite_pb.redirectOutput(new File("data", nGeneration+"_agent"+x+"_OBvsNW_NW.txt"));
 				clientNew = clientNewWhite_pb.start();
 			}
 			else {				//OLD WHITE vs NEW BLACK
-				ProcessBuilder clientNewBlack_pb = new ProcessBuilder("java", "-cp", "lib/gson-2.2.2.jar:bin", "-Xms520m", "Daniele.training.ClientDENew", "BLACK");		//serve un client di allenamento		-- + BLACK
+				ProcessBuilder clientNewBlack_pb = new ProcessBuilder("java", "-cp", "lib/gson-2.2.2.jar:bin", /*"-Xms520m",*/ "Daniele.training.ClientDENew", "BLACK");		//serve un client di allenamento		-- + BLACK
 				//clientNewBlack_pb.inheritIO();
-				clientNewBlack_pb.redirectOutput(new File("data", nGeneration+"_agent"+x+"_OWvsNB_NB.txt"));
+				//clientNewBlack_pb.redirectOutput(new File("data", nGeneration+"_agent"+x+"_OWvsNB_NB.txt"));
 				clientNew = clientNewBlack_pb.start();
 			}
 
@@ -262,7 +262,7 @@ public class DifferentialEvolution {
 			String s = allLines.removeFirst();
 			
 			if(i % 2 == 1) {	//OLD BLACK vs NEW WHITE								// s[0]=='2'									--
-				if (s.contains(",D")) {	//DRAW
+				if (s.contains(",D")||s.contains(",FD")) {	//DRAW
 					stats[2]++;
 				} else {
 					if (s.contains(",BW")) {	//OLD BLACK WIN
@@ -274,7 +274,7 @@ public class DifferentialEvolution {
 				}
 			}
 			else {				//OLD WHITE vs NEW BLACK								// s[0]=='1'									--
-				if (s.contains(",D")) {	//DRAW
+				if (s.contains(",D")||s.contains(",FD")) {	//DRAW
 					stats[2]++;
 				} else {
 					if (s.contains(",WW")) {	//OLD WHITE WIN
@@ -310,8 +310,7 @@ public class DifferentialEvolution {
 	public static double[] normalize(double[] weights) {
 		double sum = 0;
 		for (double i : weights) {
-			sum += Math.abs(i); // FIXME Should values lay on a sphere or cube?
-			// i.e. should take square root of squared or abs?
+			sum += Math.abs(i);
 		}
 		double[] newWeights = weights.clone();
 		for (int i = 0; i < weights.length; i++) {

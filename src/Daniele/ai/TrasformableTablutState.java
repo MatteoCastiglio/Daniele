@@ -856,16 +856,3 @@ public class TrasformableTablutState implements ITablutState {
 
 
 }
-
-class Pos {
-
-	int col;
-
-	public Pos(int row, int col) {
-		this.col = col;
-		this.row = row;
-
-	}
-	int row;
-
-}

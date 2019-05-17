@@ -52,12 +52,10 @@ public class HeuristicTablut {
 		result+=state.WhitesCount()*40;
 		result-=state.BlacksCount()*20;
 	//	result+=state.getFlow()*5;
-		if(state.getState().getTurn().equals(Turn.BLACK)) {
-			int[] pawnsInFlow =state.getPawnsInFlowDirection();
-			result+=pawnsInFlow[0]*2;
-			result-=pawnsInFlow[1]*1;
-			//result+=canYouEat(state);
-		}
+		int[] pawnsInFlow =state.getPawnsInFlowDirection();
+		result+=pawnsInFlow[0]*1;
+		result-=pawnsInFlow[1]*1;
+		//result+=canYouEat(state);
 		result+=state.getPawnsOnKingDiagonal()*15;
 		result+=state.getPawnsOnKingDiagonal2()*5;
 		//caso in cui un bianco sia in pericolo (se rimangono poche pedine, altrimenti privilegiare quella sotto) / caso in cui il nero possa mangiare un bianco
@@ -156,65 +154,65 @@ public class HeuristicTablut {
 //		return false;
 //	}
 	
-	public static int canYouEat(ITablutState state) {
-		int eaten = 0;
-		
-			for(int i=0; i<9; i++) {
-				for(int j=0; j<9; j++) {
-					if(state.getState().getPawn(i, j).equals(Pawn.WHITE))
-						if(valuesEating(i,j, Turn.WHITE, state)) eaten++;
-				}
-			}
-		
-//		else if(state.getState().getTurn().equals(Turn.BLACK)) {
+//	public static int canYouEat(ITablutState state) {
+//		int eaten = 0;
+//		
 //			for(int i=0; i<9; i++) {
 //				for(int j=0; j<9; j++) {
-//					if(state.getState().getPawn(i, j).equals(Pawn.BLACK))
-//						if(valuesEating(i,j, Turn.BLACK, state)) return true;
+//					if(state.getState().getPawn(i, j).equals(Pawn.WHITE))
+//						if(valuesEating(i,j, Turn.WHITE, state)) eaten++;
 //				}
 //			}
-//		}
-		
-			if(state.getState().getTurn().equals(Turn.WHITE)) return eaten*3;
-			else return -eaten;
-	}
-
-	private static boolean valuesEating(int i, int j, Turn turn, ITablutState state) {
-		
-//		if(turn.equals(Turn.WHITE)) {
-			if(j-1<=0); //(forse)nero sul bordo a sinistra e non lo mangia
-			else if(state.getState().getPawn(i, j-1).equals(Pawn.BLACK) && 
-							(state.getState().getPawn(i, j-2).equals(Pawn.WHITE)||
-							state.getState().getPawn(i, j-2).equals(Pawn.THRONE)||
-							state.isPawnAccampamento(i, j-2))
-							) return true;
-			if(i-1<=0); //(forse)nero sul bordo in alto e non lo mangia
-			else if(state.getState().getPawn(i-1, j).equals(Pawn.BLACK) && 
-							(state.getState().getPawn(i-2, j).equals(Pawn.WHITE)||
-							state.getState().getPawn(i-2, j).equals(Pawn.THRONE)||
-							state.isPawnAccampamento(i-2, j))
-							) return true;
-			if(j+1>=8); //(forse)nero sul bordo a destra e non lo mangia
-			else if(state.getState().getPawn(i, j+1).equals(Pawn.BLACK) && 
-							(state.getState().getPawn(i, j+2).equals(Pawn.WHITE)||
-							state.getState().getPawn(i, j+2).equals(Pawn.THRONE)||
-							state.isPawnAccampamento(i, j+2))
-							) return true;
-			if(i+1>=0); //(forse)nero sul bordo in basso e non lo mangia
-			else if(state.getState().getPawn(i+1, j).equals(Pawn.BLACK) && 
-							(state.getState().getPawn(i+2, j).equals(Pawn.WHITE)||
-							state.getState().getPawn(i+2, j).equals(Pawn.THRONE)||
-							state.isPawnAccampamento(i+2, j))
-							) return true;
-			
-//		}
-//		else if(turn.equals(Turn.BLACK)) {
+//		
+////		else if(state.getState().getTurn().equals(Turn.BLACK)) {
+////			for(int i=0; i<9; i++) {
+////				for(int j=0; j<9; j++) {
+////					if(state.getState().getPawn(i, j).equals(Pawn.BLACK))
+////						if(valuesEating(i,j, Turn.BLACK, state)) return true;
+////				}
+////			}
+////		}
+//		
+//			if(state.getState().getTurn().equals(Turn.WHITE)) return eaten*3;
+//			else return -eaten;
+//	}
+//
+//	private static boolean valuesEating(int i, int j, Turn turn, ITablutState state) {
+//		
+////		if(turn.equals(Turn.WHITE)) {
+//			if(j-1<=0); //(forse)nero sul bordo a sinistra e non lo mangia
+//			else if(state.getState().getPawn(i, j-1).equals(Pawn.BLACK) && 
+//							(state.getState().getPawn(i, j-2).equals(Pawn.WHITE)||
+//							state.getState().getPawn(i, j-2).equals(Pawn.THRONE)||
+//							state.isPawnAccampamento(i, j-2))
+//							) return true;
+//			if(i-1<=0); //(forse)nero sul bordo in alto e non lo mangia
+//			else if(state.getState().getPawn(i-1, j).equals(Pawn.BLACK) && 
+//							(state.getState().getPawn(i-2, j).equals(Pawn.WHITE)||
+//							state.getState().getPawn(i-2, j).equals(Pawn.THRONE)||
+//							state.isPawnAccampamento(i-2, j))
+//							) return true;
+//			if(j+1>=8); //(forse)nero sul bordo a destra e non lo mangia
+//			else if(state.getState().getPawn(i, j+1).equals(Pawn.BLACK) && 
+//							(state.getState().getPawn(i, j+2).equals(Pawn.WHITE)||
+//							state.getState().getPawn(i, j+2).equals(Pawn.THRONE)||
+//							state.isPawnAccampamento(i, j+2))
+//							) return true;
+//			if(i+1>=0); //(forse)nero sul bordo in basso e non lo mangia
+//			else if(state.getState().getPawn(i+1, j).equals(Pawn.BLACK) && 
+//							(state.getState().getPawn(i+2, j).equals(Pawn.WHITE)||
+//							state.getState().getPawn(i+2, j).equals(Pawn.THRONE)||
+//							state.isPawnAccampamento(i+2, j))
+//							) return true;
 //			
-//		}
-		
-		
-		return false;
-	}
+////		}
+////		else if(turn.equals(Turn.BLACK)) {
+////			
+////		}
+//		
+//		
+//		return false;
+//	}
 
 
 }

@@ -1,0 +1,54 @@
+mag 16, 2019 11:56:39 PM Daniele.Server run
+BUONO: Accensione server
+mag 16, 2019 11:56:39 PM Daniele.Server run
+BUONO: Partita di Tablut
+mag 16, 2019 11:56:45 PM Daniele.Server run
+BUONO: Accettata connessione con client giocatore Bianco
+mag 16, 2019 11:56:45 PM Daniele.Server run
+BUONO: Lettura nome player bianco in corso..
+mag 16, 2019 11:56:46 PM Daniele.Server run
+BUONO: White player name:	Daniele
+mag 16, 2019 11:56:46 PM Daniele.Server run
+BUONO: Accettata connessione con client giocatore Nero
+mag 16, 2019 11:56:46 PM Daniele.Server run
+BUONO: Lettura nome player nero in corso..
+mag 16, 2019 11:56:46 PM Daniele.Server run
+BUONO: Black player name:	Daniele
+mag 16, 2019 11:56:46 PM Daniele.Server run
+BUONO: Invio messaggio ai giocatori
+mag 16, 2019 11:56:46 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+mag 16, 2019 11:57:11 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from e4 to d4
+mag 16, 2019 11:57:11 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+mag 16, 2019 11:57:11 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+mag 16, 2019 11:57:36 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from i4 to e4
+mag 16, 2019 11:57:36 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+mag 16, 2019 11:57:36 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+mag 16, 2019 11:58:02 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from f5 to f4
+mag 16, 2019 11:58:02 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+mag 16, 2019 11:58:02 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+mag 16, 2019 11:58:27 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from e2 to e4
+mag 16, 2019 11:58:27 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+mag 16, 2019 11:58:27 PM Daniele.Server run
+BUONO: Lettura mossa player W in corso..
+mag 16, 2019 11:58:52 PM Daniele.Server run
+BUONO: Move received.	Turn: W Pawn from e6 to f6
+mag 16, 2019 11:58:52 PM Daniele.Server run
+BUONO: Invio messaggio ai client
+mag 16, 2019 11:58:52 PM Daniele.Server run
+BUONO: Lettura mossa player B in corso..
+mag 16, 2019 11:59:13 PM Daniele.Server run
+BUONO: Move received.	Turn: B Pawn from null to null
+mag 16, 2019 11:59:13 PM Daniele.Server run
+AVVERTENZA: Chiusura sistema per troppi errori giocatore nero

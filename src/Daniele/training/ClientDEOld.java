@@ -15,16 +15,16 @@ public class ClientDEOld {
 			br = new BufferedReader(new FileReader("data/playing.txt"));
 			String firstLine = br.readLine();
 			String numbers = firstLine.substring(9);
-			System.out.println("weights " + numbers);
+			//System.out.println("weights " + numbers);
 	        System.out.flush();
 			
 			weights = new double[DifferentialEvolution.d];
 			
 			numbers = numbers.replaceAll(",",".");
 			
-			for(int i = 0; i < 6; i++){
+			for(int i = 0; i < DifferentialEvolution.d; i++){
 				weights[i] = Double.valueOf(numbers.substring(1 + (DifferentialEvolution.weightSize + 1)*i, 1 + (DifferentialEvolution.weightSize + 1)*(i+1)));
-				System.out.println("--- "+weights[i]);
+				//System.out.println("--- "+weights[i]);
 			}
 			
 		} catch (Exception e) {
