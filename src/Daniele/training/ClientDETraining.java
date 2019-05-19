@@ -24,7 +24,7 @@ public class ClientDETraining extends TablutClient{
 	private AIGame ai = null;										//usa AIGameSingleThread o AIGameP
 	private final int OPENING_COUNTER = 0;
 	private final int STARTING_DEPTH = 2;
-	private final int MAX_DEPTH = 10;
+	private final int MAX_DEPTH = 11;
 	//private Set<State> pastStates = new HashSet<State>();
 	private Set<String> pastStates = new HashSet<String>();
 	//@Matteo

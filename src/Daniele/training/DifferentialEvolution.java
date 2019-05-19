@@ -163,7 +163,7 @@ public class DifferentialEvolution {
 		
 			ProcessBuilder server_pb = new ProcessBuilder("java", "-cp", "lib/gson-2.2.2.jar:bin", "Daniele.training.Server");				//	--					//serve un server di allenamento? (solo per il conteggio delle mosse? possono farlo i client di allenamento?)
 			//server_pb.inheritIO();
-
+			server_pb.redirectOutput(new File("data", nGeneration+"_server"+x+"_"+i+".txt"));
 			Process server = server_pb.start();
 
 			// Debug output

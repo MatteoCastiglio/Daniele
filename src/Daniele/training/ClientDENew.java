@@ -32,7 +32,7 @@ public static void main(String[] args) throws ClassNotFoundException, IOExceptio
 			System.out.println(e.getMessage());
 		}
 		
-		ClientDETraining.train(weights, /*args[0]*/ "WHITE", "PlayerNEW");
+		ClientDETraining.train(weights, args[0], "PlayerNEW");
 
 	}
 }
