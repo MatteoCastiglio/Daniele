@@ -13,7 +13,6 @@ import Daniele.state.DanieleAction;
 import Daniele.state.TablutState;
 import it.unibo.ai.didattica.competition.tablut.client.TablutClient;
 import it.unibo.ai.didattica.competition.tablut.domain.Action;
-import it.unibo.ai.didattica.competition.tablut.domain.State;
 import it.unibo.ai.didattica.competition.tablut.domain.State.Pawn;
 import it.unibo.ai.didattica.competition.tablut.domain.State.Turn;
 
@@ -33,11 +32,12 @@ public class ClientDaniele extends TablutClient{
 	private int coord[] = new int[2];
 
 
-	public ClientDaniele(String player) throws  IOException {
+	public ClientDaniele(String player,int time) throws  IOException {
 		super(player, "Daniele");
+		long maxtime= (time-2)*1000;
 
 		//ab = new AlphaBetaPruning();									//scommenta per AlphaBetaPrunin
-		ai = new AIGameSingleThread(30000,MinMaxPrinter.getPrinter(PrintMode.Simple),false,true,true);	//con -1 non c'è limite di tempo	//usa AIGameSingleThread o AIGameP
+		ai = new AIGameSingleThread(maxtime,MinMaxPrinter.getPrinter(PrintMode.Simple),false,true,true);	//con -1 non c'è limite di tempo	//usa AIGameSingleThread o AIGameP
 		//ai = new AIGameP2(30000,MinMaxPrinter.getPrinter(PrintMode.Simple),false,false,true);
 		//ai = new AIGameP(30000,MinMaxPrinter.getPrinter(PrintMode.Simple),false);
 
@@ -151,7 +151,7 @@ public class ClientDaniele extends TablutClient{
 	}
 
 	public static void main(String[] args) throws UnknownHostException, IOException, ClassNotFoundException {
-		int gametype = 4;
+		int time = 60;
 		String role = "";
 		String name = "Daniele";
 		// TODO: change the behavior?
@@ -163,16 +163,14 @@ public class ClientDaniele extends TablutClient{
 			role = (args[0]);
 		}
 		if (args.length == 2) {
-			System.out.println(args[1]);
-			gametype = Integer.parseInt(args[1]);
+
+			time= Integer.parseInt(args[1]);
 		}
-		if (args.length == 3) {
-			name = args[2];
-		}
+
 		System.out.println("Selected client: " + args[0]);
 
 
-		TablutClient client = new ClientDaniele(role);
+		TablutClient client = new ClientDaniele(role,time);
 
 		client.run();
 		System.out.println("partita finita");

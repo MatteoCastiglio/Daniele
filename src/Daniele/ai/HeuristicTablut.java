@@ -18,9 +18,26 @@ public class HeuristicTablut {
 	 * @return
 	 * 			un valore di stima dello stato
 	 */
-	
-	
-	
+
+	private static final double WEIGTH1= 500 * 0.092660 ;
+	private static final double WEIGTH2= 800 * -0.014304;
+	private static final double WEIGTH3= 40 * 0.110213;
+	private static final double WEIGTH4= 20 * 0.185392;
+	private static final double WEIGTH5= 1 * 0.153072;
+	private static final double WEIGTH6= 1 * -0.004347;
+	private static final double WEIGTH7= 15 * 0.437942;
+	private static final double WEIGTH8= 5 * -0.002070;
+
+
+	/*private static final double WEIGTH1= 500 * 1 ;
+	private static final double WEIGTH2= 800 * 1;
+	private static final double WEIGTH3= 40 * 1;
+	private static final double WEIGTH4= 20 * 1;
+	private static final double WEIGTH5= 1 * 1;
+	private static final double WEIGTH6= 1 * 1;
+	private static final double WEIGTH7= 15 * 1;
+	private static final double WEIGTH8= 5 * 1;
+	*/
 
 	public static double HeuristicFunction(ITablutState state) {
 		
@@ -40,24 +57,24 @@ public class HeuristicTablut {
 			//@Matteo non capisco i controlli sui turni
 		//	if(state.getState().getTurn().equals(Turn.WHITE)) result-= 800;
 		//	else result +=900;
-			result +=500;
+			result +=WEIGTH1;
 		
 		//caso in cui il re sia in pericolo / caso in cui un nero possa mangiare il re
 		if(isKingInDanger(state))
 		//	if(state.getState().getTurn().equals(Turn.WHITE)) result+= 900;
 		//	else result-=800;
-		result-=800;
+		result-=WEIGTH2;
 		
 		//@Matteo valutazioni sul numero di pezzi
-		result+=state.WhitesCount()*40;
-		result-=state.BlacksCount()*20;
+		result+=state.WhitesCount()*WEIGTH3;
+		result-=state.BlacksCount()*WEIGTH4;
 	//	result+=state.getFlow()*5;
 		int[] pawnsInFlow =state.getPawnsInFlowDirection();
-		result+=pawnsInFlow[0]*1;
-		result-=pawnsInFlow[1]*1;
+		result+=pawnsInFlow[0]*WEIGTH5;
+		result-=pawnsInFlow[1]*WEIGTH6;
 		//result+=canYouEat(state);
-		result+=state.getPawnsOnKingDiagonal()*15;
-		result+=state.getPawnsOnKingDiagonal2()*5;
+		result+=state.getPawnsOnKingDiagonal()*WEIGTH7;
+		result+=state.getPawnsOnKingDiagonal2()*WEIGTH8;
 		//caso in cui un bianco sia in pericolo (se rimangono poche pedine, altrimenti privilegiare quella sotto) / caso in cui il nero possa mangiare un bianco
 		
 		//caso in cui un bianco pu� mangiare un nero / caso in cui il nero sia in pericolo (se rimangono poche pedine da privilegiare, rispetto quella sopra)
