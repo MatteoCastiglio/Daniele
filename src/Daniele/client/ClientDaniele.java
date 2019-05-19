@@ -1,5 +1,6 @@
 package Daniele.client;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.net.SocketException;
 import java.net.UnknownHostException;
@@ -21,7 +22,7 @@ public class ClientDaniele extends TablutClient{
 
 	//private AlphaBetaPruning ab = null;							//scommenta per AlphaBetaPruning
 	private AIGame ai = null;										//usa AIGameSingleThread o AIGameP
-	private final int OPENING_COUNTER = 0;
+	private final int OPENING_COUNTER = 1;
 	private final int STARTING_DEPTH = 1;
 	private final int MAX_DEPTH = 7;
 	//private Set<State> pastStates = new HashSet<State>();
@@ -95,58 +96,65 @@ public class ClientDaniele extends TablutClient{
 	private void runBlack() throws ClassNotFoundException, IOException {
 		DanieleAction action = null;
 		int turnCounter = 0;
-		while(true) {	
-			//legge stato corrente dal server (mossa avversario)
-			this.read();
-			pastStates.add(currentState.toLinearString());
-			if(currentState== null || currentState.getTurn().equals(Turn.BLACKWIN) || currentState.getTurn().equals(Turn.WHITEWIN) || currentState.getTurn().equals(Turn.DRAW) )
-				return;
-			setup();
+		try {
+			while(true) {	
+				//legge stato corrente dal server (mossa avversario)
+				this.read();
+				pastStates.add(currentState.toLinearString());
+				if(currentState== null || currentState.getTurn().equals(Turn.BLACKWIN) || currentState.getTurn().equals(Turn.WHITEWIN) || currentState.getTurn().equals(Turn.DRAW) )
+					return;
+				setup();
 
 
-			if(turnCounter<OPENING_COUNTER)
+				/*	if(turnCounter<OPENING_COUNTER)
 				action = BlackOpening.nextMove(new TablutState(currentState,nwhites,nblacks,coord), turnCounter);
-			else
+			else	*/
 				//action = ab.AlphaBetaSearch(depth, new TablutState(currentState,nwhites,nblacks,coord,whitesMoved),MinMaxPrinter.getPrinter(PrintMode.Simple));			//scommenta per AlphaBetaPrunin
 				action = ai.chooseBestMove(STARTING_DEPTH, MAX_DEPTH, new TablutState(currentState,nwhites,nblacks,coord),pastStates);
-			turnCounter++;
-			//comunica l'azione al server
-			this.write(new Action(DanieleAction.coord(action.getRowFrom(),action.getColumnFrom()),DanieleAction.coord(action.getRowTo(),action.getColumnTo()),Turn.BLACK));
-			//legge stato corrente modificato dal server
-			this.read();
-			pastStates.add(currentState.toLinearString());
+				turnCounter++;
+				//comunica l'azione al server
+				this.write(new Action(DanieleAction.coord(action.getRowFrom(),action.getColumnFrom()),DanieleAction.coord(action.getRowTo(),action.getColumnTo()),Turn.BLACK));
+				//legge stato corrente modificato dal server
+				this.read();
+				pastStates.add(currentState.toLinearString());
+			}
+		} catch (EOFException e) {
+			System.out.println("Partita finita!");
 		}
 	}
 
 	private void runWhite() throws ClassNotFoundException, IOException {
 		DanieleAction action = null;
 		int turnCounter=0;
-		while(true) {
-			//scelta mossa
-			// @Matteo conteggio iniziale questo penso sia inevitabile, ma si fa una volta sola!!!!!
+		try {
+			while(true) {
+				//scelta mossa
+				// @Matteo conteggio iniziale questo penso sia inevitabile, ma si fa una volta sola!!!!!
 
 
-			setup();
+				setup();
 
 
-			if(turnCounter<OPENING_COUNTER)
-				action = WhiteOpening.nextMove(new TablutState(currentState,nwhites,nblacks,coord), turnCounter);
-			else
-				//action = ab.AlphaBetaSearch(depth, new TablutState(this.getCurrentState(),nwhites,nblacks,coord,whitesMoved),MinMaxPrinter.getPrinter(PrintMode.Simple));			//scommenta per AlphaBetaPrunin
-				action = ai.chooseBestMove(STARTING_DEPTH, MAX_DEPTH, new TablutState(currentState,nwhites,nblacks,coord),pastStates);
-			turnCounter++;
-			//comunica l'azione al server
-			this.write(new Action(DanieleAction.coord(action.getRowFrom(),action.getColumnFrom()),DanieleAction.coord(action.getRowTo(),action.getColumnTo()),Turn.WHITE));
-			//legge stato corrente modificato dal server
-			this.read();
-			pastStates.add(currentState.toLinearString());
+				if(turnCounter<OPENING_COUNTER)
+					action = WhiteOpening.nextMove(new TablutState(currentState,nwhites,nblacks,coord), turnCounter);
+				else
+					//action = ab.AlphaBetaSearch(depth, new TablutState(this.getCurrentState(),nwhites,nblacks,coord,whitesMoved),MinMaxPrinter.getPrinter(PrintMode.Simple));			//scommenta per AlphaBetaPrunin
+					action = ai.chooseBestMove(STARTING_DEPTH, MAX_DEPTH, new TablutState(currentState,nwhites,nblacks,coord),pastStates);
+				turnCounter++;
+				//comunica l'azione al server
+				this.write(new Action(DanieleAction.coord(action.getRowFrom(),action.getColumnFrom()),DanieleAction.coord(action.getRowTo(),action.getColumnTo()),Turn.WHITE));
+				//legge stato corrente modificato dal server
+				this.read();
+				pastStates.add(currentState.toLinearString());
 
-			this.read();
-			pastStates.add(currentState.toLinearString());
-			//legge stato corrente dal server (mossa avversario)
-			if(currentState== null || currentState.getTurn().equals(Turn.BLACKWIN) || currentState.getTurn().equals(Turn.WHITEWIN) || currentState.getTurn().equals(Turn.DRAW) )
-				return;
-
+				this.read();
+				pastStates.add(currentState.toLinearString());
+				//legge stato corrente dal server (mossa avversario)
+				if(currentState== null || currentState.getTurn().equals(Turn.BLACKWIN) || currentState.getTurn().equals(Turn.WHITEWIN) || currentState.getTurn().equals(Turn.DRAW) )
+					return;
+			}
+		} catch (EOFException e) {
+			System.out.println("Partita finita!");
 		}
 	}
 

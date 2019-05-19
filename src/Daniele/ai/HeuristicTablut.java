@@ -19,25 +19,14 @@ public class HeuristicTablut {
 	 * 			un valore di stima dello stato
 	 */
 
-	private static final double WEIGTH1= 500 * 0.092660 ;
-	private static final double WEIGTH2= 800 * -0.014304;
-	private static final double WEIGTH3= 40 * 0.110213;
-	private static final double WEIGTH4= 20 * 0.185392;
-	private static final double WEIGTH5= 1 * 0.153072;
-	private static final double WEIGTH6= 1 * -0.004347;
-	private static final double WEIGTH7= 15 * 0.437942;
-	private static final double WEIGTH8= 5 * -0.002070;
-
-
-	/*private static final double WEIGTH1= 500 * 1 ;
-	private static final double WEIGTH2= 800 * 1;
-	private static final double WEIGTH3= 40 * 1;
-	private static final double WEIGTH4= 20 * 1;
-	private static final double WEIGTH5= 1 * 1;
-	private static final double WEIGTH6= 1 * 1;
-	private static final double WEIGTH7= 15 * 1;
-	private static final double WEIGTH8= 5 * 1;
-	*/
+	private static final double WEIGTH1= 500;
+	private static final double WEIGTH2= 800;
+	private static final double WEIGTH3= 40;
+	private static final double WEIGTH4= 20;
+	private static final double WEIGTH5= 1;
+	private static final double WEIGTH6= 1;
+	private static final double WEIGTH7= 15;
+	private static final double WEIGTH8= 5;
 
 	public static double HeuristicFunction(ITablutState state) {
 		
