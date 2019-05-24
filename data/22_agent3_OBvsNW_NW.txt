@@ -1,0 +1,4 @@
+weights  000,127243 000,142697 000,222853 -00,065804 000,059958 000,041685 000,141126 000,198635 
+Selected client: WHITE
+Partita finita!
+partita finita

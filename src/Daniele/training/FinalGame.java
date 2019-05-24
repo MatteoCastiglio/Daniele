@@ -54,9 +54,9 @@ public class FinalGame {
 			}
 			
 			//soluzione finale
-			System.out.println('\n'+"The best solution for your heuristic parameters is:");
+			finalOut.println('\n'+"The best solution for your heuristic parameters is:");
 			for(double p : bestAgent) {
-				System.out.print(" "+String.format("%010f", p));
+				finalOut.print(" "+String.format("%010f", p));
 			}
 
 		} catch (Exception e) {
@@ -94,7 +94,7 @@ public class FinalGame {
 
 		for (int i = 0; i < DifferentialEvolution.nGames; i++) {
 
-			ProcessBuilder server_pb = new ProcessBuilder("java", "-cp", "lib/gson-2.2.2.jar:bin", "Daniele.training.FinalServer");
+			ProcessBuilder server_pb = new ProcessBuilder("java", "-cp", "lib/gson-2.2.2.jar;bin", "Daniele.training.FinalServer");		// ; per windows	, 	: per mac
 			server_pb.redirectOutput(new File(dirName, "finalGeneration_server_"+numberOfMatch+"_"+i+".txt"));
 			Process server = server_pb.start();
 
@@ -108,12 +108,12 @@ public class FinalGame {
 			}
 
 			if(i % 2 == 0) {	//OLD BLACK vs NEW WHITE
-				ProcessBuilder clientOldBlack_pb = new ProcessBuilder("java", "-cp", "lib/gson-2.2.2.jar:bin", /*"-Xms520m",*/ "Daniele.training.ClientDEFinalOld", "BLACK");
+				ProcessBuilder clientOldBlack_pb = new ProcessBuilder("java", "-cp", "lib/gson-2.2.2.jar;bin", /*"-Xms520m",*/ "Daniele.training.ClientDEFinalOld", "BLACK");
 				clientOldBlack_pb.redirectOutput(new File(dirName, "finalGeneration_agent"+numberOfMatch+"_OBvsNW_OB.txt"));
 				clientOld = clientOldBlack_pb.start();
 			}
 			else {				//OLD WHITE vs NEW BLACK
-				ProcessBuilder clientOldWhite_pb = new ProcessBuilder("java", "-cp", "lib/gson-2.2.2.jar:bin", /*"-Xms520m",*/ "Daniele.training.ClientDEFinalOld", "WHITE");
+				ProcessBuilder clientOldWhite_pb = new ProcessBuilder("java", "-cp", "lib/gson-2.2.2.jar;bin", /*"-Xms520m",*/ "Daniele.training.ClientDEFinalOld", "WHITE");
 				clientOldWhite_pb.redirectOutput(new File(dirName, "finalGeneration_agent"+numberOfMatch+"_OWvsNB_OW.txt"));
 				clientOld = clientOldWhite_pb.start();
 			}
@@ -125,12 +125,12 @@ public class FinalGame {
 			}
 
 			if(i % 2 == 0) {	//OLD BLACK vs NEW WHITE
-				ProcessBuilder clientNewWhite_pb = new ProcessBuilder("java", "-cp", "lib/gson-2.2.2.jar:bin", /*"-Xms520m",*/ "Daniele.training.ClientDEFinalNew", "WHITE");
+				ProcessBuilder clientNewWhite_pb = new ProcessBuilder("java", "-cp", "lib/gson-2.2.2.jar;bin", /*"-Xms520m",*/ "Daniele.training.ClientDEFinalNew", "WHITE");
 				clientNewWhite_pb.redirectOutput(new File(dirName, "finalGeneration_agent"+numberOfMatch+"_OBvsNW_NW.txt"));
 				clientNew = clientNewWhite_pb.start();
 			}
 			else {				//OLD WHITE vs NEW BLACK
-				ProcessBuilder clientNewBlack_pb = new ProcessBuilder("java", "-cp", "lib/gson-2.2.2.jar:bin", /*"-Xms520m",*/ "Daniele.training.ClientDEFinalNew", "BLACK");
+				ProcessBuilder clientNewBlack_pb = new ProcessBuilder("java", "-cp", "lib/gson-2.2.2.jar;bin", /*"-Xms520m",*/ "Daniele.training.ClientDEFinalNew", "BLACK");
 				clientNewBlack_pb.redirectOutput(new File(dirName, "finalGeneration_agent"+numberOfMatch+"_OWvsNB_NB.txt"));
 				clientNew = clientNewBlack_pb.start();
 			}
@@ -150,6 +150,7 @@ public class FinalGame {
 		int[] stats = readLogs();
 		
 		finalOut.println("----------final match: "+numberOfMatch+"----------");
+		finalOut.println();
 		finalOut.print("best current agent: ");
 		for(double p : bestAgent) {
 			finalOut.print(" "+String.format("%010f", p));
