@@ -29,7 +29,8 @@ public class AIGameP implements AIGame {
 	private MinMaxPrinter printer;
 	private TraspositionTable traspositionTable = TraspositionTable.getInstance();
 
-	public AIGameP(long maxTime,MinMaxPrinter printer,boolean useTraspositionTable) {		//con -1 non c'è limite di tempo
+	
+	public AIGameP(long maxTime,MinMaxPrinter printer,boolean useTraspositionTable) {		//if maxTime = -1 there is no time limit
 		this.maxTime = maxTime;
 		monitor = new Object();
 		alphaM = Double.NEGATIVE_INFINITY;
@@ -41,9 +42,11 @@ public class AIGameP implements AIGame {
 		this.printer= printer;
 	}
 
+	
 	public DanieleAction chooseBestMove(int startingDepth, int maxDepth, ITablutState ts,Set<String> pastStates){
 
-		//impostazione del timer
+		//timer setting
+		//
 		timeOver = false;
 		timer = new Timer();
 		TimerTask timeoutTask = new TimerTask() {
@@ -52,7 +55,6 @@ public class AIGameP implements AIGame {
 				timeOver = true;
 			}
 		};
-		//timer.schedule(timeoutTask, maxTime);
 
 		if(maxTime!=-1) timer.schedule(timeoutTask, maxTime);
 
@@ -60,9 +62,10 @@ public class AIGameP implements AIGame {
 		double time;
 
 
-		//iterative deeping con alpha-beta prunning (versione diversa per gestire il tempo)	
-
-		if(ts.getState().getTurn().equals(Turn.WHITE)) {	//MAX player
+		//iterative deeping with alpha-beta prunning (different version to manage time)	
+		//
+		//MAX player
+		if(ts.getState().getTurn().equals(Turn.WHITE)) {
 			List<DanieleAction> moves = ts.getAllLegalMoves();
 
 			//double alphaM = Double.NEGATIVE_INFINITY;
@@ -130,8 +133,8 @@ public class AIGameP implements AIGame {
 			System.out.println("Time="+time+", depth = "+ maxDepth +" - bestActionLastDepthM = "+bestActionLastDepthM.toString());
 			return bestActionLastDepthM;		
 		}
-
-		else if(ts.getState().getTurn().equals(Turn.BLACK)) {	//MIN player
+		//MIN player
+		else if(ts.getState().getTurn().equals(Turn.BLACK)) {
 			List<DanieleAction> moves = ts.getAllLegalMoves();
 
 			//double betaM = Double.POSITIVE_INFINITY;
