@@ -19,40 +19,42 @@ import it.unibo.ai.didattica.competition.tablut.domain.Action;
 import it.unibo.ai.didattica.competition.tablut.domain.State.Pawn;
 import it.unibo.ai.didattica.competition.tablut.domain.State.Turn;
 
-public class ClientDETraining extends TablutClient{
+public class ClientDETraining extends TablutClient {
 	//private AlphaBetaPruning ab = null;							//scommenta per AlphaBetaPruning
-	private AIGame ai = null;										//usa AIGameSingleThread o AIGameP
+	private AIGame ai = null;                                        //usa AIGameSingleThread o AIGameP
 	private final int OPENING_COUNTER = 0;
 	private final int STARTING_DEPTH = 2;
 	private final int MAX_DEPTH = 11;
 	//private Set<State> pastStates = new HashSet<State>();
 	private Set<String> pastStates = new HashSet<String>();
 	//@Matteo
-	private int nwhites =0;
+	private int nwhites = 0;
 	private int nblacks = 0;
 	private int coord[] = new int[2];
 
 
-	public ClientDETraining(double[] weights, String player, String name) throws  IOException {
+	public ClientDETraining(double[] weights, String player, String name) throws IOException {
 		super(player, name);
 		//ab = new AlphaBetaPruning();									//scommenta per AlphaBetaPrunin
-		ai = new AIGameSingleThreadDE(15000,MinMaxPrinter.getPrinter(PrintMode.None),false,true,true, weights);	//con -1 non c'è limite di tempo	//usa AIGameSingleThread o AIGameP
+		ai = new AIGameSingleThreadDE(15000, MinMaxPrinter.getPrinter(PrintMode.None), false, true, true, weights);    //con -1 non c'è limite di tempo	//usa AIGameSingleThread o AIGameP
 
 	}
 
 
-	private void setup()
-	{
+	private void setup() {
 
-		nwhites =0;
+		nwhites = 0;
 		nblacks = 0;
-		for(int i =0; i< 9; i++)
-			for(int j =0; j< 9; j++)
-			{if(currentState.getPawn(i, j).equals(Pawn.WHITE))
-				nwhites++;
-			else if( currentState.getPawn(i, j).equals(Pawn.BLACK))
-				nblacks++;
-			else if(currentState.getPawn(i, j).equals(Pawn.KING)) {coord[0]=i; coord[1]=j;}
+		for (int i = 0; i < 9; i++)
+			for (int j = 0; j < 9; j++) {
+				if (currentState.getPawn(i, j).equals(Pawn.WHITE))
+					nwhites++;
+				else if (currentState.getPawn(i, j).equals(Pawn.BLACK))
+					nblacks++;
+				else if (currentState.getPawn(i, j).equals(Pawn.KING)) {
+					coord[0] = i;
+					coord[1] = j;
+				}
 			}
 
 	}
@@ -71,11 +73,9 @@ public class ClientDETraining extends TablutClient{
 
 			//INIZIO PARTITA
 			try {
-				if(this.getPlayer().equals(Turn.WHITE)) runWhite();
-				else if(this.getPlayer().equals(Turn.BLACK)) runBlack();
-			}
-			catch(SocketException e)
-			{
+				if (this.getPlayer().equals(Turn.WHITE)) runWhite();
+				else if (this.getPlayer().equals(Turn.BLACK)) runBlack();
+			} catch (SocketException e) {
 
 			}
 		} catch (ClassNotFoundException | IOException e) {
@@ -90,23 +90,23 @@ public class ClientDETraining extends TablutClient{
 		DanieleAction action = null;
 		int turnCounter = 0;
 		try {
-			while(true) {	
+			while (true) {
 				//legge stato corrente dal server (mossa avversario)
 				this.read();
 				pastStates.add(currentState.toLinearString());
-				if(currentState== null || currentState.getTurn().equals(Turn.BLACKWIN) || currentState.getTurn().equals(Turn.WHITEWIN) || currentState.getTurn().equals(Turn.DRAW) )
+				if (currentState == null || currentState.getTurn().equals(Turn.BLACKWIN) || currentState.getTurn().equals(Turn.WHITEWIN) || currentState.getTurn().equals(Turn.DRAW))
 					return;
 				setup();
 
 
-				if(turnCounter<OPENING_COUNTER)
-					action = BlackOpening.nextMove(new TablutState(currentState,nwhites,nblacks,coord), turnCounter);
+				if (turnCounter < OPENING_COUNTER)
+					action = BlackOpening.nextMove(new TablutState(currentState, nwhites, nblacks, coord), turnCounter);
 				else
 					//action = ab.AlphaBetaSearch(depth, new TablutState(currentState,nwhites,nblacks,coord,whitesMoved),MinMaxPrinter.getPrinter(PrintMode.Simple));			//scommenta per AlphaBetaPrunin
-					action = ai.chooseBestMove(STARTING_DEPTH, MAX_DEPTH, new TablutState(currentState,nwhites,nblacks,coord),pastStates);
+					action = ai.chooseBestMove(STARTING_DEPTH, MAX_DEPTH, new TablutState(currentState, nwhites, nblacks, coord), pastStates);
 				turnCounter++;
 				//comunica l'azione al server
-				this.write(new Action(DanieleAction.coord(action.getRowFrom(),action.getColumnFrom()),DanieleAction.coord(action.getRowTo(),action.getColumnTo()),Turn.BLACK));
+				this.write(new Action(DanieleAction.coord(action.getRowFrom(), action.getColumnFrom()), DanieleAction.coord(action.getRowTo(), action.getColumnTo()), Turn.BLACK));
 				//legge stato corrente modificato dal server
 				this.read();
 				pastStates.add(currentState.toLinearString());
@@ -118,9 +118,9 @@ public class ClientDETraining extends TablutClient{
 
 	private void runWhite() throws ClassNotFoundException, IOException {
 		DanieleAction action = null;
-		int turnCounter=0;
+		int turnCounter = 0;
 		try {
-			while(true) {
+			while (true) {
 				//scelta mossa
 				// @Matteo conteggio iniziale questo penso sia inevitabile, ma si fa una volta sola!!!!!
 
@@ -128,14 +128,14 @@ public class ClientDETraining extends TablutClient{
 				setup();
 
 
-				if(turnCounter<OPENING_COUNTER)
-					action = WhiteOpening.nextMove(new TablutState(currentState,nwhites,nblacks,coord), turnCounter);
+				if (turnCounter < OPENING_COUNTER)
+					action = WhiteOpening.nextMove(new TablutState(currentState, nwhites, nblacks, coord), turnCounter);
 				else
 					//action = ab.AlphaBetaSearch(depth, new TablutState(this.getCurrentState(),nwhites,nblacks,coord,whitesMoved),MinMaxPrinter.getPrinter(PrintMode.Simple));			//scommenta per AlphaBetaPrunin
-					action = ai.chooseBestMove(STARTING_DEPTH, MAX_DEPTH, new TablutState(currentState,nwhites,nblacks,coord),pastStates);
+					action = ai.chooseBestMove(STARTING_DEPTH, MAX_DEPTH, new TablutState(currentState, nwhites, nblacks, coord), pastStates);
 				turnCounter++;
 				//comunica l'azione al server
-				this.write(new Action(DanieleAction.coord(action.getRowFrom(),action.getColumnFrom()),DanieleAction.coord(action.getRowTo(),action.getColumnTo()),Turn.WHITE));
+				this.write(new Action(DanieleAction.coord(action.getRowFrom(), action.getColumnFrom()), DanieleAction.coord(action.getRowTo(), action.getColumnTo()), Turn.WHITE));
 				//legge stato corrente modificato dal server
 				this.read();
 				pastStates.add(currentState.toLinearString());
@@ -143,7 +143,7 @@ public class ClientDETraining extends TablutClient{
 				this.read();
 				pastStates.add(currentState.toLinearString());
 				//legge stato corrente dal server (mossa avversario)
-				if(currentState== null || currentState.getTurn().equals(Turn.BLACKWIN) || currentState.getTurn().equals(Turn.WHITEWIN) || currentState.getTurn().equals(Turn.DRAW) )
+				if (currentState == null || currentState.getTurn().equals(Turn.BLACKWIN) || currentState.getTurn().equals(Turn.WHITEWIN) || currentState.getTurn().equals(Turn.DRAW))
 					return;
 			}
 		} catch (EOFException e) {

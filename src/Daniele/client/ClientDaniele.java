@@ -20,14 +20,12 @@ import it.unibo.ai.didattica.competition.tablut.domain.State.Turn;
 public class ClientDaniele extends TablutClient{
 
 
-	//private AlphaBetaPruning ab = null;							//scommenta per AlphaBetaPruning
-	private AIGame ai = null;										//usa AIGameSingleThread o AIGameP
+	private AIGame ai = null;
 	private final int OPENING_COUNTER = 1;
 	private final int STARTING_DEPTH = 1;
 	private final int MAX_DEPTH = 7;
 	//private Set<State> pastStates = new HashSet<State>();
 	private Set<String> pastStates = new HashSet<String>();
-	//@Matteo
 	private int nwhites =0;
 	private int nblacks = 0;
 	private int coord[] = new int[2];
@@ -36,18 +34,16 @@ public class ClientDaniele extends TablutClient{
 	public ClientDaniele(String player,int time) throws  IOException {
 		super(player, "Daniele");
 		long maxtime= (time-2)*1000;
-
-		//ab = new AlphaBetaPruning();									//scommenta per AlphaBetaPrunin
-		ai = new AIGameSingleThread(maxtime,MinMaxPrinter.getPrinter(PrintMode.Simple),false,true,true);	//con -1 non c'è limite di tempo	//usa AIGameSingleThread o AIGameP
+		HeuristicFunction h = new HeuristicTablut();
+		//Questi valori al momento quelli che permettono di ottenere risutai migliori
+		ai = new AIGameSingleThread(h,maxtime,MinMaxPrinter.getPrinter(PrintMode.Simple),false,true,true);	//con -1 non c'è limite di tempo	//usa AIGameSingleThread o AIGameP
 		//ai = new AIGameP2(30000,MinMaxPrinter.getPrinter(PrintMode.Simple),false,false,true);
 		//ai = new AIGameP(30000,MinMaxPrinter.getPrinter(PrintMode.Simple),false);
-
 	}
 
 
 	private void setup()
 	{
-
 		nwhites =0;
 		nblacks = 0;
 		for(int i =0; i< 9; i++)
@@ -60,9 +56,6 @@ public class ClientDaniele extends TablutClient{
 			}
 
 	}
-
-
-
 
 	@Override
 	public void run() {
@@ -104,12 +97,6 @@ public class ClientDaniele extends TablutClient{
 				if(currentState== null || currentState.getTurn().equals(Turn.BLACKWIN) || currentState.getTurn().equals(Turn.WHITEWIN) || currentState.getTurn().equals(Turn.DRAW) )
 					return;
 				setup();
-
-
-				/*	if(turnCounter<OPENING_COUNTER)
-				action = BlackOpening.nextMove(new TablutState(currentState,nwhites,nblacks,coord), turnCounter);
-			else	*/
-				//action = ab.AlphaBetaSearch(depth, new TablutState(currentState,nwhites,nblacks,coord,whitesMoved),MinMaxPrinter.getPrinter(PrintMode.Simple));			//scommenta per AlphaBetaPrunin
 				action = ai.chooseBestMove(STARTING_DEPTH, MAX_DEPTH, new TablutState(currentState,nwhites,nblacks,coord),pastStates);
 				turnCounter++;
 				//comunica l'azione al server
@@ -128,13 +115,7 @@ public class ClientDaniele extends TablutClient{
 		int turnCounter=0;
 		try {
 			while(true) {
-				//scelta mossa
-				// @Matteo conteggio iniziale questo penso sia inevitabile, ma si fa una volta sola!!!!!
-
-
 				setup();
-
-
 				if(turnCounter<OPENING_COUNTER)
 					action = WhiteOpening.nextMove(new TablutState(currentState,nwhites,nblacks,coord), turnCounter);
 				else

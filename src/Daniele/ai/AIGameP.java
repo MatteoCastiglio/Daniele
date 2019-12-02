@@ -28,9 +28,11 @@ public class AIGameP implements AIGame {
 	private boolean useTraspositionTable;
 	private MinMaxPrinter printer;
 	private TraspositionTable traspositionTable = TraspositionTable.getInstance();
+	HeuristicFunction h;
 
-	
-	public AIGameP(long maxTime,MinMaxPrinter printer,boolean useTraspositionTable) {		//if maxTime = -1 there is no time limit
+	// Questa classe non funziona
+	public AIGameP(HeuristicFunction h,long maxTime,MinMaxPrinter printer,boolean useTraspositionTable) {		//if maxTime = -1 there is no time limit
+		this.h = h;
 		this.maxTime = maxTime;
 		monitor = new Object();
 		alphaM = Double.NEGATIVE_INFINITY;
@@ -221,7 +223,7 @@ public class AIGameP implements AIGame {
 	private double MaxValue(int depth, double alpha, double beta, ITablutState state, MinMaxPrinter printer) {
 		//all'interruzione si ritorna un valore 
 		if (cutoff(depth, state)) {
-			return HeuristicTablut.HeuristicFunction(state) - depth;
+			return h.HeuristicFunction(state) - depth;
 		}
 
 		double tmp;
@@ -273,7 +275,7 @@ public class AIGameP implements AIGame {
 		//all'interuzione si ritorna un valore 
 		//provo aggiungere -depth per favorire percorsi pi� corti
 		if (cutoff(depth, state)) {
-			return HeuristicTablut.HeuristicFunction(state) + depth;
+			return h.HeuristicFunction(state) + depth;
 		}
 
 		double tmp;

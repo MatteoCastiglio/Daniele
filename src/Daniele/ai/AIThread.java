@@ -7,12 +7,8 @@ import Daniele.minmaxprinter.MinMaxPrinter;
 import it.unibo.ai.didattica.competition.tablut.domain.State;
 
 import java.util.*;
-
+//Questa classe  non funziona
 public class AIThread extends Thread {
-
-
-
-
     private final int DRAW_VALUE = 400;
     private volatile Timer timer;
     private long maxTime;
@@ -28,10 +24,11 @@ public class AIThread extends Thread {
     private int startingDepth;
     private int maxDepth;
     private Set<String> pastStates;
+    private HeuristicFunction heuristic;
 
 
-    public AIThread(long maxTime,MinMaxPrinter printer,boolean useTraspositionTable,boolean useDrawCondition,boolean orderingOptimization,int startingDepth, int maxDepth, List<ITablutState> states , Set<String> pastStates) {
-        this(maxTime,printer,useTraspositionTable,useDrawCondition);
+    public AIThread(HeuristicFunction h,long maxTime,MinMaxPrinter printer,boolean useTraspositionTable,boolean useDrawCondition,boolean orderingOptimization,int startingDepth, int maxDepth, List<ITablutState> states , Set<String> pastStates) {
+        this(h,maxTime,printer,useTraspositionTable,useDrawCondition);
         this.orderingOptimization=orderingOptimization;
         this.states=states;
        this.startingDepth=startingDepth;
@@ -40,12 +37,13 @@ public class AIThread extends Thread {
 
     }
 
-    public AIThread(long maxTime,MinMaxPrinter printer,boolean useTraspositionTable,boolean useDrawCondition) {		//con -1 non c'è limite di tempo
-        this(maxTime,printer,useTraspositionTable);
+    public AIThread(HeuristicFunction h,long maxTime,MinMaxPrinter printer,boolean useTraspositionTable,boolean useDrawCondition) {		//con -1 non c'è limite di tempo
+        this(h,maxTime,printer,useTraspositionTable);
         this.useDrawCondition=useDrawCondition;
 
     }
-    public AIThread(long maxTime,MinMaxPrinter printer,boolean useTraspositionTable) {		//con -1 non c'è limite di tempo
+    public AIThread(HeuristicFunction h, long maxTime,MinMaxPrinter printer,boolean useTraspositionTable) {		//con -1 non c'è limite di tempo
+        heuristic = h;
         this.maxTime = maxTime;
         this.useTraspositionTable = useTraspositionTable;
         this.printer= printer;
@@ -117,7 +115,7 @@ public class AIThread extends Thread {
                         //i++;
 
 
-                       List<Pos> pos = ts.trasformState(m);
+                        ts.trasformState(m);
                         if (useDrawCondition && pastStates.contains(ts.getState().toLinearString())) {
                             v = DRAW_VALUE;
                             System.out.print("------- trovata mossa pareggio: ");
@@ -125,7 +123,7 @@ public class AIThread extends Thread {
                         } else {
                             //if(depth==3) System.out.println("Depth=3 ---> mossa : " +m.toString());
                             v = MinValue(depth - 1, value, Double.POSITIVE_INFINITY, ts, printer);
-                            ts.trasformStateBack(m,pos);
+                            ts.trasformStateBack(m);
                             // -----
                             //System.out.println("v = "+v+ "  -  mossa "+i+": "+m.toString());
                             // -----
@@ -219,7 +217,7 @@ public class AIThread extends Thread {
                     for (DanieleAction m : moves) {
                         //i++;
 
-                        List<Pos> pos = ts.trasformState(m);
+                        ts.trasformState(m);
                         if (useDrawCondition && pastStates.contains(ts.getState().toLinearString())) {
                             v = DRAW_VALUE;
                             System.out.print("------- trovata mossa pareggio: ");
@@ -227,7 +225,7 @@ public class AIThread extends Thread {
                         } else {
 
                             v = MaxValue(depth - 1, Double.NEGATIVE_INFINITY, value, ts, printer);
-                            ts.trasformStateBack(m,pos);
+                            ts.trasformStateBack(m);
                             // -----
                             //System.out.println("Depth = "+depth+" - v = "+v+" - bestAction = "+m.toString());
                             // -----
@@ -311,7 +309,7 @@ public class AIThread extends Thread {
     protected double MaxValue(int depth, double alpha, double beta, ITablutState state, MinMaxPrinter printer) {
         //all'interruzione si ritorna un valore
         if (cutoff(depth, state)) {
-            return HeuristicTablut.HeuristicFunction(state) - depth;
+            return heuristic.HeuristicFunction(state) - depth;
         }
         if(useTraspositionTable){
             double val = traspositionTable.valueOver(state.getState(), depth);
@@ -326,14 +324,14 @@ public class AIThread extends Thread {
 
         for (DanieleAction m : moves) {											//= per ogni coppia <azione, stato>
             //		ITablutState childState = state.getChildState(m);
-            List<Pos> p = state.trasformState(m);
+            state.trasformState(m);
 
             //if(depth==1) System.out.println("Depth=1 ---> mossa : " +m.toString());
             //if(depth==3) System.out.println("Depth=3 ---> mossa : " +m.toString());
             //@Matteo controllo su null dovrebbe essere inutile
             //if(state!=null) {//  della funzione successore
             v=Math.max(MinValue(depth - 1, alpha, beta, state,printer),v);
-            state.trasformStateBack(m, p);
+            state.trasformStateBack(m);
 
             //@Matteo si possono invertire queste due istruzioni??
             // -----
@@ -375,7 +373,7 @@ public class AIThread extends Thread {
         //all'interuzione si ritorna un valore
         //provo aggiungere -depth per favorire percorsi pi� corti
         if (cutoff(depth, state)) {
-            return HeuristicTablut.HeuristicFunction(state) + depth;
+            return heuristic.HeuristicFunction(state) + depth;
         }
         if(useTraspositionTable)
         {double val = traspositionTable.valueOver(state.getState(), depth);
@@ -390,12 +388,12 @@ public class AIThread extends Thread {
 
         for (DanieleAction m : moves) {											//= per ogni coppia <azione, stato>
             //	ITablutState childState = state.getChildState(m);				//  della funzione successore
-            List<Pos> p = state.trasformState(m);
+            state.trasformState(m);
 
             //if(depth==2) System.out.println("Depth=2 ---> mossa : " +m.toString());
             //	if(childState!=null) {
             v=Math.min(MaxValue(depth - 1, alpha, beta, state,printer),v);
-            state.trasformStateBack(m, p);
+            state.trasformStateBack(m);
             // -----
             //v = Math.min(v,tmp);
             //if(depth==2 && tmp<v) {System.out.print("Depth=2  ->  "); printer.printMove(m,childState,tmp);}

@@ -10,7 +10,7 @@ import Daniele.state.ITablutState;
 import Daniele.minmaxprinter.MinMaxPrinter;
 import it.unibo.ai.didattica.competition.tablut.domain.State.Turn;
 
-
+// questa classe non funziona
 public class AIGameP2 implements AIGame {
 
 
@@ -56,8 +56,8 @@ public class AIGameP2 implements AIGame {
 					List<ITablutState> threadstates;
 					if(i==NTHREAD-1) threadstates = states.subList(i, moves.size());
 					else threadstates= states.subList(i*numberOfStates, (i+1)*numberOfStates);
-
-					AIThread thread = new AIThread(maxTime,printer,useTraspositionTable,useDrawCondition,orderingOptimization,startingDepth,  maxDepth -1, states , pastStates);
+					HeuristicFunction h = new HeuristicTablut();
+					AIThread thread = new AIThread(h,maxTime,printer,useTraspositionTable,useDrawCondition,orderingOptimization,startingDepth,  maxDepth -1, states , pastStates);
 					threads.add(thread);
 
 					thread.start();

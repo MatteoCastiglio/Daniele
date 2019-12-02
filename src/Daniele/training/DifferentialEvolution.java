@@ -25,17 +25,17 @@ public class DifferentialEvolution {
 	 */
 
 	//DE variables
-	public static int n = 8;		// population size 		(ovvero dei vettori soluzione - agenti)	-	� tipicamente tra 10 e 25
-	public static double F = 0.7;	// differential weight	-	un buon range � tra 0.4 e 0.95
-	public static double Cr = 0.5;	// crossover rate	-	un buon range � tra 0.1 e 0.8
-	public static int d = 8;		// number of parameters
+	public static int n = 8;        // population size 		(ovvero dei vettori soluzione - agenti)	-	� tipicamente tra 10 e 25
+	public static double F = 0.7;    // differential weight	-	un buon range � tra 0.4 e 0.95
+	public static double Cr = 0.5;    // crossover rate	-	un buon range � tra 0.1 e 0.8
+	public static int d = 8;        // number of parameters
 
 	//Utility variables
 	public static Random random = new Random();
 	public static LinkedList<double[]> population = new LinkedList<>();
 	public static int Lb = 0;
 	public static int Ub = 2;
-	public static int maxGenerations = 100;			//10-100-1000?
+	public static int maxGenerations = 100;            //10-100-1000?
 	public static int weightSize = 10;
 
 	//Evolution's track variables
@@ -63,9 +63,9 @@ public class DifferentialEvolution {
 		for (int i = 0; i < n; i++) {
 			double[] newWeights = new double[d];
 			for (int j = 0; j < d; j++) {
-				newWeights[j] = Lb+(Ub-Lb)*random.nextDouble();
+				newWeights[j] = Lb + (Ub - Lb) * random.nextDouble();
 			}
-			newWeights=normalize(newWeights);
+			newWeights = normalize(newWeights);
 			population.add(newWeights);
 		}
 
@@ -76,7 +76,7 @@ public class DifferentialEvolution {
 			nGeneration++;
 
 			// For each agent x in the population
-			for(int x = 0; x < n; x++) {
+			for (int x = 0; x < n; x++) {
 
 				//3. MUTATION: donor agent agentV[j] = agentP[j] + F * (agentQ[j] - agentR[j]);
 				int p, q, r;
@@ -97,20 +97,20 @@ public class DifferentialEvolution {
 				//4. CROSSOVER: agentU[j] =		or agentV[j] if R == j || random.nextDouble() < Cr		or agentX[j] otherwise
 				int R = random.nextInt(d);
 				double[] newAgent = new double[d];
-				for(int j = 0; j < d; j++) {
-					if (R == j || random.nextDouble() < Cr) 
-						newAgent[j] =  agentP[j] + F * (agentQ[j] - agentR[j]);		//= agentV[j]
+				for (int j = 0; j < d; j++) {
+					if (R == j || random.nextDouble() < Cr)
+						newAgent[j] = agentP[j] + F * (agentQ[j] - agentR[j]);        //= agentV[j]
 					else
-						newAgent[j] =  population.get(x)[j];
+						newAgent[j] = population.get(x)[j];
 				}
-				newAgent=normalize(newAgent);
+				newAgent = normalize(newAgent);
 
 				//5. SELECTION: agentX[j] at next generation =	or agentU[j] if "objectfunction(agentU[j]) > fittestfunction(agentX[j])"	or agentX[j] otherwise
 
 				// Decide how many games to play: set to 0 to keep new value
 				setPlayingWeights(x, newAgent);
 
-				if(isNewAgentBetter(x)) {
+				if (isNewAgentBetter(x)) {
 					population.remove(x);
 					population.add(x, newAgent);
 					agentUpdate++;
@@ -160,10 +160,10 @@ public class DifferentialEvolution {
 		//fare due partite : una con nero (pesi passati) e bianco (pesi aggiornati) - una con nero (pesi aggiornati) e bianco (pesi passati)
 
 		for (int i = 0; i < nGames; i++) {
-		
-			ProcessBuilder server_pb = new ProcessBuilder("java", "-cp", "lib/gson-2.2.2.jar:bin", "Daniele.training.Server");				//	--					//serve un server di allenamento? (solo per il conteggio delle mosse? possono farlo i client di allenamento?)
+
+			ProcessBuilder server_pb = new ProcessBuilder("java", "-cp", "lib/gson-2.2.2.jar:bin", "Daniele.training.Server");                //	--					//serve un server di allenamento? (solo per il conteggio delle mosse? possono farlo i client di allenamento?)
 			//server_pb.inheritIO();
-			server_pb.redirectOutput(new File("data", nGeneration+"_server"+x+"_"+i+".txt"));
+			server_pb.redirectOutput(new File("data", nGeneration + "_server" + x + "_" + i + ".txt"));
 			Process server = server_pb.start();
 
 			// Debug output
@@ -178,16 +178,15 @@ public class DifferentialEvolution {
 				Thread.currentThread().interrupt();
 			}
 
-			if(i % 2 == 0) {	//OLD BLACK vs NEW WHITE
-				ProcessBuilder clientOldBlack_pb = new ProcessBuilder("java", "-cp", "lib/gson-2.2.2.jar:bin", /*"-Xms520m",*/ "Daniele.training.ClientDEOld", "BLACK");		//serve un client di allenamento		-- + BLACK
+			if (i % 2 == 0) {    //OLD BLACK vs NEW WHITE
+				ProcessBuilder clientOldBlack_pb = new ProcessBuilder("java", "-cp", "lib/gson-2.2.2.jar:bin", /*"-Xms520m",*/ "Daniele.training.ClientDEOld", "BLACK");        //serve un client di allenamento		-- + BLACK
 				//clientOldBlack_pb.inheritIO();
-				clientOldBlack_pb.redirectOutput(new File("data", nGeneration+"_agent"+x+"_OBvsNW_OB.txt"));
+				clientOldBlack_pb.redirectOutput(new File("data", nGeneration + "_agent" + x + "_OBvsNW_OB.txt"));
 				clientOld = clientOldBlack_pb.start();
-			}
-			else {				//OLD WHITE vs NEW BLACK
-				ProcessBuilder clientOldWhite_pb = new ProcessBuilder("java", "-cp", "lib/gson-2.2.2.jar:bin", /*"-Xms520m",*/ "Daniele.training.ClientDEOld", "WHITE");		//serve un client di allenamento		-- + WHITE
+			} else {                //OLD WHITE vs NEW BLACK
+				ProcessBuilder clientOldWhite_pb = new ProcessBuilder("java", "-cp", "lib/gson-2.2.2.jar:bin", /*"-Xms520m",*/ "Daniele.training.ClientDEOld", "WHITE");        //serve un client di allenamento		-- + WHITE
 				//clientOldWhite_pb.inheritIO();
-				clientOldWhite_pb.redirectOutput(new File("data", nGeneration+"_agent"+x+"_OWvsNB_OW.txt"));
+				clientOldWhite_pb.redirectOutput(new File("data", nGeneration + "_agent" + x + "_OWvsNB_OW.txt"));
 				clientOld = clientOldWhite_pb.start();
 			}
 
@@ -197,16 +196,15 @@ public class DifferentialEvolution {
 				Thread.currentThread().interrupt();
 			}
 
-			if(i % 2 == 0) {	//OLD BLACK vs NEW WHITE
-				ProcessBuilder clientNewWhite_pb = new ProcessBuilder("java", "-cp", "lib/gson-2.2.2.jar:bin", /*"-Xms520m",*/ "Daniele.training.ClientDENew", "WHITE");		//serve un client di allenamento		-- + WHITE
+			if (i % 2 == 0) {    //OLD BLACK vs NEW WHITE
+				ProcessBuilder clientNewWhite_pb = new ProcessBuilder("java", "-cp", "lib/gson-2.2.2.jar:bin", /*"-Xms520m",*/ "Daniele.training.ClientDENew", "WHITE");        //serve un client di allenamento		-- + WHITE
 				//clientNewWhite_pb.inheritIO();
-				clientNewWhite_pb.redirectOutput(new File("data", nGeneration+"_agent"+x+"_OBvsNW_NW.txt"));
+				clientNewWhite_pb.redirectOutput(new File("data", nGeneration + "_agent" + x + "_OBvsNW_NW.txt"));
 				clientNew = clientNewWhite_pb.start();
-			}
-			else {				//OLD WHITE vs NEW BLACK
-				ProcessBuilder clientNewBlack_pb = new ProcessBuilder("java", "-cp", "lib/gson-2.2.2.jar:bin", /*"-Xms520m",*/ "Daniele.training.ClientDENew", "BLACK");		//serve un client di allenamento		-- + BLACK
+			} else {                //OLD WHITE vs NEW BLACK
+				ProcessBuilder clientNewBlack_pb = new ProcessBuilder("java", "-cp", "lib/gson-2.2.2.jar:bin", /*"-Xms520m",*/ "Daniele.training.ClientDENew", "BLACK");        //serve un client di allenamento		-- + BLACK
 				//clientNewBlack_pb.inheritIO();
-				clientNewBlack_pb.redirectOutput(new File("data", nGeneration+"_agent"+x+"_OWvsNB_NB.txt"));
+				clientNewBlack_pb.redirectOutput(new File("data", nGeneration + "_agent" + x + "_OWvsNB_NB.txt"));
 				clientNew = clientNewBlack_pb.start();
 			}
 
@@ -219,7 +217,7 @@ public class DifferentialEvolution {
 				clientNew.destroy();
 			}
 
-			server.destroy(); 
+			server.destroy();
 		}
 
 
@@ -243,9 +241,9 @@ public class DifferentialEvolution {
 //      System.out.println("Draws: " + stats[2]);
 //      System.out.println("Moves Played When Lost: " + stats[3] + " vs " + stats[4]);
 
-		boolean newAgentIsBetter = stats[1] > stats[0] || (stats[1] == stats[0] && (stats[4] > stats[3]));		// se si vince di più o il nero sopravvive più a lungo!
+		boolean newAgentIsBetter = stats[1] > stats[0] || (stats[1] == stats[0] && (stats[4] > stats[3]));        // se si vince di più o il nero sopravvive più a lungo!
 
-		return newAgentIsBetter;	
+		return newAgentIsBetter;
 	}
 
 	public static int[] readLogs() throws IOException {
@@ -257,30 +255,29 @@ public class DifferentialEvolution {
 		}
 
 		Collections.reverse(allLines);
-		int[] stats = {0,0,0,0,0}; // WINS P1, WINS P2, DRAWS, P1 MOVES WHEN LOST, P2 MOVES WHEN LOST
-		for (int i = 0; i < nGames; i++){
+		int[] stats = {0, 0, 0, 0, 0}; // WINS P1, WINS P2, DRAWS, P1 MOVES WHEN LOST, P2 MOVES WHEN LOST
+		for (int i = 0; i < nGames; i++) {
 			String s = allLines.removeFirst();
-			
-			if(i % 2 == 1) {	//OLD BLACK vs NEW WHITE								// s[0]=='2'									--
-				if (s.contains(",D")||s.contains(",FD")) {	//DRAW
+
+			if (i % 2 == 1) {    //OLD BLACK vs NEW WHITE								// s[0]=='2'									--
+				if (s.contains(",D") || s.contains(",FD")) {    //DRAW
 					stats[2]++;
 				} else {
-					if (s.contains(",BW")) {	//OLD BLACK WIN
+					if (s.contains(",BW")) {    //OLD BLACK WIN
 						stats[0]++;
-					} else {	//s.contains("WW") - NEW WHITE WIN
+					} else {    //s.contains("WW") - NEW WHITE WIN
 						stats[1]++;
-						stats[3] += Integer.valueOf(s.split(",")[2]);					//come? sono le mosse del nero					--
+						stats[3] += Integer.valueOf(s.split(",")[2]);                    //come? sono le mosse del nero					--
 					}
 				}
-			}
-			else {				//OLD WHITE vs NEW BLACK								// s[0]=='1'									--
-				if (s.contains(",D")||s.contains(",FD")) {	//DRAW
+			} else {                //OLD WHITE vs NEW BLACK								// s[0]=='1'									--
+				if (s.contains(",D") || s.contains(",FD")) {    //DRAW
 					stats[2]++;
 				} else {
-					if (s.contains(",WW")) {	//OLD WHITE WIN
+					if (s.contains(",WW")) {    //OLD WHITE WIN
 						stats[0]++;
-						stats[4] += Integer.valueOf(s.split(",")[4]);					//come? sono le mosse del nero					--
-					} else {	//s.contains("BW") - NEW BLACK WIN
+						stats[4] += Integer.valueOf(s.split(",")[4]);                    //come? sono le mosse del nero					--
+					} else {    //s.contains("BW") - NEW BLACK WIN
 						stats[1]++;
 					}
 				}
@@ -306,7 +303,7 @@ public class DifferentialEvolution {
 		dataOut.flush();
 		dataOut.close();
 	}
-	
+
 	public static double[] normalize(double[] weights) {
 		double sum = 0;
 		for (double i : weights) {

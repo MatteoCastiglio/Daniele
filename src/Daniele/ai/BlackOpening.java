@@ -6,8 +6,6 @@ import Daniele.state.DanieleAction;
 import Daniele.state.ITablutState;
 
 
-
-
 public class BlackOpening {
 
 	public static DanieleAction nextMove(ITablutState state, int turn ) throws IOException

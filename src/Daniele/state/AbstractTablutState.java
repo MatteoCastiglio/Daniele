@@ -1,7 +1,5 @@
 package Daniele.state;
 
-import Daniele.state.DanieleAction;
-import Daniele.state.ITablutState;
 import it.unibo.ai.didattica.competition.tablut.domain.State;
 
 import java.util.ArrayList;
@@ -36,7 +34,6 @@ public  abstract class AbstractTablutState implements ITablutState {
     public void setCoordKing(int[] coordKing) {
         this.coordKing = coordKing;
     }
-
 
 
     public List<DanieleAction> getTopLeftMoves() {
@@ -146,7 +143,7 @@ public  abstract class AbstractTablutState implements ITablutState {
                             if (!this.board[x][j].equals(State.Pawn.EMPTY) || (!isPawnAccampamento(i, j) && isPawnAccampamento(x, j)))
                                 break;    //non posso scavalcare o terminare su altre pedine o (accampamento) o castello
                             else //if (x != 8 && (j != 0 || j != 8))
-                                 moves.add(new DanieleAction(i, j, x, j));
+                                moves.add(new DanieleAction(i, j, x, j));
                         //..in orizzontale
                         for (int x = j - 1; x >= 0; x--)
                             if (!this.board[i][x].equals(State.Pawn.EMPTY) || (!isPawnAccampamento(i, j) && isPawnAccampamento(i, x)))

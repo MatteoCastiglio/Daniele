@@ -5,7 +5,6 @@ import it.unibo.ai.didattica.competition.tablut.domain.State;
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class TraspositionTable {
 
     private Map<String,Couple> table = new HashMap<String,Couple>();

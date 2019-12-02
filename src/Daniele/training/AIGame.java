@@ -7,5 +7,5 @@ import Daniele.state.ITablutState;
 
 public interface AIGame {
 
-    DanieleAction chooseBestMove(int startingDepth, int maxDepth, ITablutState ts,Set<String> pastStates);
+    DanieleAction chooseBestMove(int startingDepth, int maxDepth, ITablutState ts, Set<String> pastStates);
 }

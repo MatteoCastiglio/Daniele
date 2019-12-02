@@ -9,13 +9,14 @@ import Daniele.state.DanieleAction;
 import Daniele.state.ITablutState;
 import it.unibo.ai.didattica.competition.tablut.domain.State.Turn;
 
-
+@Deprecated
 public class AlphaBetaPruning {
 
 	
 	//@Matteo non � meglio usare int??
 	private Map<Double, DanieleAction> mapMoves;
 	private int maxDepth;
+	private HeuristicFunction h;
 	
 	/**
 	 * algoritmo minmax con potature alpha-beta a profondità limitata
@@ -27,9 +28,9 @@ public class AlphaBetaPruning {
 	 * @return
 	 * 			ritorna la migliore azione 
 	 */
-	public DanieleAction AlphaBetaSearch(int maxDepth, ITablutState ts, MinMaxPrinter printer) {
+	public DanieleAction AlphaBetaSearch(HeuristicFunction h,int  maxDepth, ITablutState ts, MinMaxPrinter printer) {
 
-		
+		this.h = h;
 		mapMoves= new HashMap<Double, DanieleAction>();
 		this.maxDepth = maxDepth;
 		
@@ -70,7 +71,7 @@ public class AlphaBetaPruning {
 	private double MaxValue(int depth, double alpha, double beta, ITablutState state, MinMaxPrinter printer) {
 		//all'interuzione si ritorna un valore 
 		if (cutoff(depth, state)) {
-			return HeuristicTablut.HeuristicFunction(state) - depth;
+			return h.HeuristicFunction(state) - depth;
 		}
 		double tmp;
 		double v = Double.NEGATIVE_INFINITY;
@@ -119,7 +120,7 @@ public class AlphaBetaPruning {
 		//all'interuzione si ritorna un valore 
 		//provo aggiungere -depth per favorire percorsi pi� corti
 		if (cutoff(depth, state)) {
-			return HeuristicTablut.HeuristicFunction(state) + depth;
+			return h.HeuristicFunction(state) + depth;
 		}
 		double tmp;
 		double v = Double.POSITIVE_INFINITY;

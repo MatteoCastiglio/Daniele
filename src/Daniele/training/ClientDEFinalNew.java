@@ -8,31 +8,31 @@ import java.net.UnknownHostException;
 public class ClientDEFinalNew {
 
 	public static void main(String[] args) throws UnknownHostException, ClassNotFoundException, IOException {
-		
+
 		BufferedReader br;
 		double[] weights = null;
-		
+
 		try {
-			br = new BufferedReader(new FileReader(FinalGame.dirName+"/playing.txt"));
+			br = new BufferedReader(new FileReader(FinalGame.dirName + "/playing.txt"));
 			br.readLine();
 			String secondLine = br.readLine();
 			String numbers = secondLine.substring(9);
 			System.out.println("weights " + numbers);
-	        System.out.flush();
-			
+			System.out.flush();
+
 			weights = new double[DifferentialEvolution.d];
-			
-			numbers = numbers.replaceAll(",",".");
-			
-			for(int i = 0; i < DifferentialEvolution.d; i++){
-				weights[i] = Double.valueOf(numbers.substring(1 + (DifferentialEvolution.weightSize + 1)*i, 1 + (DifferentialEvolution.weightSize + 1)*(i+1)));
-				System.out.println("--- "+weights[i]);
+
+			numbers = numbers.replaceAll(",", ".");
+
+			for (int i = 0; i < DifferentialEvolution.d; i++) {
+				weights[i] = Double.valueOf(numbers.substring(1 + (DifferentialEvolution.weightSize + 1) * i, 1 + (DifferentialEvolution.weightSize + 1) * (i + 1)));
+				System.out.println("--- " + weights[i]);
 			}
-			
+
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		
+
 		ClientDETraining.train(weights, args[0], "PlayerNEW");
 	}
 

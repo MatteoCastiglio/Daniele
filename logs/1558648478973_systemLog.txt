@@ -1,4 +1,0 @@
-mag 23, 2019 11:54:38 PM Daniele.training.Server run
-BUONO: Accensione server
-mag 23, 2019 11:54:39 PM Daniele.training.Server run
-BUONO: Partita di Tablut
