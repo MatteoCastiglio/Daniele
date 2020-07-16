@@ -13,7 +13,7 @@ import it.unibo.ai.didattica.competition.tablut.domain.State.Turn;
 
 public class TrasformableTablutState extends AbstractTablutState implements ITablutState {
 
-    List<Pos> pawnsRemoved = new ArrayList<Pos>();
+
 
     @Override
     public String toString() {
@@ -33,15 +33,15 @@ public class TrasformableTablutState extends AbstractTablutState implements ITab
     }
 
     @Override
-    public void trasformState(DanieleAction action) {
+    public List<Pos >trasformState(DanieleAction action) {
 
         // return game.getNextState(state ,action);
-        pawnsRemoved = getNextState(state, action);
+        return getNextState(state, action);
 
     }
 
     @Override
-    public void trasformStateBack(DanieleAction a) {
+    public void trasformStateBack(DanieleAction a,List<Pos> pawnsRemoved) {
 
 
         // return game.getNextState(state ,action);

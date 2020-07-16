@@ -36,7 +36,7 @@ public class ClientDaniele extends TablutClient{
 		long maxtime= (time-2)*1000;
 		HeuristicFunction h = new HeuristicTablut();
 		//Questi valori al momento quelli che permettono di ottenere risutai migliori
-		ai = new AIGameSingleThread(h,maxtime,MinMaxPrinter.getPrinter(PrintMode.Simple),false,true,true);	//con -1 non c'è limite di tempo	//usa AIGameSingleThread o AIGameP
+		ai = new AIGameSingleThread(h,maxtime,MinMaxPrinter.getPrinter(PrintMode.None),false,true,true);	//con -1 non c'è limite di tempo	//usa AIGameSingleThread o AIGameP
 		//ai = new AIGameP2(30000,MinMaxPrinter.getPrinter(PrintMode.Simple),false,false,true);
 		//ai = new AIGameP(30000,MinMaxPrinter.getPrinter(PrintMode.Simple),false);
 	}

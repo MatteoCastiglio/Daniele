@@ -115,7 +115,7 @@ public class AIThread extends Thread {
                         //i++;
 
 
-                        ts.trasformState(m);
+                        List<Pos> p = ts.trasformState(m);
                         if (useDrawCondition && pastStates.contains(ts.getState().toLinearString())) {
                             v = DRAW_VALUE;
                             System.out.print("------- trovata mossa pareggio: ");
@@ -123,7 +123,8 @@ public class AIThread extends Thread {
                         } else {
                             //if(depth==3) System.out.println("Depth=3 ---> mossa : " +m.toString());
                             v = MinValue(depth - 1, value, Double.POSITIVE_INFINITY, ts, printer);
-                            ts.trasformStateBack(m);
+                            
+                            ts.trasformStateBack(m,p);
                             // -----
                             //System.out.println("v = "+v+ "  -  mossa "+i+": "+m.toString());
                             // -----
@@ -217,7 +218,7 @@ public class AIThread extends Thread {
                     for (DanieleAction m : moves) {
                         //i++;
 
-                        ts.trasformState(m);
+                        List<Pos> p = ts.trasformState(m);
                         if (useDrawCondition && pastStates.contains(ts.getState().toLinearString())) {
                             v = DRAW_VALUE;
                             System.out.print("------- trovata mossa pareggio: ");
@@ -225,7 +226,7 @@ public class AIThread extends Thread {
                         } else {
 
                             v = MaxValue(depth - 1, Double.NEGATIVE_INFINITY, value, ts, printer);
-                            ts.trasformStateBack(m);
+                            ts.trasformStateBack(m,p);
                             // -----
                             //System.out.println("Depth = "+depth+" - v = "+v+" - bestAction = "+m.toString());
                             // -----
@@ -324,14 +325,14 @@ public class AIThread extends Thread {
 
         for (DanieleAction m : moves) {											//= per ogni coppia <azione, stato>
             //		ITablutState childState = state.getChildState(m);
-            state.trasformState(m);
+            List<Pos> p = state.trasformState(m);
 
             //if(depth==1) System.out.println("Depth=1 ---> mossa : " +m.toString());
             //if(depth==3) System.out.println("Depth=3 ---> mossa : " +m.toString());
             //@Matteo controllo su null dovrebbe essere inutile
             //if(state!=null) {//  della funzione successore
             v=Math.max(MinValue(depth - 1, alpha, beta, state,printer),v);
-            state.trasformStateBack(m);
+            state.trasformStateBack(m,p);
 
             //@Matteo si possono invertire queste due istruzioni??
             // -----
@@ -388,12 +389,12 @@ public class AIThread extends Thread {
 
         for (DanieleAction m : moves) {											//= per ogni coppia <azione, stato>
             //	ITablutState childState = state.getChildState(m);				//  della funzione successore
-            state.trasformState(m);
+        	List<Pos> p =state.trasformState(m);
 
             //if(depth==2) System.out.println("Depth=2 ---> mossa : " +m.toString());
             //	if(childState!=null) {
             v=Math.min(MaxValue(depth - 1, alpha, beta, state,printer),v);
-            state.trasformStateBack(m);
+            state.trasformStateBack(m,p);
             // -----
             //v = Math.min(v,tmp);
             //if(depth==2 && tmp<v) {System.out.print("Depth=2  ->  "); printer.printMove(m,childState,tmp);}

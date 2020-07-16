@@ -30,9 +30,9 @@ public interface ITablutState {
 
 	double getFlow();
 
-	void trasformState(DanieleAction action);
+	List<Pos> trasformState(DanieleAction action);
 
-	void trasformStateBack(DanieleAction a);
+	void trasformStateBack(DanieleAction a,List<Pos> p);
 
 
 }

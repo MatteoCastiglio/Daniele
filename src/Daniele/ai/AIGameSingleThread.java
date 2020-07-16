@@ -9,6 +9,7 @@ import java.util.TimerTask;
 import Daniele.minmaxprinter.MinMaxPrinter;
 import Daniele.state.DanieleAction;
 import Daniele.state.ITablutState;
+import Daniele.state.Pos;
 import it.unibo.ai.didattica.competition.tablut.domain.State.Turn;
 
 
@@ -120,7 +121,8 @@ public class AIGameSingleThread implements AIGame {
                     if (v > alpha) {
                         alpha = v;
                         bestAction = m;
-                        //debug// printer.printMove(m,childState,alpha);
+                        //debug
+                        printer.printMove(m,childState,alpha);
 
                         if (orderingOptimization) {    //with orderingOptimization the last possible move is taken into account
                             movesToBeRemoved.addLast(m);
@@ -194,7 +196,8 @@ public class AIGameSingleThread implements AIGame {
                     if (v < beta) {
                         beta = v;
                         bestAction = m;
-                        //debug// printer.printMove(m,childState,beta);
+                        //debug// 
+                        printer.printMove(m,childState,beta);
 
                         if (orderingOptimization) {    //with orderingOptimization the last possible move is taken into account
                             movesToBeRemoved.addLast(m);
@@ -261,12 +264,12 @@ public class AIGameSingleThread implements AIGame {
 
             //for efficiency reasons, we prefer to transform the state by applying the move rather than apply it to a clone state.
             // This will relieve the work of the garbage collector
-            state.trasformState(m);        //instead of:	ITablutState childState = state.getChildState(m);
+            List<Pos> p =state.trasformState(m);        //instead of:	ITablutState childState = state.getChildState(m);
 
             v = Math.max(MinValue(depth - 1, alpha, beta, state, printer), v);
 
             //it restores the state by applying the move in reverse
-            state.trasformStateBack(m);
+            state.trasformStateBack(m,p);
 
 
             if (v >= beta) {    //pruning
@@ -320,12 +323,12 @@ public class AIGameSingleThread implements AIGame {
 
             //for efficiency reasons, we prefer to transform the state by applying the move rather than apply it to a clone state.
             // This will relieve the work of the garbage collector
-            state.trasformState(m);        //instead of:	ITablutState childState = state.getChildState(m);
+            List<Pos> p =state.trasformState(m);        //instead of:	ITablutState childState = state.getChildState(m);
 
             v = Math.min(MaxValue(depth - 1, alpha, beta, state, printer), v);
 
             //it restores the state by applying the move in reverse
-            state.trasformStateBack(m);
+            state.trasformStateBack(m,p);
 
 
             if (v <= alpha) {    //pruning

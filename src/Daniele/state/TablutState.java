@@ -1,5 +1,7 @@
 package Daniele.state;
 
+import java.util.List;
+
 import it.unibo.ai.didattica.competition.tablut.domain.State;
 import it.unibo.ai.didattica.competition.tablut.domain.State.Pawn;
 
@@ -226,12 +228,13 @@ public class TablutState extends AbstractTablutState implements ITablutState {
 	}
 
 	@Override
-	public void trasformState(DanieleAction action) {
+	public List<Pos> trasformState(DanieleAction action) {
+		return null;
 
 	}
 
 	@Override
-	public void trasformStateBack(DanieleAction a) {
+	public void trasformStateBack(DanieleAction a,List<Pos> p) {
 		// TODO Auto-generated method stub
 
 	}

@@ -303,14 +303,14 @@ public class AIGameSingleThreadDE implements AIGame {
 
 		for (DanieleAction m : moves) {                                            //= per ogni coppia <azione, stato>
 			//		ITablutState childState = state.getChildState(m);
-			state.trasformState(m);
+			List<Pos> p =state.trasformState(m);
 
 			//if(depth==1) System.out.println("Depth=1 ---> mossa : " +m.toString());
 			//if(depth==3) System.out.println("Depth=3 ---> mossa : " +m.toString());
 			//@Matteo controllo su null dovrebbe essere inutile
 			//if(state!=null) {//  della funzione successore
 			v = Math.max(MinValue(depth - 1, alpha, beta, state, printer), v);
-			state.trasformStateBack(m);
+			state.trasformStateBack(m,p);
 
 			//@Matteo si possono invertire queste due istruzioni??
 			// -----
@@ -367,12 +367,12 @@ public class AIGameSingleThreadDE implements AIGame {
 
 		for (DanieleAction m : moves) {                                            //= per ogni coppia <azione, stato>
 			//	ITablutState childState = state.getChildState(m);				//  della funzione successore
-			state.trasformState(m);
+			List<Pos> p = state.trasformState(m);
 
 			//if(depth==2) System.out.println("Depth=2 ---> mossa : " +m.toString());
 			//	if(childState!=null) {
 			v = Math.min(MaxValue(depth - 1, alpha, beta, state, printer), v);
-			state.trasformStateBack(m);
+			state.trasformStateBack(m,p);
 			// -----
 			//v = Math.min(v,tmp);
 			//if(depth==2 && tmp<v) {System.out.print("Depth=2  ->  "); printer.printMove(m,childState,tmp);}
