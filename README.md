@@ -10,3 +10,8 @@ Realizzato da Matteo Castigliò e Mauro Rondina.
 
 ***
 Il progetto replica parti di codice da https://github.com/AGalassi/TablutCompetition 
+
+***
+Nota: fino al 16/07/2020 il comportamento del giocatore è stato completamente alterato da un bug dovuto ad una modifica fatta successivamente alla gara.
+
+
