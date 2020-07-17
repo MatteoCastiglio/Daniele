@@ -31,7 +31,7 @@ jars/server.jar and lib/TablutCompetion.jar are fromhttps://github.com/AGalassi/
 
 
 
-#Results
+# Results
 
 Daniele got first place in 2018/2019 edition of the challenge
 
