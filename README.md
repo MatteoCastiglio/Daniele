@@ -27,7 +27,7 @@ cd jars
 java -jar Daniele.jar White/Black [Time] [verbose]
 ```
 
-jars/server.jar and lib/TablutCompetion.jar are fromhttps://github.com/AGalassi/TablutCompetition.
+jars/server.jar and lib/TablutCompetion.jar are from https://github.com/AGalassi/TablutCompetition.
 
 
 
