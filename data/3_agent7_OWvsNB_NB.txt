@@ -1,4 +1,0 @@
-weights  000,173919 000,159692 000,101115 000,160016 000,118837 -00,064567 000,109341 000,112514 
-Selected client: BLACK
-Partita finita!
-partita finita
