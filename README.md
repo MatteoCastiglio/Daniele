@@ -1,17 +1,49 @@
 # Daniele
 
-Questo progetto si è posizionato al primo posto nella competizione organizzata per il corso Fondamenti di Intelligenza Artificiale 2018-2019 del corso di studi Magistrale in Ingegneria Informatica dell'Università di Bologna.
-https://www.google.com/url?sa=t&source=web&rct=j&url=http://lia.disi.unibo.it/Courses/AI/fundamentalsAI2018-19/challenge/Challenge2019.pdf&ved=2ahUKEwi17t3uqJ_mAhX3wAIHHRFRDwoQFjAAegQIARAB&usg=AOvVaw1QDcFLV3deEuXgJ6IdGhjw
+Project for Fundamentals of Artificial Intelligence course at the University of Bologna.
+Tablut Player for 2018/2019 Tablut Challenge INF http://ai.unibo.it/games/boardgamecompetition/tablut#
+
+# Description
+Intelligent Tablut Player written in Java based on state exploration using MinMax 
+
+# Features 
+
+* SingleThreaded MinMax with Iterative Deeping and AlphaBeta Pruning and partial ordering between iterations.
+* Heuristic strongly based on playing around the King.
+
+# Usage
+
+The executables can be found in jars directory.
+To play a game the server must be started first.
+
+```[bash]
+cd jars
+java -jar Server.jar
+```
+Then launch Daniele selecting the role ( additional options can be used to select time to make a decision and verbose move.
+
+```[bash]
+cd jars
+java -jar Daniele.jar White/Black [Time] [verbose]
+```
+
+jars/server.jar and lib/TablutCompetion.jar are fromhttps://github.com/AGalassi/TablutCompetition.
+
+
+
+#Results
+
+Daniele got first place in 2018/2019 edition of the challenge
 
 ![Screenshot](Certificato.jpeg)
 
-Realizzato da Matteo Castigliò e Mauro Rondina.
+By  Matteo Castigliò e Mauro Rondina.
 
 
 ***
-Il progetto replica parti di codice da https://github.com/AGalassi/TablutCompetition 
+
 
 ***
-Nota: fino al 16/07/2020 il comportamento del giocatore è stato completamente alterato da un bug dovuto ad una modifica fatta successivamente alla gara.
+
 
 
