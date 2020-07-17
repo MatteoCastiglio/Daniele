@@ -20,7 +20,7 @@ To play a game the server must be started first.
 cd jars
 java -jar Server.jar
 ```
-Then launch Daniele selecting the role ( additional options can be used to select time to make a decision and verbose move.
+Then launch Daniele selecting the role ( additional options can be used to select time to make a decision and verbose mode).
 
 ```[bash]
 cd jars
