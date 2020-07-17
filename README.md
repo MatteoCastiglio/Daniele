@@ -4,7 +4,7 @@ Project for Fundamentals of Artificial Intelligence course at the University of 
 Tablut Player for 2018/2019 Tablut Challenge INF http://ai.unibo.it/games/boardgamecompetition/tablut#
 
 # Description
-Intelligent Tablut Player written in Java based on state exploration using MinMax 
+Intelligent Tablut Player written in Java based on state exploration using MinMax. 
 
 # Features 
 
