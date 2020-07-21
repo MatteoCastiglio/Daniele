@@ -18,6 +18,7 @@ import daniele.state.TransformableTablutState;
 import it.unibo.ai.didattica.competition.tablut.domain.Action;
 import it.unibo.ai.didattica.competition.tablut.domain.State.Turn;
 
+
 public class ClientDaniele extends BasicClient{
 
 
@@ -31,7 +32,7 @@ public class ClientDaniele extends BasicClient{
 
 	public ClientDaniele(String player,int time,PrintMode mode) throws  IOException {
 		super(player, "Daniele");
-		long maxtime= (time-2)*1000;
+		long maxtime= (time-1)*1000;
 		HeuristicFunction h = new HeuristicTablut();
 	    // AIGameSingleThread(HeuristicFunction h, long maxTime, MinMaxPrinter printer,  boolean useDrawCondition,
 		// boolean orderingOptimization)
@@ -79,7 +80,7 @@ public class ClientDaniele extends BasicClient{
 				pastStates.add(currentState.toLinearString());
 			}
 		} catch (EOFException e) {
-			System.out.println("Partita finita!");
+			System.out.println("GAME END!");
 		}
 	}
 
@@ -110,7 +111,7 @@ public class ClientDaniele extends BasicClient{
 					return;
 			}
 		} catch (EOFException e) {
-			System.out.println("Partita finita!");
+			System.out.println("GAME END!");
 		}
 	}
 
@@ -144,7 +145,6 @@ public class ClientDaniele extends BasicClient{
 		BasicClient client = new ClientDaniele(role,time,mode);
 		System.out.println("GAME START");
 		client.run();
-		System.out.println("GAME END");
 
 
 	}
